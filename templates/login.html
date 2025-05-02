@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<main class="main">
+    <section id="content" class="content flex">
+        <div class="content__login list-reset">
+            <h2 class="content__login_title">Добро пожаловать!</h2>
+            <div class="content__form">
+                <form method="post" action="/login/">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="content__input">
+                        <label class="content__form_title" for="username">Логин</label>
+                        <input class="content__form_input" type="text" name="username" id="username"
+                               placeholder="Введите свой логин" required>
+                        <label class="content__form_title" for="password">Пароль</label>
+                        <input class="content__form_input" type="password" name="password" id="password"
+                               placeholder="Введите свой пароль" required>
+                    </div>
+                    <input class="btn_enter btn-reset" type="submit" value="Войти">
+                </form>
+
+                <div class="flex content__form_link">
+                    <span class="no-account">Нет аккаунта?</span>
+                    &nbsp;
+                    <a href="/registration/" class="to-sign-up">Зарегистрироваться</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

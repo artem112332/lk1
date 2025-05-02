@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container header__container flex">
+        <nav class="header__nav">
+            <ul class="header__list list-reset flex">
+                <a href="/" class="header__item">Главная</a>
+                <div class="header__item">
+                    <form action="#" class="search__form">
+                        <img src="/static/img/search.png" alt="Поиск" class="search__icon">
+                        <input class="search__input" type="text" placeholder="Поиск">
+                    </form>
+                </div>
+                <div class="header__item">
+                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
+                    <sup class="notifications-counter">0</sup>
+                </div>
+                <a class="header__item" href="#"><img src="/static/img/bell-01.png" alt=""></a>
+            </ul>
+        </nav>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"></a>
+    </div>
+</header>
+
+<hr class="horizontal-line">
+
+<main class="user">
+    <div class="container user__container">
+        <div class="user__content flex">
+            <div class="user__avatar">
+                <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
+                <h1 class="user__name">{{ profile.__str__() }}</h1>
+                <hr class="horizontal-line">
+                <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="/profile">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Мои компетенции</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Статистика оценки</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Проект</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="user__info">
+                <div class="user__form">
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">фио</span>
+                            <p class="user__form_data_link">
+                                <span>{{ profile.__str__() }}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">номер телефона</span>
+                            <p class="user__form_data_link">
+                                <span>+7 (999)999-99-99</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    {% if telegram %}
+                        <div class="user__data flex">
+                            <div class="user__data_left">
+                                <span class="user__form_title">email</span>
+                                <p class="user__form_data_link">
+                                    <a href="https://t.me/{{ profile.telegram }}">alinchik@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if telegram %}
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">Telegram</span>
+                            <p class="user__form_data_link">
+                                <a href="https://t.me/{{ profile.telegram }}">@{{ profile.telegram }}</a>
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="user__data flex">
+                        <div class="user__data_unik">
+                            <span class="user__form_title">учебное заведение</span>
+                            <p class="user__form_data_link">
+                                <span>Уральский Федеральный Университет имени Б.Н.Ельцина</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">специальность</span>
+                            <p class="user__form_data_link">
+                                <span>Программная инженерия</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">Курс / дата выпуска</span>
+                            <p class="user__form_data_link">
+                                <span>3 курс / 2026 год</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="user__data">
+                        {% if profile.status == 'Наставник' and profile.get_specializations()|length > 0 %}
+                        <div class="user__data_role">
+                            <span class="user__form_title">роль в команде</span>
+                            <div class="user__form_data flex">
+                                {% for specialization in specialization_list %}
+                                    <span class="specialization">{{ specialization }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">дополнительная роль в команде</span>
+                            <p class="user__form_data_link">
+                                <span class="specialization">Аналитик</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">дополнительная роль в команде</span>
+                            <p class="user__form_data_link">
+                                <span>-</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="user__data">
+                        {% if profile.description|length > 0 %}
+                            <span class="user__form_title">Обо мне</span>
+                            <p class="user__form_data">{{ profile.description }}</p>
+                        {% endif %}
+                    </div> -->
+                </div>
+
+                <div class="user__photo">
+                    <h2 class="user__photo_title">Фото профиля</h2>
+                    <div class="user__photo_image">
+                        <img class="user__photo_preview" id="preview" src="/static/img/base-photo.png" alt="Превью изображения" />
+                    </div>
+                    <label for="imageInput" class="custom-file-button">Загрузить</label>
+                    <input type="file" id="imageInput" class="user__photo_load" accept="image/*" onchange="displayImage(this)" />
+                </div>
+
+                <div class="user__competencies">
+                    <h2 class="user__competencies_title">Мои компетенции</h2>
+                    <div class="flex" style="flex-wrap: wrap;">
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">основное направление</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">дополнительное направление</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">используемые языки программирования</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">фреймворки</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">Инструменты</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">основные навыки</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">основные навыки</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">основные навыки</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">Дополнительные  навыки</span>
+                                <p class="user__competencies_item-value">
+                                    <span>{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item flex">
+                            <div class="user__competencies_item-input">
+                                <span class="user__competencies_item-title">Примеры работ</span>
+                                <p class="user__competencies_item-value">
+                                    <span><img src="/static/img/attachment.png">{{ profile.__str__() }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if profile.user == user %}
+                    <form action="/edit_profile">
+                        <input class="btn btn-reset user__btn" type="submit" value="Редактировать профиль">
+                    </form>
+                {% elif profile.status == 'Наставник' and user_profile.status != 'Наставник' %}
+                    <form method="get" action="/application_form">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <input type="hidden" name="mentor" value="{{ profile.id }}">
+                        <input class="btn btn-reset user__btn" type="submit" value="Отправить заявку">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    function displayImage(inputElement) {
+        const file = inputElement.files[0];
+        const imageURL = URL.createObjectURL(file);
+        document.getElementById('preview').src = imageURL;
+        inputElement.value = null;
+        document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
+    }
+</script>
+
+<script src="/static/js/swiper-bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

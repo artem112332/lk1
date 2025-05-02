@@ -1,0 +1,112 @@
+@media (min-width: 1401px) {
+    /* .container {
+        max-width: 1000px;
+    } */
+
+    /* .cards__preview_content {
+        padding: 30px 35px;
+    } */
+
+    /* .cards__preview_image {
+        height: auto;
+    } */
+
+    /* .cards__item {
+        min-height: 425px;
+    } */
+
+    /* .questions__item {
+        min-height: 300px;
+    } */
+
+    .questions__item_author {
+        padding: 0 15px;
+        padding-bottom: 30px;
+    }
+
+    .questions_block__name {
+        font-size: 18px;
+    }
+
+    .questions_block__descr {
+        font-size: 20px;
+        width: 800px;
+    }
+
+    .questions_block__review_comment {
+        font-size: 18px;
+    }
+
+    .questions_block__review {
+        margin-top: 85px;
+    }
+
+    .tutor_cards__container {
+        max-width: 1116px;
+    }
+
+    /* .content__left {
+        padding: 50px;
+    } */
+
+    /* .content__right {
+        padding: 80px 0 20px 125px;
+    } */
+
+    .content__left_title {
+        font-size: 35px;
+    }
+
+    .content__left_descr {
+        font-size: 17px;
+    }
+
+    .content__form_input {
+        margin-bottom: 15px;
+    }
+    
+    .registration-content__form_link {
+        margin-bottom: 30px;
+    }
+
+    .content__right_title {
+        font-size: 25px;
+    }
+
+    /* .content__form_link-extra {
+        margin-top: 20px;
+    } */
+
+    .google-icon {
+        margin-top: 15px;
+    }
+
+    /* .swiper-button-prev {
+        margin-left: 200px;
+    }
+    
+    .swiper-button-next {
+        margin-right: 200px;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        margin-top: 125px;
+    } */
+
+    .swiper-questions-button-prev {
+        margin-left: 200px;
+    }
+
+    .swiper-questions-button-next {
+        margin-right: 200px;
+    }
+
+    .questions_list__write_title {
+        font-size: 20px;
+    }
+
+    .questions_list__write_form {
+        width: 900px;
+    }
+}

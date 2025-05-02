@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<main class="main">
+    <section id="content" class="content flex">
+        <div class="content__login list-reset">
+            <h1 class="content__login_title">Создать аккаунт</h1>
+            <div class="content__form">
+                <div class="input">
+                    <form method="post" action="/registration/">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                        <label for="full_name" class="content__form_title">ФИО</label>
+                        {% if invalid_full_name %}
+                            <span class="registration-content__invalid_input">Неправильно введено ФИО</span>
+                        {% endif %}
+                        <input class="content__form_input" type="text" name="full_name" id="full_name"
+                               placeholder="Введите своё ФИО" required>
+
+                        <label for="login" class="content__form_title">Логин</label>
+                        {% if username_taken %}
+                            <span class="registration-content__invalid_input">
+                                Пользователь с данным логином уже зарегистрирован
+                            </span>
+                        {% endif %}
+                        <input class="content__form_input" type="text" name="login" id="login"
+                               placeholder="Придумайте логин" required>
+
+                        <label class="content__form_title" for="password">Пароль</label>
+                        {% if short_password %}
+                            <span class="registration-content__invalid_input">Пароль слишком короткий</span>
+                        {% endif %}
+                        <input class="content__form_input" type="password" name="password" id="password"
+                               placeholder="Придумайте пароль"
+                               required>
+
+                        <span class="registration-content__form_link">Пароль должен быть длиной не менее 8 символов</span>
+
+{#                        <div class="content__form_checkbox flex">#}
+{#                            <input type="checkbox" id="status" name="status" value="Наставник"/>#}
+{#                            <label for="status" class="content__form_checkbox_input">Я наставник</label>#}
+{#                        </div>#}
+
+                        <input class="btn_enter btn-reset" type="submit" value="Зарегистрироваться">
+                    </form>
+                </div>
+                <div class="flex content__form_link">
+                    <span class="existing-account">Уже есть аккаунт?</span>
+                    &nbsp;
+                    <a href="/login/" class="to-sign-in">Войти</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

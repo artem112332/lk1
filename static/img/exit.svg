@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="400" viewBox="0 0 400 400" xml:space="preserve">
+<desc>Created with Fabric.js 3.6.2</desc>
+<defs>
+</defs>
+<g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout"  >
+<line style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"  x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0" />
+</g>
+<g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  transform=" translate(-15.93, -16)" d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z" stroke-linecap="round" />
+</g>
+<g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout"  >
+<line style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"  x1="2" y1="-2" x2="-2" y2="2" />
+</g>
+<g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout"  >
+<line style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"  x1="2" y1="2" x2="-2" y2="-2" />
+</g>
+<g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout"  >
+<line style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"  x1="0" y1="1" x2="0" y2="-1" />
+</g>
+<g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout"  >
+<line style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"  x1="0" y1="1" x2="0" y2="-1" />
+</g>
+</svg>

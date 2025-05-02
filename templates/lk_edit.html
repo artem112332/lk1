@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container header__container flex">
+        <nav class="header__nav">
+            <ul class="header__list list-reset flex">
+                <a href="/" class="header__item">Главная</a>
+                <div class="header__item">
+                    <form action="#" class="search__form">
+                        <img src="/static/img/search.png" alt="Поиск" class="search__icon">
+                        <input class="search__input" type="text" placeholder="Поиск">
+                    </form>
+                </div>
+                <div class="header__item">
+                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
+                    <sup class="notifications-counter">0</sup>
+                </div>
+                <a class="header__item" href="#"><img src="/static/img/bell-01.png" alt=""></a>
+            </ul>
+        </nav>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"></a>
+    </div>
+</header>
+
+<hr class="horizontal-line">
+
+<main class="user">
+    <div class="container user__container">
+        <form method="post" enctype="multipart/form-data" action="/edit_profile/" class="user__content flex">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+            <div class="user__avatar">
+                <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
+                <h1 class="user__name">{{ profile.__str__() }}</h1>
+                <hr class="horizontal-line">
+                <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="/profile">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Мои компетенции</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Статистика оценки</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Проект</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="user__input">
+                <div class="user__input_top">
+                    <div class="user__data-edit">
+                        <label for="full_name" class="user__form_title">фио</label>
+                        <input type="text" id="full_name" name="full_name" class="user__form_input user__form_data_link" placeholder="Введите ФИО"
+                         value="{{ profile.__str__() }}">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="phone" class="user__form_title">Номер телефона</label>
+                        <input type="tel" id="phone" name="phone" class="user__form_input user__form_data_link" placeholder="Введите номер телефона"
+                         value="">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="email" class="user__form_title">email</label>
+                        <input type="email" id="email" name="email" class="user__form_input user__form_data_link" placeholder="Введите email"
+                         value="{{ profile.user.username }}">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">telegram</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link" placeholder="Введите telegram"
+                         value="{{ profile.telegram }}">
+                    </div>
+
+                    <div class="user__data-edit unik">
+                        <label for="unik" class="user__form_title">учебное заведение</label>
+                        <input type="text" id="unik" name="unik" class="user__form_input user__form_data_link" placeholder="Введите учебное заведение"
+                         value="">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">специальность</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link" placeholder="Введите специальность"
+                         value="">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">Курс / дата выпуска</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link" placeholder="Введите курс обучения/дату выпуска"
+                         value="">
+                    </div>
+
+                    <div class="user__data-edit unik">
+                        <label for="role" class="user__form_title">роль в команде</label>
+                        <input type="text" id="role" name="role" class="user__form_input user__form_data_link" placeholder="Введите роль в команде"
+                         value="">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link" placeholder="Дополнительная роль в команде"
+                         value="">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link" placeholder="Дополнительная роль в команде"
+                         value="">
+                    </div>
+                </div>
+
+                <div class="user__form">
+                    {% if is_mentor %}
+                        <span class="user__form_title">Компетенции</span>
+                        <ul class="user__area list-reset">
+                            <li class="user_item flex">
+                                {% if profile.specialization_1 == 'Аналитика' %}
+                                    <input id="specialization" name="Аналитика" type="checkbox"
+                                           class="filter__checkbox" value="Аналитика" checked>
+                                {% else %}
+                                    <input id="specialization" name="Аналитика" type="checkbox"
+                                           class="filter__checkbox" value="Аналитика">
+                                {% endif %}
+                                <label class="filter__name" for="specialization">Аналитика</label>
+                            </li>
+                            <li class="user_item flex">
+                                {% if profile.specialization_2 == 'Дизайн' %}
+                                    <input id="specialization" name="Дизайн" type="checkbox"
+                                           class="filter__checkbox" value="Дизайн" checked>
+                                {% else %}
+                                    <input id="specialization" name="Дизайн" type="checkbox"
+                                           class="filter__checkbox" value="Дизайн">
+                                {% endif %}
+                                <label class="filter__name" for="specialization">Дизайн</label>
+                            </li>
+                            <li class="user_item flex">
+                                {% if profile.specialization_3 == 'Frontend' %}
+                                    <input id="specialization" name="Frontend" type="checkbox"
+                                           class="filter__checkbox" value="Frontend" checked>
+                                {% else %}
+                                    <input id="specialization" name="Frontend" type="checkbox"
+                                           class="filter__checkbox" value="Frontend">
+                                {% endif %}
+                                <label class="filter__name" for="specialization">Frontend</label>
+                            </li>
+                            <li class="user_item flex">
+                                {% if profile.specialization_4 == 'Backend' %}
+                                    <input id="specialization" name="Backend" type="checkbox"
+                                           class="filter__checkbox" value="Backend" checked>
+                                {% else %}
+                                    <input id="specialization" name="Backend" type="checkbox"
+                                           class="filter__checkbox" value="Backend">
+                                {% endif %}
+                                <label class="filter__name" for="specialization">Backend</label>
+                            </li>
+                            <li class="user_item flex">
+                                {% if profile.specialization_5 == 'Teamlead' %}
+                                    <input id="specialization" name="Teamlead" type="checkbox"
+                                           class="filter__checkbox" value="Teamlead" checked>
+                                {% else %}
+                                    <input id="specialization" name="Teamlead" type="checkbox"
+                                           class="filter__checkbox" value="Teamlead">
+                                {% endif %}
+                                <label class="filter__name" for="specialization">Team-leader</label>
+                            </li>
+                        </ul>
+                        </div>
+                    {% endif %}
+
+                <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="/static/js/swiper-bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

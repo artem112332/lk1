@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container header__container flex">
+        <a href="/"><img src="/static/img/icon.svg" alt="Лого" class="header__icon"></a>
+        <div class="vertical-line"></div>
+        <nav class="header__nav">
+            <ul class="header__list list-reset flex">
+                <a href="/" class="header__item">Главная</a>
+                <a href="/applications" class="header__item">Заявки от проектантов</a>
+                <a href="/tutor_cards" class="header__item">Карточки консультантов</a>
+                <a href="/notifications" class="header__item">Мои заявки
+                    {#                    <sup class="notifications-counter">0</sup>#}
+                </a>
+            </ul>
+        </nav>
+        <a href="/profile/{{ user.id }}" class="header__profile profile">
+            <svg class="profile__avatar" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M12 13C8.13401 13 5 16.134 5 20V22C5 22.5523 4.55228 23 4 23C3.44772 23 3 22.5523 3 22V20C3 15.0294 7.02944 11 12 11C16.9706 11 21 15.0294 21 20V22C21 22.5523 20.5523 23 20 23C19.4477 23 19 22.5523 19 22V20C19 16.134 15.866 13 12 13Z"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11ZM12 13C15.3137 13 18 10.3137 18 7C18 3.68629 15.3137 1 12 1C8.68629 1 6 3.68629 6 7C6 10.3137 8.68629 13 12 13Z"></path>
+            </svg>
+        </a>
+
+        <a href="/logout" class="profile__exit">
+            <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
+                 viewBox="100 45 150 300" xml:space="preserve">
+                    <g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout">
+                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"
+                              transform=" translate(-15.93, -16)"
+                              d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z"
+                              stroke-linecap="round"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="-2" x2="-2" y2="2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="2" x2="-2" y2="-2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                </svg>
+        </a>
+    </div>
+</header>
+
+<hr class="horizontal-line">
+
+<section class="application-form-form">
+    <div class="container application-form__container">
+        <div class="application-form__content">
+            <h1 class="application-form__title">Хотите стать консультантом? Заполните небольшую анкету</h1>
+
+            <form method='post' class="application-form__form" action="/mentor_application/">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Имя и Фамилия</label>
+                    <input type="text" name="reciever" class="application-form__input"
+                           placeholder="{{ profile.first_and_last_name() }}"
+                           readonly>
+                </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">ВУЗ или колледж</label>
+                    <input type="text" name="university" class="application-form__input"
+                           placeholder="Введите учебное учереждение, в котором обучались" required>
+                </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Факультет (институт)</label>
+                    <input type="text" name="faculty" class="application-form__input"
+                           placeholder="Введите факультет (институт), в котором обучались (если имеется)">
+                </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Специальность</label>
+                    <input type="text" name="specialization" class="application-form__input"
+                           placeholder="Введите вашу специальность">
+                </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Навыки</label>
+                    <textarea type="text" name="skills" class="application-form__input__big"
+                              placeholder="Опишите свои навыки и умения"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-reset application__btn_send">Отправить<img
+                        class="application__btn_image" src="/static/img/tick.png"></button>
+            </form>
+
+
+        </div>
+    </div>
+</section>
+
+<script src="/static/js/swiper-bundle.min.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
