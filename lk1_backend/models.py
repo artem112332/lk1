@@ -118,7 +118,7 @@ class Event(models.Model):
         ('Началось', 'Началось'),
         ('Закончилось', 'Закончилось')
     ]
-    status = models.CharField(choices=status_choices)
+    status = models.CharField(max_length=20, choices=status_choices)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     number_of_participants = models.IntegerField(default=1)
@@ -143,7 +143,7 @@ class ApllictationToEvent(models.Model):
         ('Принята', 'Принята'),
         ('Отклонена', 'Отклонена')
     ]
-    status = models.CharField(choices=status_choices)
+    status = models.CharField(max_length=20, choices=status_choices)
 
     def __str__(self):
         return f'{self.id} Заявка на {self.event.name}'
@@ -165,7 +165,7 @@ class ApllictationToProject(models.Model):
         ('Принята', 'Принята'),
         ('Отклонена', 'Отклонена')
     ]
-    status = models.CharField(choices=status_choices)
+    status = models.CharField(max_length=20, choices=status_choices)
 
     def __str__(self):
         return f'{self.id} Заявка на {self.project.name}'
