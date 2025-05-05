@@ -113,7 +113,7 @@
                             <input type="text" id="telegram" name="telegram"
                                    class="user__form_input user__form_data_link"
                                    placeholder="Введите свой telegram"
-                                   value="{{ profile.telegram }}">\
+                                   value="{{ profile.telegram }}">
                         {% else %}
                             <input type="text" id="telegram" name="telegram"
                                    class="user__form_input user__form_data_link"
@@ -195,7 +195,7 @@
                              alt="Превью изображения"/>
                     </div>
                     <label for="imageInput" class="custom-file-button">Загрузить</label>
-                    <input type="file" id="imageInput" class="user__photo_load" accept="image/*"
+                    <input type="file" id="imageInput" class="user__photo_load" name="profile{{ profile.id }}_photo" accept="image/png, image/jpeg"
                            onchange="displayImage(this)"/>
                 </div>
 
