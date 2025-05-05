@@ -84,11 +84,11 @@
                     <div class="user__data-edit">
                         <label for="phone_number" class="user__form_title">Номер телефона</label>
                         {% if profile.phone_number != None %}
-                            <input type="tel" id="phone_number" name="phone_number"
+                            <input type="tel" id="phone_number" name="phone_number" maxlength="11"
                                    class="user__form_input user__form_data_link"
                                    placeholder="Введите номер телефона" value="{{ profile.phone_number }}">
                         {% else %}
-                            <input type="tel" id="phone_number" name="phone_number"
+                            <input type="tel" id="phone_number" name="phone_number" maxlength="11"
                                    class="user__form_input user__form_data_link"
                                    placeholder="Введите номер телефона" value="">
                         {% endif %}
@@ -208,5 +208,14 @@
 <script src="/static/js/swiper-bundle.min.js"></script>
 <script src="/static/js/main.js"></script>
 <script src="/static/js/script.js"></script>
+<script>
+    function displayImage(inputElement) {
+        const file = inputElement.files[0];
+        const imageURL = URL.createObjectURL(file);
+        document.getElementById('preview').src = imageURL;
+        inputElement.value = null;
+        document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
+    }
+</script>
 </body>
 </html>
