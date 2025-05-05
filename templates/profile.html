@@ -115,71 +115,83 @@
                     </div>
 
                     {% if profile.phone_number != None %}
-                        <div class="user__data flex">
-                            <div class="user__data_left">
-                                <span class="user__form_title">номер телефона</span>
-                                <p class="user__form_data_link">
-                                    <span>{{ profile.phone_number }}</span>
-                                </p>
+                        {% if profile.phone_number|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">номер телефона</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ profile.phone_number }}</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
 
                     {% if profile.email != None %}
-                        <div class="user__data flex">
-                            <div class="user__data_left">
-                                <span class="user__form_title">номер телефона</span>
-                                <p class="user__form_data_link">
-                                    <span>{{ profile.email }}</span>
-                                </p>
+                        {% if profile.email|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">email</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ profile.email }}</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
 
                     {% if profile.telegram != None %}
-                        <div class="user__data flex">
-                            <div class="user__data_left">
-                                <span class="user__form_title">Telegram</span>
-                                <p class="user__form_data_link">
-                                    <a href="https://t.me/{{ profile.telegram }}">@{{ profile.telegram }}</a>
-                                </p>
+                        {% if profile.telegram|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">Telegram</span>
+                                    <p class="user__form_data_link">
+                                        <a href="https://t.me/{{ profile.telegram }}">@{{ profile.telegram }}</a>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
 
 
                     {% if profile.university != None %}
-                        <div class="user__data flex">
-                            <div class="user__data_unik">
-                                <span class="user__form_title">учебное заведение</span>
-                                <p class="user__form_data_link">
-                                    <span>{{ profile.university }}</span>
-                                </p>
+                        {% if profile.university|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_unik">
+                                    <span class="user__form_title">учебное заведение</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ profile.university }}</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
 
 
                     {% if profile.specialization != None %}
-                        <div class="user__data flex">
-                            <div class="user__data_left">
-                                <span class="user__form_title">специальность</span>
-                                <p class="user__form_data_link">
-                                    <span>{{ profile.specialization }}</span>
-                                </p>
+                        {% if profile.specialization|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">специальность</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ profile.specialization }}</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
 
-                    {% if profile.year_of_study != None and profile.year_of_graduation != None %}
-                        <div class="user__data flex">
-                            <div class="user__data_left">
-                                <span class="user__form_title">Курс</span>
-                                <p class="user__form_data_link">
-                                    <span>{{ profile.year_of_study }} курс</span>
-                                </p>
+                    {% if profile.year_of_study != None %}
+                        {% if profile.specialization|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">Курс</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ profile.year_of_study }} курс</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% endif %}
 
 

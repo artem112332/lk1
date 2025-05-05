@@ -82,49 +82,89 @@
                     </div>
 
                     <div class="user__data-edit">
-                        <label for="phone" class="user__form_title">Номер телефона</label>
-                        <input type="tel" id="phone" name="phone" class="user__form_input user__form_data_link"
-                               placeholder="Введите номер телефона"
-
-                               value="{{ profile.phone_number }}">
-
-
+                        <label for="phone_number" class="user__form_title">Номер телефона</label>
+                        {% if profile.phone_number != None %}
+                            <input type="tel" id="phone_number" name="phone_number"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите номер телефона" value="{{ profile.phone_number }}">
+                        {% else %}
+                            <input type="tel" id="phone_number" name="phone_number"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите номер телефона" value="">
+                        {% endif %}
                     </div>
 
                     <div class="user__data-edit">
                         <label for="email" class="user__form_title">email</label>
-                        <input type="email" id="email" name="email" class="user__form_input user__form_data_link"
-                               placeholder="Введите email"
-                               value="{{ profile.user.email }}">
+                        {% if profile.email != None %}
+                            <input type="email" id="email" name="email" class="user__form_input user__form_data_link"
+                                   placeholder="Введите email"
+                                   value="{{ profile.email }}">
+                        {% else %}
+                            <input type="email" id="email" name="email" class="user__form_input user__form_data_link"
+                                   placeholder="Введите email"
+                                   value="">
+                        {% endif %}
                     </div>
 
                     <div class="user__data-edit">
                         <label for="telegram" class="user__form_title">telegram</label>
-                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
-                               placeholder="Введите telegram"
-                               value="{{ profile.telegram }}">
+                        {% if profile.telegram != None %}
+                            <input type="text" id="telegram" name="telegram"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите свой telegram"
+                                   value="{{ profile.telegram }}">\
+                        {% else %}
+                            <input type="text" id="telegram" name="telegram"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите свой telegram"
+                                   value="">
+                        {% endif %}
                     </div>
 
                     <div class="user__data-edit unik">
                         <label for="unik" class="user__form_title">учебное заведение</label>
-                        <input type="text" id="unik" name="unik" class="user__form_input user__form_data_link"
-                               placeholder="Введите учебное заведение"
-                               value="{{ profile.university }}">
+                        {% if profile.university != None %}
+                            <input type="text" id="unik" name="university" class="user__form_input user__form_data_link"
+                                   placeholder="Введите учебное заведение"
+                                   value="{{ profile.university }}">
+                        {% else %}
+                            <input type="text" id="unik" name="university" class="user__form_input user__form_data_link"
+                                   placeholder="Введите учебное заведение"
+                                   value="">
+                        {% endif %}
                     </div>
 
                     <div class="user__data-edit">
-                        <label for="telegram" class="user__form_title">специальность</label>
-                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
-                               placeholder="Введите специальность"
-                               value="{{ profile.specialization }}">
+                        <label for="specialization" class="user__form_title">специальность</label>
+                        {% if profile.specialization != None %}
+                            <input type="text" id="specialization" name="specialization"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите специальность"
+                                   value="{{ profile.specialization }}">
+                        {% else %}
+                            <input type="text" id="specialization" name="specialization"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите специальность"
+                                   value="">
+                        {% endif %}
                     </div>
 
                     <div class="user__data-edit">
                         <label for="telegram" class="user__form_title">Курс</label>
-                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
-                               placeholder="Введите курс обучения"
-                               value="{{ profile.year_of_study }}">
+                        {% if profile.specialization != None %}
+                            <input type="text" id="year_of_study" name="year_of_study"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите курс обучения"
+                                   value="{{ profile.year_of_study }}">
+                        {% else %}
+                            <input type="text" id="year_of_study" name="year_of_study"
+                                   class="user__form_input user__form_data_link"
+                                   placeholder="Введите курс обучения"
+                                   value="">
+                        {% endif %}
                     </div>
+
 
                     {#                    <div class="user__data-edit unik">#}
                     {#                        <label for="role" class="user__form_title">роль в команде</label>#}
