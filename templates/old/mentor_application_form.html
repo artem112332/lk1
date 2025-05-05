@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JustDoIT</title>
-    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
-    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/media.css">
-    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/media.css">
+    <link type="image/x-icon" href="/img/icon.ico?v=2" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
@@ -17,14 +17,16 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/"><img src="/static/img/icon.svg" alt="Лого" class="header__icon"></a>
+        <a href="/static"><img src="/img/icon.svg" alt="Лого" class="header__icon"></a>
         <div class="vertical-line"></div>
         <nav class="header__nav">
             <ul class="header__list list-reset flex">
-                <a href="/" class="header__item">Главная</a>
+                <a href="/static" class="header__item">Главная</a>
                 <a href="/applications" class="header__item">Заявки от проектантов</a>
                 <a href="/tutor_cards" class="header__item">Карточки консультантов</a>
-                <a href="/notifications" class="header__item">Мои заявки<sup class="notifications-counter">0</sup></a>
+                <a href="/notifications" class="header__item">Мои заявки
+                    {#                    <sup class="notifications-counter">0</sup>#}
+                </a>
             </ul>
         </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile">
@@ -74,62 +76,55 @@
 
 <hr class="horizontal-line">
 
-<main class="user">
-    <div class="container user__container">
-        <div class="user__content flex">
-            <div class="user__avatar">
-                <img class="user__image" src="{{ application.sender.photo.url }}" alt="Аватар">
-            </div>
+<section class="application-form-form">
+    <div class="container application-form__container">
+        <div class="application-form__content">
+            <h1 class="application-form__title">Хотите стать консультантом? Заполните небольшую анкету</h1>
 
-            <div class="user__info">
-                <div class="user__info_top flex">
-                    <h1 class="user__name">{{ application.sender.first_and_last_name() }}</h1>
+            <form method='post' class="application-form__form" action="/mentor_application/">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Имя и Фамилия</label>
+                    <input type="text" name="reciever" class="application-form__input"
+                           placeholder="{{ profile.first_and_last_name() }}"
+                           readonly>
                 </div>
 
-                <div class="application__content">
-                    <div class="user__data">
-                        <span class="user__form_title">ВУЗ или колледж</span>
-                        <p class="user__form_data">{{ application.university }}</p>
-                    </div>
-
-                    <div class="user__data">
-                        <span class="user__form_title">Факультет (институт)</span>
-                        <p class="user__form_data">{{ application.faculty }}</p>
-                    </div>
-
-                    <div class="user__data">
-                        <span class="user__form_title">Специальность</span>
-                        <p class="user__form_data">{{ application.specialization }}</p>
-                    </div>
-
-                    <div class="user__data">
-                        <span class="user__form_title">Навыки</span>
-                        <p class="user__form_data">{{ application.skills }}</p>
-                    </div>
-
-                    {% if profile.is_admin == True %}
-                        <form method="post" action="/reply_to_mentor_application/">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                            <input type="hidden" name="application_id" value="{{ application.id }}">
-                            <input type="hidden" name="sender_id" value="{{ application.sender.id }}">
-
-                            {% if application.status == 'Активна' %}
-                                <input type="submit" class="notice_accept" name="reply" value="Принять">
-                                <input type="submit" class="notice_reject" name="reply" value="Отклонить">
-                            {% else %}
-                                <div class="notices__status_accepted">{{ application.status }}</div>
-                            {% endif %}
-                        </form>
-                    {% endif %}
-                    <br>
-                    <button class="btn btn-reset questions__btn" type="button" onclick="history.back()">Назад</button>
+                <div class="application-form__data">
+                    <label class="application-form__label">ВУЗ или колледж</label>
+                    <input type="text" name="university" class="application-form__input"
+                           placeholder="Введите учебное учереждение, в котором обучались" required>
                 </div>
-            </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Факультет (институт)</label>
+                    <input type="text" name="faculty" class="application-form__input"
+                           placeholder="Введите факультет (институт), в котором обучались (если имеется)">
+                </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Специальность</label>
+                    <input type="text" name="specialization" class="application-form__input"
+                           placeholder="Введите вашу специальность">
+                </div>
+
+                <div class="application-form__data">
+                    <label class="application-form__label">Навыки</label>
+                    <textarea type="text" name="skills" class="application-form__input__big"
+                              placeholder="Опишите свои навыки и умения"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-reset application__btn_send">Отправить<img
+                        class="application__btn_image" src="/img/tick.png"></button>
+            </form>
+
+
         </div>
     </div>
-</main>
-<script src="/static/js/swiper-bundle.min.js"></script>
-<script src="/static/js/main.js"></script>
-<script src="/static/js/script.js"></script>
+</section>
+
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

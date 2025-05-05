@@ -1,3 +1,179 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, models.CASCADE)
+    last_name = models.CharField(max_length=50)  # Фамилия
+    first_name = models.CharField(max_length=50)  # Имя
+    middle_name = models.CharField(max_length=50)  # Отчество
+    phone_number = models.CharField(max_length=11, null=True, blank=True)
+    telegram = models.CharField(max_length=50, null=True, blank=True)
+    email = models.CharField(max_length=50, null=True, blank=True)
+    vk = models.CharField(max_length=100, null=True, blank=True)
+    university = models.CharField(max_length=200, null=True, blank=True)
+    institute = models.CharField(max_length=200, null=True, blank=True)
+    specialization = models.CharField(max_length=100, null=True, blank=True)
+    year_of_study = models.CharField(max_length=4, null=True, blank=True)
+    year_of_graduation = models.CharField(max_length=4, null=True, blank=True)
+    role_choises = [
+        ('Проектант', 'Проектант'),
+        ('Куратор', 'Куратор'),
+        ('Организатор', 'Организатор'),
+        ('Руководитель направления', 'Руководитель направления'),
+        ('Администратор', 'Администратор')
+    ]
+    role = models.CharField(max_length=24, choices=role_choises, default='Проектант')
+    description = models.TextField(max_length=2000, blank=True)
+    photo = models.ImageField(upload_to='users_photo/', blank=True, default='default_avatar.jpeg')
+
+    def __str__(self):
+        return f'{self.short_name()}'
+
+    def full_name(self):
+        return f'{self.last_name} {self.first_name} {self.middle_name}'
+
+    def first_and_last_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def short_name(self):
+        return f'{self.last_name} {self.first_name[0]}.{self.middle_name[0]}.'
+
+
+class UserFile(models.Model):
+    user = models.ForeignKey(UserProfile, models.CASCADE, related_name='file_owner')
+    file = models.FileField(upload_to='users_files/', default='default_avatar.jpeg')
+
+    def __str__(self):
+        return f'{self.id} {self.user}'
+
+
+class Skill(models.Model):
+    user = models.ForeignKey(UserProfile, models.CASCADE, related_name='skill_owner')
+    name = models.CharField(max_length=50)
+    level_choices = [
+        ('Базовый', 'Базовый'),
+        ('Средний', 'Средний'),
+        ('Продвинутый', 'Продвинутый')
+    ]
+    level = models.CharField(max_length=11, choices=level_choices, default=level_choices[0])
+
+    def __str__(self):
+        return f'{self.id} {self.user} {self.name}'
+
+
+class Direction(models.Model):
+    director = models.ForeignKey(UserProfile, models.SET_NULL, related_name='direction_director', null=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=2000, blank=True)
+
+    def __str__(self):
+        return f'{self.id} {self.name}'
+
+
+class Project(models.Model):
+    tutor = models.ForeignKey(UserProfile, models.SET_NULL, related_name='project_tutor', null=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=2000, blank=True)
+    direction = models.ForeignKey(Direction, models.SET_NULL, related_name="project_direction", null=True)
+
+    def __str__(self):
+        return f'{self.id} {self.name}'
+
+
+class ProjectTeam(models.Model):
+    name = models.CharField(max_length=50)
+    project = models.ForeignKey(Project, models.SET_NULL, related_name='teams_project', null=True, blank=True)
+    role_choices = [
+        ('Backend-разработчик', 'Backend-разработчик'),
+        ('Frontend-разработчик', 'Frontend-разработчик'),
+        ('Аналитик', 'Аналитик'),
+        ('Дизайнер', 'Дизайнер'),
+        ('Тимлид', 'Тимлид')
+    ]
+    member1 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_1', null=True, blank=True)
+    member1_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    member2 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_2', null=True, blank=True)
+    member2_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    member3 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_3', null=True, blank=True)
+    member3_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    member4 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_4', null=True, blank=True)
+    member4_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    member5 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_5', null=True, blank=True)
+    member5_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.id} {self.name}'
+
+
+class Event(models.Model):
+    organizer = models.ForeignKey(UserProfile, models.SET_NULL, related_name='event_organizer', null=True)
+    direction1 = models.ForeignKey(Direction, models.SET_NULL, related_name='event_direction1', null=True)
+    direction2 = models.ForeignKey(Direction, models.SET_NULL, related_name='event_direction2', null=True)
+    direction3 = models.ForeignKey(Direction, models.SET_NULL, related_name='event_direction3', null=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=2000, blank=True)
+    status_choices = [
+        ('Анонсировано', 'Анонсировано'),
+        ('Началось', 'Началось'),
+        ('Закончилось', 'Закончилось')
+    ]
+    status = models.CharField(choices=status_choices)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    number_of_participants = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.id} {self.name}'
+
+    def set_started(self):
+        self.status = self.status_choices[1]
+        self.save()
+
+    def set_ended(self):
+        self.status = self.status_choices[2]
+        self.save()
+
+
+class ApllictationToEvent(models.Model):
+    event = models.ForeignKey(Event, models.CASCADE, related_name='event')
+    sender = models.ForeignKey(UserProfile, models.CASCADE, related_name='event_apllication_sender')
+    status_choices = [
+        ('Отправлена', 'Отправлена'),
+        ('Принята', 'Принята'),
+        ('Отклонена', 'Отклонена')
+    ]
+    status = models.CharField(choices=status_choices)
+
+    def __str__(self):
+        return f'{self.id} Заявка на {self.event.name}'
+
+    def set_accepted(self):
+        self.status = self.status_choices[1]
+        self.save()
+
+    def set_rejected(self):
+        self.status = self.status_choices[2]
+        self.save()
+
+
+class ApllictationToProject(models.Model):
+    project = models.ForeignKey(Project, models.CASCADE, related_name='event')
+    sender = models.ForeignKey(UserProfile, models.CASCADE, related_name='project_apllication_sender')
+    status_choices = [
+        ('Отправлена', 'Отправлена'),
+        ('Принята', 'Принята'),
+        ('Отклонена', 'Отклонена')
+    ]
+    status = models.CharField(choices=status_choices)
+
+    def __str__(self):
+        return f'{self.id} Заявка на {self.project.name}'
+
+    def set_accepted(self):
+        self.status = self.status_choices[1]
+        self.save()
+
+    def set_rejected(self):
+        self.status = self.status_choices[2]
+        self.save()

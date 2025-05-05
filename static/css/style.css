@@ -369,7 +369,7 @@ body {
 }
 
 .profile__exit {
-    margin-left: 15px;
+    margin: auto auto auto 15px;
 }
 
 .profile__avatar {
@@ -382,14 +382,14 @@ body {
 }
 
 .profile__exit_icon {
-    fill: rgba(255, 229, 134, 1);
-    stroke: rgba(255, 229, 134, 1);
+    fill: #5C8DB9;
+    stroke: #5C8DB9;
     transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
 }
 
 .profile__exit_icon:hover {
-    fill: rgba(254, 200, 0, 1);
-    stroke: rgba(254, 200, 0, 1);
+    fill: #26739f;
+    stroke: #26739f;
 }
 
 .vertical-line {
@@ -2072,7 +2072,6 @@ input[type="checkbox"]:checked {
 .user__data_unik, .user__data_role {
     width: 100%;
 }
-
 
 
 .user__data-edit:not(:last-child) {

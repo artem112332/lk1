@@ -27,13 +27,46 @@
                     </form>
                 </div>
                 <div class="header__item">
-                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
+                    {#                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>#}
+                    <a href="#"><img src="/static/img/heart.png" alt=""></a>
                     <sup class="notifications-counter">0</sup>
                 </div>
                 <a class="header__item" href="#"><img src="/static/img/bell-01.png" alt=""></a>
             </ul>
         </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile"></a>
+        <a href="/logout" class="profile__exit">
+            <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
+                 viewBox="100 45 150 300" xml:space="preserve">
+                    <g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout">
+                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"
+                              transform=" translate(-15.93, -16)"
+                              d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z"
+                              stroke-linecap="round"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="-2" x2="-2" y2="2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="2" x2="-2" y2="-2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                </svg>
+        </a>
     </div>
 </header>
 
@@ -44,11 +77,11 @@
         <div class="user__content flex">
             <div class="user__avatar">
                 <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
-                <h1 class="user__name">{{ profile.__str__() }}</h1>
+                <h1 class="user__name">{{ profile.first_and_last_name() }}</h1>
                 <hr class="horizontal-line">
                 <ul class="lk__menu">
                     <li class="lk__item">
-                        <a href="/profile">
+                        <a href="#">
                             <span>Профиль</span>
                         </a>
                     </li>
@@ -76,116 +109,98 @@
                         <div class="user__data_left">
                             <span class="user__form_title">фио</span>
                             <p class="user__form_data_link">
-                                <span>{{ profile.__str__() }}</span>
+                                <span>{{ profile.full_name() }}</span>
                             </p>
                         </div>
                     </div>
 
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">номер телефона</span>
-                            <p class="user__form_data_link">
-                                <span>+7 (999)999-99-99</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    {% if telegram %}
+                    {% if profile.phone_number != None %}
                         <div class="user__data flex">
                             <div class="user__data_left">
-                                <span class="user__form_title">email</span>
+                                <span class="user__form_title">номер телефона</span>
                                 <p class="user__form_data_link">
-                                    <a href="https://t.me/{{ profile.telegram }}">alinchik@gmail.com</a>
+                                    <span>{{ profile.phone_number }}</span>
                                 </p>
                             </div>
                         </div>
                     {% endif %}
 
-                    {% if telegram %}
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">Telegram</span>
-                            <p class="user__form_data_link">
-                                <a href="https://t.me/{{ profile.telegram }}">@{{ profile.telegram }}</a>
-                            </p>
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    <div class="user__data flex">
-                        <div class="user__data_unik">
-                            <span class="user__form_title">учебное заведение</span>
-                            <p class="user__form_data_link">
-                                <span>Уральский Федеральный Университет имени Б.Н.Ельцина</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">специальность</span>
-                            <p class="user__form_data_link">
-                                <span>Программная инженерия</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">Курс / дата выпуска</span>
-                            <p class="user__form_data_link">
-                                <span>3 курс / 2026 год</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="user__data">
-                        {% if profile.status == 'Наставник' and profile.get_specializations()|length > 0 %}
-                        <div class="user__data_role">
-                            <span class="user__form_title">роль в команде</span>
-                            <div class="user__form_data flex">
-                                {% for specialization in specialization_list %}
-                                    <span class="specialization">{{ specialization }}</span>
-                                {% endfor %}
+                    {% if profile.email != None %}
+                        <div class="user__data flex">
+                            <div class="user__data_left">
+                                <span class="user__form_title">номер телефона</span>
+                                <p class="user__form_data_link">
+                                    <span>{{ profile.email }}</span>
+                                </p>
                             </div>
                         </div>
-                        {% endif %}
-                    </div>
+                    {% endif %}
 
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">дополнительная роль в команде</span>
-                            <p class="user__form_data_link">
-                                <span class="specialization">Аналитик</span>
-                            </p>
+                    {% if profile.telegram != None %}
+                        <div class="user__data flex">
+                            <div class="user__data_left">
+                                <span class="user__form_title">Telegram</span>
+                                <p class="user__form_data_link">
+                                    <a href="https://t.me/{{ profile.telegram }}">@{{ profile.telegram }}</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
 
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">дополнительная роль в команде</span>
-                            <p class="user__form_data_link">
-                                <span>-</span>
-                            </p>
+
+                    {% if profile.university != None %}
+                        <div class="user__data flex">
+                            <div class="user__data_unik">
+                                <span class="user__form_title">учебное заведение</span>
+                                <p class="user__form_data_link">
+                                    <span>{{ profile.university }}</span>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
 
-                    <!-- <div class="user__data">
-                        {% if profile.description|length > 0 %}
-                            <span class="user__form_title">Обо мне</span>
-                            <p class="user__form_data">{{ profile.description }}</p>
-                        {% endif %}
-                    </div> -->
+
+                    {% if profile.specialization != None %}
+                        <div class="user__data flex">
+                            <div class="user__data_left">
+                                <span class="user__form_title">специальность</span>
+                                <p class="user__form_data_link">
+                                    <span>{{ profile.specialization }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if profile.year_of_study != None and profile.year_of_graduation != None %}
+                        <div class="user__data flex">
+                            <div class="user__data_left">
+                                <span class="user__form_title">Курс</span>
+                                <p class="user__form_data_link">
+                                    <span>{{ profile.year_of_study }} курс</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    {#                        <div class="user__data flex">#}
+                    {#                            <div class="user__data_left">#}
+                    {#                                <span class="user__form_title">роль в команде</span>#}
+                    {#                                <p class="user__form_data_link">#}
+                    {#                                    <span>-</span>#}
+                    {#                                </p>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+
+
+                    {#                    <div class="user__data">#}
+                    {#                        {% if profile.description|length > 0 %}#}
+                    {#                            <span class="user__form_title">Обо мне</span>#}
+                    {#                            <p class="user__form_data">{{ profile.description }}</p>#}
+                    {#                        {% endif %}#}
+                    {#                    </div>#}
                 </div>
 
-                <div class="user__photo">
-                    <h2 class="user__photo_title">Фото профиля</h2>
-                    <div class="user__photo_image">
-                        <img class="user__photo_preview" id="preview" src="/static/img/base-photo.png" alt="Превью изображения" />
-                    </div>
-                    <label for="imageInput" class="custom-file-button">Загрузить</label>
-                    <input type="file" id="imageInput" class="user__photo_load" accept="image/*" onchange="displayImage(this)" />
-                </div>
 
                 <div class="user__competencies">
                     <h2 class="user__competencies_title">Мои компетенции</h2>
@@ -193,105 +208,38 @@
 
                         <div class="user__competencies_item flex">
                             <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">основное направление</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">дополнительное направление</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">используемые языки программирования</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">фреймворки</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">Инструменты</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
                                 <span class="user__competencies_item-title">основные навыки</span>
                                 <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
+                                    <span></span>
                                 </p>
                             </div>
                         </div>
 
                         <div class="user__competencies_item flex">
                             <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">основные навыки</span>
+                                <span class="user__competencies_item-title">дополнительные навыки</span>
                                 <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
+                                    <span></span>
                                 </p>
                             </div>
                         </div>
 
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">основные навыки</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">Дополнительные  навыки</span>
-                                <p class="user__competencies_item-value">
-                                    <span>{{ profile.__str__() }}</span>
-                                </p>
-                            </div>
-                        </div>
 
                         <div class="user__competencies_item flex">
                             <div class="user__competencies_item-input">
                                 <span class="user__competencies_item-title">Примеры работ</span>
                                 <p class="user__competencies_item-value">
-                                    <span><img src="/static/img/attachment.png">{{ profile.__str__() }}</span>
+                                    <span><img src="/static/img/attachment.png"></span>
                                 </p>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
                 {% if profile.user == user %}
                     <form action="/edit_profile">
                         <input class="btn btn-reset user__btn" type="submit" value="Редактировать профиль">
-                    </form>
-                {% elif profile.status == 'Наставник' and user_profile.status != 'Наставник' %}
-                    <form method="get" action="/application_form">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <input type="hidden" name="mentor" value="{{ profile.id }}">
-                        <input class="btn btn-reset user__btn" type="submit" value="Отправить заявку">
                     </form>
                 {% endif %}
             </div>

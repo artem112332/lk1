@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JustDoIT</title>
-    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
-    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/media.css">
-    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/media.css">
+    <link type="image/x-icon" href="/img/icon.ico?v=2" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
@@ -17,11 +17,11 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/"><img src="/static/img/icon.svg" alt="Лого" class="header__icon"></a>
+        <a href="/static"><img src="/img/icon.svg" alt="Лого" class="header__icon"></a>
         <div class="vertical-line"></div>
         <nav class="header__nav">
             <ul class="header__list list-reset flex">
-                <a href="/" class="header__item">Главная</a>
+                <a href="/static" class="header__item">Главная</a>
                 <a href="/applications" class="header__item">Заявки от проектантов</a>
                 <a href="/tutor_cards" class="header__item">Карточки консультантов</a>
                 <a href="/notifications" class="header__item">Мои заявки
@@ -45,29 +45,29 @@
                  viewBox="100 45 150 300" xml:space="preserve">
                     <g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout">
                         <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
-                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"/>
+                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"></line>
                     </g>
                 <g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout">
                         <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"
                               transform=" translate(-15.93, -16)"
                               d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z"
-                              stroke-linecap="round"/>
+                              stroke-linecap="round"></path>
                     </g>
                 <g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout">
                         <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
-                              x1="2" y1="-2" x2="-2" y2="2"/>
+                              x1="2" y1="-2" x2="-2" y2="2"></line>
                     </g>
                 <g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout">
                         <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
-                              x1="2" y1="2" x2="-2" y2="-2"/>
+                              x1="2" y1="2" x2="-2" y2="-2"></line>
                     </g>
                 <g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout">
                         <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
-                              x1="0" y1="1" x2="0" y2="-1"/>
+                              x1="0" y1="1" x2="0" y2="-1"></line>
                     </g>
                 <g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout">
                         <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
-                              x1="0" y1="1" x2="0" y2="-1"/>
+                              x1="0" y1="1" x2="0" y2="-1"></line>
                     </g>
                 </svg>
         </a>
@@ -76,55 +76,37 @@
 
 <hr class="horizontal-line">
 
-<section class="application-form-form">
-    <div class="container application-form__container">
-        <div class="application-form__content">
-            <h1 class="application-form__title">Хотите стать консультантом? Заполните небольшую анкету</h1>
+<section class="notices">
+    <div class="container notices__container">
+        <h1 class="notices__title">Заявки на становление консультантом</h1>
 
-            <form method='post' class="application-form__form" action="/mentor_application/">
-                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        {% if mentor_applications|length == 0 %}
+            <p class="notices__item__descr" align="center">Никто не подавал заявок на становление консультантом</p>
+        {% endif %}
 
-                <div class="application-form__data">
-                    <label class="application-form__label">Имя и Фамилия</label>
-                    <input type="text" name="reciever" class="application-form__input"
-                           placeholder="{{ profile.first_and_last_name() }}"
-                           readonly>
-                </div>
+        <ul class="notices__list list-reset">
+            {% for application in mentor_applications %}
+                <li class="notices__item flex">
+                    <div class="notices__item_content"
+                         onclick="window.location.href='/mentor_applications/{{ application.id }}'">
+                        <p class="notices__item__name">Отправитель: {{ application.sender.first_and_last_name() }}</p>
+                    </div>
 
-                <div class="application-form__data">
-                    <label class="application-form__label">ВУЗ или колледж</label>
-                    <input type="text" name="university" class="application-form__input"
-                           placeholder="Введите учебное учереждение, в котором обучались" required>
-                </div>
-
-                <div class="application-form__data">
-                    <label class="application-form__label">Факультет (институт)</label>
-                    <input type="text" name="faculty" class="application-form__input"
-                           placeholder="Введите факультет (институт), в котором обучались (если имеется)">
-                </div>
-
-                <div class="application-form__data">
-                    <label class="application-form__label">Специальность</label>
-                    <input type="text" name="specialization" class="application-form__input"
-                           placeholder="Введите вашу специальность">
-                </div>
-
-                <div class="application-form__data">
-                    <label class="application-form__label">Навыки</label>
-                    <textarea type="text" name="skills" class="application-form__input__big"
-                              placeholder="Опишите свои навыки и умения"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-reset application__btn_send">Отправить<img
-                        class="application__btn_image" src="/static/img/tick.png"></button>
-            </form>
-
-
-        </div>
+                    {% if application.status == 'Принята' %}
+                        <div class="notices__status_accepted">Одобрена</div>
+                    {% elif application.status == 'Активна' %}
+                        <div class="notices__status_reviewed">На рассмотрении</div>
+                    {% elif application.status == 'Отказано' %}
+                        <div class="notices__status_rejected">Отклонена</div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            <hr class="header__line">
+        </ul>
     </div>
 </section>
 
-<script src="/static/js/swiper-bundle.min.js"></script>
-<script src="/static/js/main.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

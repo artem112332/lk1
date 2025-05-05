@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JustDoIT</title>
-    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
-    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/media.css">
-    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/media.css">
+    <link type="image/x-icon" href="/img/icon.ico?v=2" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
@@ -17,11 +17,11 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/"><img src="/static/img/icon.svg" alt="Лого" class="header__icon"></a>
+        <a href="/static"><img src="/img/icon.svg" alt="Лого" class="header__icon"></a>
         <div class="vertical-line"></div>
         <nav class="header__nav">
             <ul class="header__list list-reset flex">
-                <a href="/" class="header__item">Главная</a>
+                <a href="/static" class="header__item">Главная</a>
                 <a href="/applications" class="header__item">Заявки от проектантов</a>
                 <a href="/tutor_cards" class="header__item">Карточки консультантов</a>
                 <a href="/notifications" class="header__item">Мои заявки
@@ -78,52 +78,87 @@
 
 <section class="notices">
     <div class="container notices__container">
-        <h1 class="notices__title">Входящие заявки</h1>
-        {% if requests|length == 0 %}
-            <p class="notices__item__descr" align="center">У вас нет входящих заявок на консультацию</p>
-        {% endif %}
+        <h1 class="notices__title">Мои заявки</h1>
+        {% if mentor_applications|length == 0 %}
+            {% if applications|length == 0 %}
+                <p class="notices__item__descr" align="center">Вы не оставляли заявки на консультацию</p>
+            {% endif %}
+        {% else %}
+            <ul class="notices__list list-reset">
+                {% for application in mentor_applications %}
+                    <li class="notices__item flex">
+                        <div class="notices__item_content"
+                             onclick="window.location.href='/applications/{{ application.id }}'">
+                            <p class="notices__item__name">Заявка на становление консультантом</p>
+                        </div>
 
+                        {% if application.status == 'Активна' %}
+                            <div class="notices__status_reviewed">На рассмотрении</div>
+                        {% elif application.status == 'Отказано' %}
+                            <div class="notices__status_rejected">Отклонена</div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                <hr class="header__line">
+            </ul>
+        {% endif %}
         <ul class="notices__list list-reset">
             {% for application in applications %}
-                <li>
-                    <form class="notices__item flex" method="post" action="/reply_to_request/">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <input type="hidden" name="application_id" value="{{ application.id }}">
-
-                        <img src="{{ application.sender.photo.url }}" class="notices__item_avatar" alt="Аватар">
+                <li class="notices__item flex">
+                    {% if application.type == 'Личная' %}
                         <div class="notices__item_content"
                              onclick="window.location.href='/applications/{{ application.id }}'">
                             <p class="notices__item__name">{{ application.title }}</p>
-                            <p class="notices__item__descr">{{ application.sender.first_and_last_name() }}</p>
+                            <p class="notices__item__descr">
+                                Кому: {{ application.reciever.first_and_last_name() }}</p>
                         </div>
-                        {% if application.status == 'Активна' %}
-                            <input type="submit" class="notice_accept" name="reply" value="Принять">
-                            <input type="submit" class="notice_reject" name="reply" value="Отклонить">
-
-                            {#                            <div class="notices__form">#}
-                            {#                                <input type="text" name="comment" placeholder="Комментарий" class="notices__input">#}
-                            {#                            </div>#}
-                        {% else %}
-                            <div class="notices__form flex">
-                                {% if application.status == 'Принята' %}
-                                    <div class="notices__form">
-                                        <p class="notices__link">
-                                            <a class="user__form_data_link_notifications"
-                                               href="https://t.me/{{ application.sender.telegram }}">
-                                                Telegram: @{{ application.sender.telegram }}
-                                            </a>
-                                        </p>
-                                    </div>
-
-                                    <div class="notices__status_accepted">Принята</div>
-
-                                {% elif application.status == 'Отказано' %}
-                                    <div class="notices__status_rejected">Отклонена</div>
-
-                                {% endif %}
+                        {% if application.status == 'Принята' %}
+                            <div class="notices__form">
+                                <p class="notices__link">
+                                    <a class="user__form_data_link_notifications"
+                                       href="https://t.me/{{ application.reciever.telegram }}">
+                                        Telegram: @{{ application.reciever.telegram }}
+                                    </a>
+                                </p>
                             </div>
+                            <div class="notices__status_accepted">Принята</div>
+
+                        {% elif application.status == 'Отказано' %}
+                            <div class="notices__status_rejected">Отказано</div>
+{#                            <div class="notices__form">#}
+{#                                {% if application.mentor_comment|length > 0 %}#}
+{#                                    <p class="notices__link">{{ application.mentor_comment }}</p>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+                        {% elif application.status == 'Активна' %}
+                            <div class="notices__status_reviewed">На рассмотрении</div>
                         {% endif %}
-                    </form>
+
+                    {% elif application.type == 'Общая' %}
+                        <div class="notices__item_content"
+                             onclick="window.location.href='/applications/{{ application.id }}'">
+                            <p class="notices__item__name">{{ application.title }}</p>
+                            <p class="notices__item__descr">Публичная заявка</p>
+                        </div>
+                        {% if application.status == 'Принята' %}
+
+                            <div class="notices__form">
+                                <p class="notices__link">
+                                    <a class="user__form_data_link_notifications"
+                                       href="https://t.me/{{ application.reciever.telegram }}">
+                                        Telegram: @{{ application.reciever.telegram }}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="notices__status_accepted">Принята</div>
+                        {% elif application.status == 'Отказано' %}
+                            <div class="notices__status_rejected">Отказано</div>
+
+                        {% elif application.status == 'Активна' %}
+                            <div class="notices__status_reviewed">Опубликована</div>
+                        {% endif %}
+                    {% endif %}
+
                 </li>
             {% endfor %}
             <hr class="header__line">
@@ -131,7 +166,7 @@
     </div>
 </section>
 
-<script src="/static/js/swiper-bundle.min.js"></script>
-<script src="/static/js/main.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
