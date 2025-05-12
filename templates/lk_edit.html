@@ -6,7 +6,6 @@
     <title>JustDoIT</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
-    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/media.css">
     <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
@@ -30,7 +29,7 @@
                     <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
                     <sup class="notifications-counter">0</sup>
                 </div>
-                <a class="header__item" href="#"><img src="/static/img/bell-01.png" alt=""></a>
+                <a class="header__item" href="#"><img src="/static/img/bell.png" alt=""></a>
             </ul>
         </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile"></a>
@@ -126,37 +125,100 @@
                                value="{{ profile.year_of_study }}">
                     </div>
 
-                    {#                    <div class="user__data-edit unik">#}
-                    {#                        <label for="role" class="user__form_title">роль в команде</label>#}
-                    {#                        <input type="text" id="role" name="role" class="user__form_input user__form_data_link"#}
-                    {#                               placeholder="Введите роль в команде"#}
-                    {#                               value="">#}
-                    {#                    </div>#}
+                    <div class="user__data-edit unik">
+                        <label for="role" class="user__form_title">роль в команде</label>
+                        <input type="text" id="role" name="role" class="user__form_input user__form_data_link"
+                                placeholder="Введите роль в команде"
+                                value="">
+                    </div>
 
-                    {#                    <div class="user__data-edit">#}
-                    {#                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>#}
-                    {#                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"#}
-                    {#                               placeholder="Дополнительная роль в команде"#}
-                    {#                               value="">#}
-                    {#                    </div>#}
-                    {##}
-                    {#                    <div class="user__data-edit">#}
-                    {#                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>#}
-                    {#                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"#}
-                    {#                               placeholder="Дополнительная роль в команде"#}
-                    {#                               value="">#}
-                    {#                    </div>#}
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
+                                placeholder="Дополнительная роль в команде"
+                                value="">
+                    </div>
+
+                    <div class="user__data-edit">
+                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
+                        <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
+                                placeholder="Дополнительная роль в команде"
+                                value="">
+                    </div>
                 </div>
 
                 <div class="user__photo">
                     <h2 class="user__photo_title">Фото профиля</h2>
                     <div class="user__photo_image">
-                        <img class="user__photo_preview" id="preview" src="/static/img/base-photo.png"
-                             alt="Превью изображения"/>
+                        <img class="user__photo_preview" id="preview{{ profile.id }}" src="/static/img/base-photo.png" alt="Превью изображения" />
                     </div>
-                    <label for="imageInput" class="custom-file-button">Загрузить</label>
-                    <input type="file" id="imageInput" class="user__photo_load" accept="image/*"
-                           onchange="displayImage(this)"/>
+
+                    <div class="user__photo_name">
+                        <span id="filename{{ profile.id }}" style="font-size: 14px; color: #333;"></span>
+                        <button class="btn_close" type="button"
+                                id="clearBtn{{ profile.id }}"
+                                onclick="clearImage('profile{{ profile.id }}_photo', 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')">
+                            ❌
+                        </button>
+                    </div>
+                
+                    <label for="profile{{ profile.id }}_photo" class="custom-file-button">Загрузить</label>
+                    <input type="file"
+                           id="profile{{ profile.id }}_photo"
+                           class="user__photo_load"
+                           name="profile{{ profile.id }}_photo"
+                           accept="image/*"
+                           onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')" />
+                </div>
+
+                <div class="user__competencies">
+                    <h2 class="user__competencies_title">Мои компетенции</h2>
+                    <div class="flex" style="flex-wrap: wrap;">
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">основное направление</span>
+                            <div class="user__competencies_item-input flex">
+                                <div class="user__competencies_item-value">
+                                    <span>Аналитика</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Дополнительное направление</span>
+                            <div class="user__competencies_item-input flex">
+                                <p class="user__competencies_item-value">
+                                    <span>Дизайн</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Навыки</span>
+                            <div class="user__competencies_item-input flex">
+                                <p class="user__competencies_item-value">
+                                    <span class="competence">Анимация</span>
+                                </p>
+                                <p class="user__competencies_item-value">
+                                    <span class="competence">Пунктуальность</span>
+                                </p>
+                                <p class="user__competencies_item-value">
+                                    <span class="competence">Анимация</span>
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Примеры работ</span>
+                            <div class="user__competencies_item-input" style="width: 100%;">
+                                <p class="user__competencies_item-value" style="text-align: left;">
+                                    <span><img src="/static/img/attachment.png"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
@@ -164,6 +226,51 @@
         </form>
     </div>
 </main>
+
+<!-- <script>
+    function displayImage(inputElement, previewId) {
+        const file = inputElement.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const imageURL = URL.createObjectURL(file);
+            const previewImg = document.getElementById(previewId);
+            previewImg.src = imageURL;
+            previewImg.style.display = 'block';
+            previewImg.onload = () => URL.revokeObjectURL(imageURL);
+        }
+    }
+</script> -->
+
+<script>
+    function displayImage(inputElement, previewId, filenameId, clearBtnId) {
+        const file = inputElement.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const imageURL = URL.createObjectURL(file);
+            const previewImg = document.getElementById(previewId);
+            const filenameText = document.getElementById(filenameId);
+            const clearBtn = document.getElementById(clearBtnId);
+
+            previewImg.src = imageURL;
+            previewImg.style.display = 'block';
+            filenameText.textContent = file.name;
+            clearBtn.style.display = 'inline';
+
+            previewImg.onload = () => URL.revokeObjectURL(imageURL);
+        }
+    }
+
+    function clearImage(inputId, previewId, filenameId, clearBtnId) {
+        const input = document.getElementById(inputId);
+        const previewImg = document.getElementById(previewId);
+        const filenameText = document.getElementById(filenameId);
+        const clearBtn = document.getElementById(clearBtnId);
+
+        input.value = '';
+        previewImg.src = '/static/img/base-photo.png';  // Путь к фото по умолчанию
+        filenameText.textContent = '';
+        clearBtn.style.display = 'none';
+    }
+</script>
+
 
 <script src="/static/js/swiper-bundle.min.js"></script>
 <script src="/static/js/main.js"></script>

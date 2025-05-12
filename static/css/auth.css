@@ -1,0 +1,189 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.content__login_title {
+    margin: 0;
+    margin-bottom: 30px;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 136%;
+    color: #5C8DB9;
+}
+
+.content__form {
+    margin: 0;
+    width: 424px;
+}
+
+.content__form_title {
+    margin: 0;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16.94px;
+    color: rgba(66, 84, 102, 1);
+}
+
+.content__form_input {
+    margin-bottom: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    color: rgba(122, 130, 138, 1);
+    background-color: rgba(237, 242, 247, 1);
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    transition: outline box-shadow 0.3s ease-in-out;
+}
+
+.content__form_input:hover {
+    outline: 2px solid #5C8DB9;
+}
+
+.content__form_input:focus {
+    outline: 2px solid #5C8DB9;
+    box-shadow: 0 0 7px #5C8DB9;
+}
+
+.content__form_input:active {
+    outline: 2px solid #5C8DB9;
+    box-shadow: 0 0 7px #5C8DB9;
+}
+
+.content__form_link {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: rgba(119, 126, 144, 1);
+}
+
+/* .in-account, .create-account {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+} */
+
+.no-account, .existing-account {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.to-sign-up, .to-sign-in {
+    font-size: 14px;
+    line-height: 24px;
+    color: #5C8DB9;
+    transition: color 0.3s ease-in-out;
+}
+
+.to-sign-up:focus, .to-sign-in:focus {
+    color: #5C8DB9;
+}
+
+.to-sign-up:hover, .to-sign-in:hover {
+    color: rgba(0, 0, 0, 1);
+}
+
+.to-sign-up:active, .to-sign-in:active {
+    color: rgba(255, 150, 97, 1);
+}
+
+/* .google-icon {
+    display: block;
+    margin: 0 auto;
+    margin-top: 24px;
+    fill: #FF9661;
+    transition: fill 0.3s ease-in-out;
+}
+
+.google-icon:focus {
+    fill: rgb(208, 77, 12);;
+    outline-offset: 5px;
+}
+
+.google-icon:hover {
+    fill: rgb(208, 77, 12);;
+}
+
+.google-icon:active {
+    fill: rgb(208, 77, 12);;
+    outline: none;
+} */
+
+.content__form_checkbox {
+    margin-top: 7px;
+}
+
+.content__form_checkbox_input {
+    margin: auto 0;
+    margin-left: 10px;
+}
+
+#scales {
+    cursor: pointer;
+}
+
+.registration-content__right {
+    padding: 100px 162px 0 134px;
+}
+
+.registration-content__form_link {
+    margin: 0;
+    display: block;
+    text-align: left;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: rgba(119, 126, 144, 1);
+}
+
+.registration-content__invalid_input {
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: rgb(252, 59, 59);
+}
+
+.btn_enter {
+    margin: 10px 0;
+    padding: 16px 24px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: #FCFCFD;
+    background-color: #5C8DB9;
+    border: 1px solid #5C8DB9;
+    border-radius: 8px;
+    transition: background-color color 0.3s ease-in-out;
+}
+
+.btn_enter:focus {
+    color: #5C8DB9;
+    background-color: #FCFCFD;
+}
+
+.btn_enter:hover {
+    color: #5C8DB9;
+    background-color: #FCFCFD;
+}
+
+.btn_enter:active {
+    color: #5C8DB9;
+    background-color: #FCFCFD;
+}

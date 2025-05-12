@@ -6,7 +6,6 @@
     <title>JustDoIT</title>
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
-    <link rel="stylesheet" href="/static/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/media.css">
     <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
@@ -27,14 +26,13 @@
                     </form>
                 </div>
                 <div class="header__item">
-                    {#                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>#}
-                    <a href="#"><img src="/static/img/heart.png" alt=""></a>
+                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
                     <sup class="notifications-counter">0</sup>
                 </div>
-                <a class="header__item" href="#"><img src="/static/img/bell-01.png" alt=""></a>
+                <a class="header__item" href="#"><img src="/static/img/bell.png" alt=""></a>
             </ul>
         </nav>
-        <a href="/profile/{{ user.id }}" class="header__profile profile"></a>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="{{ profile.photo.url }}" alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -65,7 +63,7 @@
                         <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
                               x1="0" y1="1" x2="0" y2="-1"/>
                     </g>
-                </svg>
+            </svg>
         </a>
     </div>
 </header>
@@ -183,22 +181,31 @@
                     {% endif %}
 
 
-                    {#                        <div class="user__data flex">#}
-                    {#                            <div class="user__data_left">#}
-                    {#                                <span class="user__form_title">роль в команде</span>#}
-                    {#                                <p class="user__form_data_link">#}
-                    {#                                    <span>-</span>#}
-                    {#                                </p>#}
-                    {#                            </div>#}
-                    {#                        </div>#}
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">роль в команде</span>
+                            <p class="user__form_data_link">
+                                <span>-</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="user__data flex">
+                        <div class="user__data_left">
+                            <span class="user__form_title">дополнительная роль в команде</span>
+                            <p class="user__form_data_link">
+                                <span>-</span>
+                            </p>
+                        </div>
+                    </div>
 
 
-                    {#                    <div class="user__data">#}
-                    {#                        {% if profile.description|length > 0 %}#}
-                    {#                            <span class="user__form_title">Обо мне</span>#}
-                    {#                            <p class="user__form_data">{{ profile.description }}</p>#}
-                    {#                        {% endif %}#}
-                    {#                    </div>#}
+                    <div class="user__data">
+                        {% if profile.description|length > 0 %}
+                            <span class="user__form_title">Обо мне</span>
+                            <p class="user__form_data">{{ profile.description }}</p>
+                        {% endif %}
+                    </div>
                 </div>
 
 
@@ -206,29 +213,44 @@
                     <h2 class="user__competencies_title">Мои компетенции</h2>
                     <div class="flex" style="flex-wrap: wrap;">
 
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">основные навыки</span>
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">основное направление</span>
+                            <div class="user__competencies_item-input flex">
+                                <div class="user__competencies_item-value">
+                                    <span>Аналитика</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Дополнительное направление</span>
+                            <div class="user__competencies_item-input flex">
                                 <p class="user__competencies_item-value">
-                                    <span></span>
+                                    <span>Дизайн</span>
                                 </p>
                             </div>
                         </div>
 
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">дополнительные навыки</span>
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Навыки</span>
+                            <div class="user__competencies_item-input flex">
                                 <p class="user__competencies_item-value">
-                                    <span></span>
+                                    <span class="competence">Анимация</span>
+                                </p>
+                                <p class="user__competencies_item-value">
+                                    <span class="competence">Пунктуальность</span>
+                                </p>
+                                <p class="user__competencies_item-value">
+                                    <span class="competence">Анимация</span>
                                 </p>
                             </div>
                         </div>
 
 
-                        <div class="user__competencies_item flex">
-                            <div class="user__competencies_item-input">
-                                <span class="user__competencies_item-title">Примеры работ</span>
-                                <p class="user__competencies_item-value">
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Примеры работ</span>
+                            <div class="user__competencies_item-input" style="width: 100%;">
+                                <p class="user__competencies_item-value" style="text-align: left;">
                                     <span><img src="/static/img/attachment.png"></span>
                                 </p>
                             </div>
@@ -257,7 +279,6 @@
     }
 </script>
 
-<script src="/static/js/swiper-bundle.min.js"></script>
 <script src="/static/js/main.js"></script>
 <script src="/static/js/script.js"></script>
 </body>
