@@ -52,7 +52,12 @@ class ProfileEdit(APIView):
         profile.last_name = full_name[0]
         profile.first_name = full_name[1]
         profile.middle_name = full_name[2]
+        profile.phone_number = request.POST.get('phone_number')
+        profile.email = request.POST.get('email')
         profile.telegram = request.POST.get('telegram')
+        profile.university = request.POST.get('university')
+        profile.year_of_study = request.POST.get('year_of_study')
+        profile.specialization = request.POST.get('specialization')
 
         profile.save()
         return redirect(f'/profile/{user.id}/')
