@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container header__container flex">
+        <a href="/" class="header__item" style="margin-right: auto;">Список собраний</a>
+        <a href="" class="header__profile profile"><img class="header__profile" src="" alt="Аватар"></a>
+        <a href="/logout" class="profile__exit">
+            <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
+                 viewBox="100 45 150 300" xml:space="preserve">
+                    <g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout">
+                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"
+                              transform=" translate(-15.93, -16)"
+                              d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z"
+                              stroke-linecap="round"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="-2" x2="-2" y2="2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="2" x2="-2" y2="-2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+            </svg>
+        </a>
+    </div>
+</header>
+
+<hr class="horizontal-line">
+
+<main class="user">
+    <div class="container meeting__container">
+        <form action="#" class="meeting__search flex">
+            <img src="/static/img/search.png" alt="Поиск" class="search__icon">
+            <input class="meeting__search_input" type="text" placeholder="Поиск" id="search-input">
+            <img class="column-filter" src="/static/img/column-filter.svg" alt="Фильтр по колонкам">
+        </form>
+
+        <table class="meeting__list">
+            <thead>
+                <tr>
+                    <th id="date-header">Дата <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                    <th id="title-header">Название <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                    <th id="start-time-header">Время начала <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                    <th id="end-time-header">Время окончания <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                    <th id="participants-header">Участники <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12.05.2025</td>
+                    <td>Название собрания название собрания 1</td>
+                    <td>10:00</td>
+                    <td>11:00</td>
+                    <td>Направление 1, Проект 1, Команда 1, Фамилия И.О.</td>
+                </tr>
+                <tr>
+                    <td>13.05.2025</td>
+                    <td>Название собрания название собрания 2</td>
+                    <td>14:00</td>
+                    <td>15:30</td>
+                    <td>Направление 2, Проект 2, Команда 2, Фамилия И.О.</td>
+                </tr>
+                <tr>
+                    <td>14.05.2025</td>
+                    <td>Название собрания название собрания 3</td>
+                    <td>09:30</td>
+                    <td>10:30</td>
+                    <td>Направление 3, Проект 3, Команда 3, Фамилия И.О.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal" id="column-modal">
+        <div class="modal-content">
+            <form id="column-filter-form">
+                <label><input type="checkbox" name="column" value="0" checked> Дата</label><br>
+                <label><input type="checkbox" name="column" value="1" checked> Название</label><br>
+                <label><input type="checkbox" name="column" value="2" checked> Время начала</label><br>
+                <label><input type="checkbox" name="column" value="3" checked> Время окончания</label><br>
+                <label><input type="checkbox" name="column" value="4" checked> Участники</label><br>
+                <button type="submit">Применить</button>
+                <button type="button" id="close-modal">Закрыть</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script>
+    function displayImage(inputElement) {
+        const file = inputElement.files[0];
+        const imageURL = URL.createObjectURL(file);
+        document.getElementById('preview').src = imageURL;
+        inputElement.value = null;
+        document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
+    }
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const table = document.querySelector('.meeting__list');
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+    // Функция для поиска по таблице
+    function searchTable(query) {
+        // Перебираем все строки таблицы
+        rows.forEach(row => {
+            const cells = Array.from(row.getElementsByTagName('td'));
+            // Проверяем, есть ли в какой-либо ячейке строка, содержащая введённый запрос
+            const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+
+            if (rowText.includes(query.toLowerCase())) {
+                row.classList.remove('hidden');  // Показываем строку
+            } else {
+                row.classList.add('hidden');  // Скрываем строку
+            }
+        });
+    }
+
+    // Слушаем событие ввода в поле поиска
+    searchInput.addEventListener('input', function(event) {
+        const query = event.target.value;
+        searchTable(query);
+    });
+});
+
+</script>
+
+<script src="/static/js/meeting-filter.js"></script>
+<script src="/static/js/modal-filter.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+</html>
