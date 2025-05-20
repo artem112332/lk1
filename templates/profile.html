@@ -77,8 +77,10 @@
                 <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
                 <h1 class="user__name">{{ profile.first_and_last_name() }}</h1>
                 <hr class="horizontal-line">
+
+                <!-- Меню рядовой пользоваель -->
                 <ul class="lk__menu">
-                    <li class="lk__item">
+                    <li class="lk__item active" data-target="user__info-main">
                         <a href="#">
                             <span>Профиль</span>
                         </a>
@@ -93,15 +95,83 @@
                             <span>Статистика оценки</span>
                         </a>
                     </li>
-                    <li class="lk__item">
+                    <li class="lk__item" data-target="user__info-project">
                         <a href="#">
                             <span>Проект</span>
                         </a>
                     </li>
                 </ul>
+
+                <!-- Меню куратор -->
+                <!-- <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Список команд</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Оценка</span>
+                        </a>
+                    </li>
+                </ul> -->
+
+                <!-- Меню рук напр -->
+                <!-- <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Список направлений</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Оценка</span>
+                        </a>
+                    </li>
+                </ul> -->
+
+                <!-- Меню организатор -->
+                <!-- <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Список мероприятий</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Оценка</span>
+                        </a>
+                    </li>
+                </ul> -->
             </div>
 
-            <div class="user__info">
+            <!-- ЛК проект -->
+            <div class="user__info user__info-project target-block" style="display: none">
+                <div class="user__project">
+                    <span class="user__project_name">Точка Сбора</span>
+                    <span class="user__project_track">ВЕБ</span>
+                    <span class="user__project_company">НПЦ РИЦ</span>
+                    <span class="user__project_team">Команда 1</span>
+                    <span class="user__project_tutor">Смирнов Денис</span>
+                </div>
+            </div>
+
+            <div class="user__info user__info-main target-block">
                 <div class="user__form">
                     <div class="user__data flex">
                         <div class="user__data_left">
@@ -237,8 +307,8 @@
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Дополнительное направление</span>
                             <div class="user__competencies_item-input flex">
-                                <p class="user__competencies_item-value">
-                                    <span>Дизайн</span>
+                                <p class="user__competencies_item-value" id="profileCompetencies">
+                                    <span class="competence">Дизайн</span>
                                 </p>
                             </div>
                         </div>
@@ -299,6 +369,40 @@
             container.appendChild(fileSpan);
         });
     };
+
+    document.querySelectorAll('[data-target]').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelectorAll('.target-block').forEach(block => {
+                block.style.display = 'none';
+            });
+
+            const targetClass = this.getAttribute('data-target');
+            const targetBlock = document.querySelector(`.${targetClass}`);
+            if (targetBlock) {
+                targetBlock.style.display = 'block';
+            }
+
+            document.querySelectorAll('.lk__item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            this.classList.add('active');
+        });
+    });
+
+    window.addEventListener('DOMContentLoaded', function () {
+        const container = document.getElementById('profileCompetencies');
+        const saved = JSON.parse(localStorage.getItem('savedCompetencies') || '[]');
+
+        saved.forEach(name => {
+            const span = document.createElement('span');
+            span.className = 'user__competencies_item-value';
+            span.textContent = name;
+            container.appendChild(span);
+        });
+    });
 </script>
 
 <script src="/static/js/main.js"></script>

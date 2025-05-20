@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const table = document.querySelector('.meeting__list');
+    const table = document.querySelector('.meeting__list') || document.querySelector('.event__list');
     const headers = table.querySelectorAll('th');
     const rows = Array.from(table.querySelectorAll('tbody tr'));
 

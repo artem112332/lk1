@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container header__container flex">
+        <a href="/" class="header__item" style="margin-right: auto;">Список мероприятий</a>
+        <a href="" class="header__profile profile"><img class="header__profile" src="/static/img/default_avatar.jpeg" alt="Аватар"></a>
+        <a href="/logout" class="profile__exit">
+            <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
+                 viewBox="100 45 150 300" xml:space="preserve">
+                    <g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout">
+                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"
+                              transform=" translate(-15.93, -16)"
+                              d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z"
+                              stroke-linecap="round"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="-2" x2="-2" y2="2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="2" x2="-2" y2="-2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+            </svg>
+        </a>
+    </div>
+</header>
+
+<hr class="horizontal-line">
+
+<main class="events">
+    <div class="container event__container">
+        <div class="events__header flex">
+            <h1 class="event__title">Точка сбора</h1>
+            <div class="event__info-status">Отправлено</div>
+        </div>
+        
+        <div class="event__info">
+            <div class="event__info-text">
+                Компания проводит стажировки и производственные практики для студентов в формате проектной школы (аналог проектного практикума).
+                В настоящий момент разрабатывается веб-сервис, содержащий в себе функционал CRM, трекера задач и оценки компетенций.
+                Для этого сервиса нужно разработать прототип Личного кабинета, в котором пользователь - стажёр, куратор,
+                консультант - будет видеть всю необходимую для работы информацию.
+                <br>
+                Уровни результата (минимальный / базовый / оптимальный):
+                <ul style="margin: 0; line-height: 30px;">
+                    <li>Минимальный: Прототип с базовыми страницами для каждой роли.</li>
+                    <li>Базовый: Добавление функциональности редактирования личных данных и отображения ключевой информации.</li>
+                    <li>Оптимальный: Полностью функциональный прототип с интеграцией всех элементов (анкетные данные, компетенции,
+                проектные команды, новости, напоминания).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex">
+            <div class="event__info" style="">
+                <span class="user__form_title">Направление</span>
+                <div class="event__info-text">ВЕБ
+                    <!-- <input type="text" style="display: none;"> -->
+                </div>
+            </div>
+
+            <div class="event__info" style="margin-left: 30px;">
+                <span class="user__form_title">Заказчик</span>
+                <div class="event__info-text">НПЦ РИЦ
+                    <!-- <input type="text" style="display: none;"> -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="event__info">
+            <span class="user__form_title">Цель</span>
+            <div class="event__info-text">
+                Прототип Личного кабинета пользователя “Точки сбора”, отображающий значимую информацию о работе в проектах в соответствии с текущей ролью пользователя
+            </div>
+        </div>
+        
+        <div class="event__info">
+            <span class="user__form_title">Требуемый результат</span>
+            <div class="event__info-text">
+                Рабочий прототип страницы Личного кабинета с возможностью редактировать личные данные и отображающий значимую информацию о работе на проектах:
+                <ul style="margin: 0; line-height: 30px;">
+                    <li>анкетные данные;</li>
+                    <li>компетенции;</li>
+                    <li>профиль развития профессионально-важных качеств;</li>
+                    <li>проектная команда для проектанта, курируемые команды для куратора;</li>
+                    <li>список реализованных проектов на стажировках компании;</li>
+                    <li>новости о новых стажировках;</li>
+                    <li>напоминания о назначенных задачах и т.п.;</li>
+                    <li>статус поданных заявок на стажировку и результаты выполненных тестовых заданий.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="event__info">
+            <span class="user__form_title">Критерии оценки</span>
+            <div class="event__info-text">
+                <ul style="margin: 0; line-height: 30px;">
+                    <li>прототипы страниц для ролей ИС;</li>
+                    <li>оформлена функциональная спецификация;</li>
+                </ul>
+            </div>
+        </div>
+
+        <button type="button" class="btn_event-close btn-reset">Закрыть</button>
+    </div>
+</main>
+
+<script src="/static/js/search.js"></script>
+<script src="/static/js/meeting-filter.js"></script>
+<script src="/static/js/modal-filter.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+</html>

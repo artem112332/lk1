@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search-input');
-    const table = document.querySelector('.meeting__list');
+    const table = document.querySelector('.meeting__list') || document.querySelector('.event__list');
     const rows = Array.from(table.querySelectorAll('tbody tr'));
 
     function clearHighlights(row) {
