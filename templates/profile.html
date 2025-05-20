@@ -249,22 +249,15 @@
                                 <p class="user__competencies_item-value">
                                     <span class="competence">Анимация</span>
                                 </p>
-                                <p class="user__competencies_item-value">
-                                    <span class="competence">Пунктуальность</span>
-                                </p>
-                                <p class="user__competencies_item-value">
-                                    <span class="competence">Анимация</span>
-                                </p>
                             </div>
                         </div>
-
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Примеры работ</span>
                             <div class="user__competencies_item-input" style="width: 100%;">
-                                <p class="user__competencies_item-value" style="text-align: left;">
-                                    <span><img src="/static/img/attachment.png"></span>
-                                </p>
+                                <div class="user__competencies_item-value" style="text-align: left" id="fileListProfile">
+                                    <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -289,6 +282,23 @@
         inputElement.value = null;
         document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
     }
+
+    window.onload = function () {
+        const saved = JSON.parse(localStorage.getItem('savedFileNames') || '[]');
+        const container = document.getElementById('fileListProfile');
+
+        saved.forEach(name => {
+            const fileSpan = document.createElement('span');
+            fileSpan.className = 'file-item';
+            fileSpan.textContent = name;
+            fileSpan.style.marginLeft = '10px';
+            fileSpan.style.padding = '5px 10px';
+            fileSpan.style.backgroundColor = '#e6e6e6';
+            fileSpan.style.borderRadius = '6px';
+            fileSpan.style.fontSize = '14px';
+            container.appendChild(fileSpan);
+        });
+    };
 </script>
 
 <script src="/static/js/main.js"></script>

@@ -17,7 +17,7 @@
 <header class="header">
     <div class="container header__container flex">
         <a href="/" class="header__item" style="margin-right: auto;">Список собраний</a>
-        <a href="" class="header__profile profile"><img class="header__profile" src="" alt="Аватар"></a>
+        <a href="" class="header__profile profile"><img class="header__profile" src="/static/img/default_avatar.jpeg" alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -55,7 +55,7 @@
 
 <hr class="horizontal-line">
 
-<main class="user">
+<main class="meetings">
     <div class="container meeting__container">
         <form action="#" class="meeting__search flex">
             <img src="/static/img/search.png" alt="Поиск" class="search__icon">
@@ -100,14 +100,15 @@
 
         <div class="modal" id="column-modal">
         <div class="modal-content">
+            <h2>Фильтр столбцов</h2>
             <form id="column-filter-form">
-                <label><input type="checkbox" name="column" value="0" checked> Дата</label><br>
-                <label><input type="checkbox" name="column" value="1" checked> Название</label><br>
-                <label><input type="checkbox" name="column" value="2" checked> Время начала</label><br>
-                <label><input type="checkbox" name="column" value="3" checked> Время окончания</label><br>
-                <label><input type="checkbox" name="column" value="4" checked> Участники</label><br>
-                <button type="submit">Применить</button>
-                <button type="button" id="close-modal">Закрыть</button>
+                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="0" checked> Дата</label>
+                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="1" checked> Название</label>
+                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="2" checked> Время начала</label>
+                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="3" checked> Время окончания</label>
+                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="4" checked> Участники</label>
+                <button type="submit" class="apply-modal-btn">Применить</button>
+                <button type="button" id="close-modal" class="btn-reset close-modal-btn">❌</button>
             </form>
         </div>
     </div>
@@ -121,39 +122,9 @@
         inputElement.value = null;
         document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
     }
-
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const table = document.querySelector('.meeting__list');
-    const rows = Array.from(table.querySelectorAll('tbody tr'));
-
-    // Функция для поиска по таблице
-    function searchTable(query) {
-        // Перебираем все строки таблицы
-        rows.forEach(row => {
-            const cells = Array.from(row.getElementsByTagName('td'));
-            // Проверяем, есть ли в какой-либо ячейке строка, содержащая введённый запрос
-            const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
-
-            if (rowText.includes(query.toLowerCase())) {
-                row.classList.remove('hidden');  // Показываем строку
-            } else {
-                row.classList.add('hidden');  // Скрываем строку
-            }
-        });
-    }
-
-    // Слушаем событие ввода в поле поиска
-    searchInput.addEventListener('input', function(event) {
-        const query = event.target.value;
-        searchTable(query);
-    });
-});
-
 </script>
 
+<script src="/static/js/search.js"></script>
 <script src="/static/js/meeting-filter.js"></script>
 <script src="/static/js/modal-filter.js"></script>
 <script src="/static/js/main.js"></script>
