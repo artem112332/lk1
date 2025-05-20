@@ -1492,6 +1492,25 @@ input[type="checkbox"]:checked::after {
     width: 950px;
 }
 
+.user__project {
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 10px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+
+.user__project span {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 50px;
+    color: #334155;
+}
+
+.user__project span:not(:first-child) {
+    margin-left: 100px;
+}
+
 .user__input_top {
     padding: 34px 24px;
     border: 1px solid #E2E8F0;
@@ -1771,12 +1790,10 @@ input[type="checkbox"]:checked::after {
     cursor: pointer;
 }
 
-/* DELETE */
-.lk__item:first-child {
+.lk__item.active {
     font-weight: 700;
     color: #FFFFFF;
     background-color: #5C8DB9;
-    cursor: pointer;
 }
 
 .lk__item:last-child {
@@ -2254,4 +2271,101 @@ mark {
 
 .status-gap {
     margin-left: 50px
+}
+
+/* events */
+.event__container {
+    margin: 20px auto;
+}
+
+.event__list {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid #DDDFE4;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.event__list th {
+    padding: 10px 18px;
+    text-align: left;
+    background-color: #DDDFE4;
+    font-weight: bold;
+}
+
+.event__list td {
+    padding: 20px;
+    border-bottom: 2px solid #DDDFE4;
+    text-align: left;
+}
+
+.event__list tr:last-child td {
+    border-bottom: none;
+}
+
+.event-status {
+    padding: 10px 25px;
+    font-size: 16px;
+    color: #6BAE4B;
+    border: 1px solid #6BAE4B;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.event__title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 50px;
+    color: #000000;
+}
+
+.event__info-status {
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 20px;
+    font-size: 16px;
+    line-height: 50px;
+    background-color: #6BAE4B;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    height: 40px;
+}
+
+.event__info {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.event__info-text {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    border: 1px solid #858C9C;
+    border-radius: 10px;
+}
+
+.btn_event-close {
+    margin-top: 15px;
+    padding: 0 30px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 50px;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    background-color: #5C8DB9;
+    transition: color background-color 0.3s ease-in-out;
+}
+
+.btn_event-close:hover {
+    color: #5C8DB9;
+    background-color: #FFF;
+    border: 2px solid #5C8DB9;
 }
