@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JustDoIT</title>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" crossorigin="">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/media.css">
+    <link type="image/x-icon" href="/static/img/icon.ico?v=2" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <div class="container header__container flex">
+        <nav class="header__nav">
+            <ul class="header__list list-reset flex">
+                <a href="/" class="header__item">Главная</a>
+                <div class="header__item">
+                    <form action="#" class="search__form">
+                        <img src="/static/img/search.png" alt="Поиск" class="search__icon">
+                        <input class="search__input" type="text" placeholder="Поиск">
+                    </form>
+                </div>
+                <div class="header__item">
+                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
+                    <sup class="notifications-counter">0</sup>
+                </div>
+                <a class="header__item" href="#"><img src="/static/img/bell.png" alt=""></a>
+            </ul>
+        </nav>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="" alt="Аватар"></a>
+        <a href="/logout" class="profile__exit">
+            <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
+                 viewBox="100 45 150 300" xml:space="preserve">
+                    <g transform="matrix(6.25 0 0 6.25 240.13 200)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="-6.500000000000001" y1="0" x2="6.500000000000001" y2="0"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 199.56 200)" id="logout">
+                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1;"
+                              transform=" translate(-15.93, -16)"
+                              d="M 23.93 25 v 3 h -16 V 4 h 16 V 7 h 2 V 3 a 1 1 0 0 0 -1 -1 h -18 a 1 1 0 0 0 -1 1 V 29 a 1 1 0 0 0 1 1 h 18 a 1 1 0 0 0 1 -1 V 25 Z"
+                              stroke-linecap="round"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 212.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="-2" x2="-2" y2="2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 268.25 187.5)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="2" y1="2" x2="-2" y2="-2"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 144.31)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+                <g transform="matrix(6.25 0 0 6.25 255.75 256.25)" id="logout">
+                        <line style="stroke-width: 2; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;"
+                              x1="0" y1="1" x2="0" y2="-1"/>
+                    </g>
+            </svg>
+        </a>
+    </div>
+</header>
+
+<hr class="horizontal-line">
+
+<main class="container">
+    <div class="application__container">
+        <h1 class="application__title">Мои заявки</h1>
+        <table class="application__list">
+            <thead>
+                <tr>
+                    <!-- <th class="application__list-header application__list-header--date">Дата</th>
+                    <th class="application__list-header application__list-header--name">Название</th>
+                    <th class="application__list-header application__list-header--status1">Статус</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="application__item">
+                    <td class="application__item_date">12.05.2025</td>
+                    <td class="application__item_name">Стажировка 1</td>
+                    <td class="application__item_content">
+                        <div class="application__item_status status-accept">Принято</div>
+                        <div class="application__item_status status-checking status-gap">На проверке</div>
+                    </td>
+                </tr>
+                <tr class="application__item">
+                    <td class="application__item_date">13.05.2025</td>
+                    <td class="application__item_name">Проект 1</td>
+                    <td class="application__item_content">
+                        <div class="application__item_status status-reject">Отклонено</div>
+                        <div class="application__item_status status-reject status-gap">Отклонено</div>
+                    </td>
+                </tr>
+                <tr class="application__item">
+                    <td class="application__item_date">14.05.2025</td>
+                    <td class="application__item_name">Стажировка 2</td>
+                    <td class="application__item_content">
+                        <div class="application__item_status status-reject">Отклонено</div>
+                        <div class="application__item_status status-reject status-gap">Отклонено</div>
+                    </td>
+                </tr>
+                <tr class="application__item">
+                    <td class="application__item_date">15.05.2025</td>
+                    <td class="application__item_name">Проект 2</td>
+                    <td class="application__item_content">
+                        <div class="application__item_status status-accept">Принято</div>
+                        <div class="application__item_status status-accept status-gap">Проверено</div>
+                    </td>
+                </tr>
+                <tr class="application__item">
+                    <td class="application__item_date">16.05.2025</td>
+                    <td class="application__item_name">Проект 3</td>
+                    <td class="application__item_content">
+                        <div class="application__item_status status-accept">Принято</div>
+                        <div class="application__item_status status-checking status-gap">На проверке</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>
