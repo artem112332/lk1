@@ -25,11 +25,6 @@
                         <input class="search__input" type="text" placeholder="Поиск">
                     </form>
                 </div>
-                <div class="header__item">
-                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
-                    <sup class="notifications-counter">0</sup>
-                </div>
-                <a class="header__item" href="#"><img src="/static/img/bell.png" alt=""></a>
             </ul>
         </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="{{ profile.photo.url }}" alt="Аватар"></a>
@@ -297,7 +292,7 @@
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">основное направление</span>
-                            <div class="user__competencies_item-input flex">
+                            <div class="user__competencies_item-input">
                                 <div class="user__competencies_item-value">
                                     <span>Аналитика</span>
                                 </div>
@@ -306,19 +301,17 @@
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Дополнительное направление</span>
-                            <div class="user__competencies_item-input flex">
-                                <p class="user__competencies_item-value" id="profileCompetencies">
-                                    <span class="competence">Дизайн</span>
-                                </p>
+                            <div class="user__competencies_item-input" id="profileCompetencies">
+                                <div class="user__competencies_item-value">Отсутствует
+                                </div>
                             </div>
                         </div>
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Навыки</span>
-                            <div class="user__competencies_item-input flex">
-                                <p class="user__competencies_item-value">
-                                    <span class="competence">Анимация</span>
-                                </p>
+                            <div class="user__competencies_item-input flex" id="profileSkills">
+                                <div class="user__competencies_item-value">Отсутствует
+                                </div>
                             </div>
                         </div>
 
@@ -392,20 +385,41 @@
         });
     });
 
-    window.addEventListener('DOMContentLoaded', function () {
-        const container = document.getElementById('profileCompetencies');
-        const saved = JSON.parse(localStorage.getItem('savedCompetencies') || '[]');
+    function createCompetencyElement(text) {
+        const div = document.createElement('div');
+        div.className = 'user__competencies_item-value';
+        div.textContent = text;
+        return div;
+    }
 
-        saved.forEach(name => {
-            const span = document.createElement('span');
-            span.className = 'user__competencies_item-value';
-            span.textContent = name;
-            container.appendChild(span);
-        });
+    window.addEventListener('DOMContentLoaded', function() {
+        const savedCompetencies = JSON.parse(localStorage.getItem('savedCompetencies') || []);
+        const competenciesContainer = document.getElementById('profileCompetencies');
+        
+        competenciesContainer.innerHTML = '';
+        
+        if (savedCompetencies.length > 0) {
+            savedCompetencies.forEach(comp => {
+                competenciesContainer.appendChild(createCompetencyElement(comp));
+            });
+        } else {
+            competenciesContainer.appendChild(createCompetencyElement('Отсутствует'));
+        }
+
+        const savedSkills = JSON.parse(localStorage.getItem('savedSkills') || []);
+        const skillsContainer = document.getElementById('profileSkills');
+        
+        skillsContainer.innerHTML = '';
+        
+        if (savedSkills.length > 0) {
+            savedSkills.forEach(skill => {
+                skillsContainer.appendChild(createCompetencyElement(skill));
+            });
+        } else {
+            skillsContainer.appendChild(createCompetencyElement('Отсутствует'));
+        }
     });
 </script>
 
-<script src="/static/js/main.js"></script>
-<script src="/static/js/script.js"></script>
 </body>
 </html>

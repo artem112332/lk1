@@ -11,7 +11,7 @@ function addCompetencyToModal(name) {
     item.style.paddingRight = '20px';
     item.style.backgroundColor = '#dcedc8';
 
-    const removeBtn = document.createElement('span');
+    const removeBtn = document.createElement('div');
     removeBtn.textContent = '×';
     removeBtn.style.position = 'absolute';
     removeBtn.style.right = '5px';
@@ -22,8 +22,25 @@ function addCompetencyToModal(name) {
     removeBtn.onclick = (e) => {
         e.stopPropagation();
         item.remove();
+        removeFromMainPage(name, 'selectedCompetencies');
     };
 
     item.appendChild(removeBtn);
     container.appendChild(item);
+
+    function removeFromMainPage(name, containerId) {
+        const container = document.getElementById(containerId);
+        const items = Array.from(container.children);
+        items.forEach(item => {
+            if (item.classList.contains('user__competencies_item-value') && 
+                item.textContent.trim().startsWith(name)) {
+                item.remove();
+                if (containerId === 'selectedCompetencies') {
+                    saveSkills();
+                } else {
+                    saveCompetencies();
+                }
+            }
+        });
+    };
 }

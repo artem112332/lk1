@@ -44,31 +44,6 @@ function closeModal() {
     searchInput.value = '';
 }
 
-// function renderCompetencyOptions() {
-//     const optionsContainer = document.getElementById('competencyOptions');
-//     optionsContainer.innerHTML = '';
-
-//     competencies.forEach(comp => {
-//         const div = document.createElement('div');
-//         div.className = 'competency-option';
-//         div.textContent = comp;
-//         div.onclick = () => addCompetency(comp);
-//         optionsContainer.appendChild(div);
-//     });
-// }
-// function renderCompetencyOptions() {
-//     const optionsContainer = document.getElementById('competencyOptions');
-//     optionsContainer.innerHTML = '';
-
-//     competencies.forEach(comp => {
-//         const div = document.createElement('div');
-//         div.className = 'competency-option';
-//         div.textContent = comp;
-//         div.onclick = () => addCompetencyToModal(comp);
-//         optionsContainer.appendChild(div);
-//     });
-// }
-
 function renderCompetencyOptions() {
     const optionsContainer = document.getElementById('competencyOptions');
     optionsContainer.innerHTML = '';
@@ -77,12 +52,10 @@ function renderCompetencyOptions() {
         const div = document.createElement('div');
         div.className = 'competency-option';
         div.textContent = comp;
-
         div.onclick = () => {
             addCompetencyToModal(comp);
             addCompetency(comp);
         };
-
         optionsContainer.appendChild(div);
     });
 }
@@ -94,13 +67,13 @@ function addCompetency(name) {
     );
 
     if (!existing) {
-        const p = document.createElement('p');
-        p.className = 'user__competencies_item-value';
-        p.style.position = 'relative';
-        p.style.paddingRight = '20px';
-        p.textContent = name;
+        const div = document.createElement('div');
+        div.className = 'user__competencies_item-value';
+        div.style.position = 'relative';
+        div.style.paddingRight = '20px';
+        div.textContent = name;
 
-        const removeBtn = document.createElement('span');
+        const removeBtn = document.createElement('div');
         removeBtn.textContent = '×';
         removeBtn.style.position = 'absolute';
         removeBtn.style.right = '5px';
@@ -110,27 +83,39 @@ function addCompetency(name) {
 
         removeBtn.onclick = (e) => {
             e.stopPropagation();
-            p.remove();
+            div.remove();
             saveCompetencies();
+            removeFromModal(name, 'selectedFromModal');
         };
 
-        p.appendChild(removeBtn);
+        div.appendChild(removeBtn);
 
         const chooseButton = selectedContainer.querySelector('[onclick="openModal()"]');
-        selectedContainer.insertBefore(p, chooseButton);
+        selectedContainer.insertBefore(div, chooseButton);
 
         saveCompetencies();
     }
 }
 
+function removeFromModal(name, modalContainerId) {
+    const container = document.getElementById(modalContainerId);
+    const items = Array.from(container.children);
+    items.forEach(item => {
+        if (item.textContent.trim().startsWith(name)) {
+            item.remove();
+        }
+    });
+}
+
 function saveCompetencies() {
     const items = Array.from(selectedContainer.children)
-        .filter(child => !child.querySelector('input'))
-        .map(child => child.textContent);
+        .filter(child => child.classList.contains('user__competencies_item-value') && !child.querySelector('input'))
+        .map(child => child.textContent.replace('×', '').trim());
+    
     localStorage.setItem('savedCompetencies', JSON.stringify(items));
 }
 
-window.onload = function () {
-    const saved = JSON.parse(localStorage.getItem('savedCompetencies') || '[]');
+window.addEventListener('DOMContentLoaded', function() {
+    const saved = JSON.parse(localStorage.getItem('savedCompetencies') || []);
     saved.forEach(name => addCompetency(name));
-};
+});

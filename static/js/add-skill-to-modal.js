@@ -22,6 +22,7 @@ function addSkillToModal(name) {
     removeBtn.onclick = (e) => {
         e.stopPropagation();
         item.remove();
+        removeFromMainPage(name, 'selectedSkills');
     };
 
     item.appendChild(removeBtn);

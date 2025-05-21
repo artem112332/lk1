@@ -43,34 +43,18 @@ function closeSkillsModal() {
     searchInput.value = '';
 }
 
-// function renderSkillsOptions() {
-//     const skillOptionsContainer = document.getElementById('skillsOptions');
-//     skillOptionsContainer.innerHTML = '';
-
-//     skills.forEach(skill => {
-//         const div = document.createElement('div');
-//         div.className = 'competency-option';
-//         div.textContent = skill;
-//         div.style.cursor = 'pointer';
-//         div.onclick = () => addSkill(skill);
-//         skillOptionsContainer.appendChild(div);
-//     });
-// }
-
 function renderSkillsOptions() {
     const optionsContainer = document.getElementById('skillsOptions');
     optionsContainer.innerHTML = '';
 
-    competencies.forEach(comp => {
+    skills.forEach(skill => {
         const div = document.createElement('div');
         div.className = 'competency-option';
-        div.textContent = comp;
-
+        div.textContent = skill;
         div.onclick = () => {
-            addSkillToModal(comp);
-            addSkill(comp);
+            addSkillToModal(skill);
+            addSkill(skill);
         };
-
         optionsContainer.appendChild(div);
     });
 }
@@ -82,13 +66,13 @@ function addSkill(name) {
     );
 
     if (!alreadyAdded) {
-        const p = document.createElement('p');
-        p.className = 'user__competencies_item-value';
-        p.style.position = 'relative';
-        p.style.paddingRight = '20px';
-        p.textContent = name;
+        const div = document.createElement('div');
+        div.className = 'user__competencies_item-value';
+        div.style.position = 'relative';
+        div.style.paddingRight = '20px';
+        div.textContent = name;
 
-        const removeBtn = document.createElement('span');
+        const removeBtn = document.createElement('div');
         removeBtn.textContent = '×';
         removeBtn.style.position = 'absolute';
         removeBtn.style.right = '5px';
@@ -98,14 +82,14 @@ function addSkill(name) {
 
         removeBtn.onclick = (e) => {
             e.stopPropagation();
-            p.remove();
+            div.remove();
             saveSkills();
         };
 
-        p.appendChild(removeBtn);
+        div.appendChild(removeBtn);
 
         const chooseBtn = document.getElementById('skillsChooseBtn');
-        selectedSkillsContainer.insertBefore(p, chooseBtn);
+        selectedSkillsContainer.insertBefore(div, chooseBtn);
 
         saveSkills();
     }
@@ -115,11 +99,11 @@ function saveSkills() {
     const skills = Array.from(selectedSkillsContainer.children)
         .filter(el => el.classList.contains('user__competencies_item-value') && !el.querySelector('input'))
         .map(el => el.textContent.replace('×', '').trim());
-
+    
     localStorage.setItem('savedSkills', JSON.stringify(skills));
 }
 
-window.onload = function () {
-    const savedSkills = JSON.parse(localStorage.getItem('savedSkills') || '[]');
+window.addEventListener('DOMContentLoaded', function() {
+    const savedSkills = JSON.parse(localStorage.getItem('savedSkills') || []);
     savedSkills.forEach(skill => addSkill(skill));
-};
+});

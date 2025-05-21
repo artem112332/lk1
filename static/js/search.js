@@ -48,4 +48,40 @@ document.addEventListener('DOMContentLoaded', function () {
         const query = event.target.value;
         searchTable(query);
     });
+
+
+
+
+    
+    const searchFilterToggleBtn = document.getElementById('search-filter-toggle');
+    let btnToggled = false;
+
+    searchFilterToggleBtn.addEventListener('click', function () {
+        btnToggled = !btnToggled;
+        searchFilterToggleBtn.classList.toggle('active', btnToggled);
+        const query = searchInput.value.trim();
+
+        rows.forEach(row => {
+            clearHighlights(row);
+
+            const cells = Array.from(row.getElementsByTagName('td'));
+            let matchFound = false;
+
+            cells.forEach(cell => {
+                const originalText = cell.textContent;
+                const lowerText = originalText.toLowerCase();
+
+                if (lowerText.includes(query.toLowerCase())) {
+                    matchFound = true;
+                    cell.innerHTML = highlightText(originalText, query);
+                }
+            });
+
+            if (btnToggled) {
+                row.classList.toggle('hidden', !matchFound);
+            } else {
+                row.classList.remove('hidden');
+            }
+        });
+    });
 });
