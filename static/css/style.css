@@ -1573,9 +1573,15 @@ input[type="checkbox"]:checked::after {
     text-transform: uppercase;
 }
 
+.user__competencies_item-input {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .user__competencies_item-value {
     margin: 0;
     margin-bottom: 10px;
+    margin-right: 25px;
     padding: 10px 16px;
     color: #141416;
     font-weight: 400;
@@ -1587,8 +1593,10 @@ input[type="checkbox"]:checked::after {
     min-width: 117px;
 }
 
-.user__competencies_item-value:not(:first-child) {
-    margin-left: 25px;
+#fileListProfile {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .user__photo {
@@ -1941,9 +1949,6 @@ input[type="checkbox"]:checked::after {
 
 .column-filter-item {
     margin-right: 5px;
-}
-
-.column-filter-item {
     margin-bottom: 10px;
 }
 
@@ -1995,6 +2000,7 @@ mark {
 
 /* upload projects  */
 .file-item {
+    margin-bottom: 10px;
     position: relative;
     padding: 5px 25px 5px 10px;
     background-color: #e6e6e6;
@@ -2368,4 +2374,9 @@ mark {
     color: #5C8DB9;
     background-color: #FFF;
     border: 2px solid #5C8DB9;
+}
+
+.event__list tbody tr:hover {
+    cursor: pointer;
+    background-color: #DDDFE4;
 }
