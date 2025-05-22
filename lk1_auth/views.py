@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from lk1_backend.models import UserProfile
+from lk1_backend.models import UserProfile, UserRole
 from rest_framework.views import APIView
 from lk1_backend.views import index
 
@@ -56,12 +56,15 @@ class Register(APIView):
             first_name = full_name[1]
             middle_name = full_name[2]
 
-            UserProfile.objects.create(
+            user_profile = UserProfile.objects.create(
                 user=user,
                 last_name=last_name,
                 first_name=first_name,
                 middle_name=middle_name,
             )
+
+            UserRole.objects.create(user=user_profile)
+
             return redirect('index_login')
 
         return render(request, 'registration.html', {

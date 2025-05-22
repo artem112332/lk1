@@ -16,14 +16,6 @@ class UserProfile(models.Model):
     specialization = models.CharField(max_length=100, null=True, blank=True)
     year_of_study = models.CharField(max_length=4, null=True, blank=True)
     year_of_graduation = models.CharField(max_length=4, null=True, blank=True)
-    role_choises = [
-        ('Проектант', 'Проектант'),
-        ('Куратор', 'Куратор'),
-        ('Организатор', 'Организатор'),
-        ('Руководитель направления', 'Руководитель направления'),
-        ('Администратор', 'Администратор')
-    ]
-    role = models.CharField(max_length=24, choices=role_choises, default='Проектант')
     description = models.TextField(max_length=2000, blank=True)
     photo = models.ImageField(upload_to='users_photo/', blank=True, default='default_avatar.jpeg')
 
@@ -40,12 +32,27 @@ class UserProfile(models.Model):
         return f'{self.last_name} {self.first_name[0]}.{self.middle_name[0]}.'
 
 
+class UserRole(models.Model):
+    user = models.ForeignKey(UserProfile, models.CASCADE, related_name='role_owner')
+    role_choises = [
+        ('Проектант', 'Проектант'),
+        ('Куратор', 'Куратор'),
+        ('Организатор', 'Организатор'),
+        ('Руководитель направления', 'Руководитель направления'),
+        ('Администратор', 'Администратор')
+    ]
+    role = models.CharField(max_length=24, choices=role_choises, default='Проектант')
+
+    def __str__(self):
+        return f'{self.user} - {self.role}'
+
+
 class UserFile(models.Model):
     user = models.ForeignKey(UserProfile, models.CASCADE, related_name='file_owner')
     file = models.FileField(upload_to='users_files/', default='default_avatar.jpeg')
 
     def __str__(self):
-        return f'{self.id} {self.user}'
+        return f'{self.id} {self.user} {self.file.name}'
 
 
 class Skill(models.Model):
@@ -81,9 +88,9 @@ class Project(models.Model):
         return f'{self.id} {self.name}'
 
 
-class ProjectTeam(models.Model):
-    name = models.CharField(max_length=50)
+class UserProject(models.Model):
     project = models.ForeignKey(Project, models.SET_NULL, related_name='teams_project', null=True, blank=True)
+    member = models.ForeignKey(UserProfile, models.SET_NULL, null=True, related_name='project_member')
     role_choices = [
         ('Backend-разработчик', 'Backend-разработчик'),
         ('Frontend-разработчик', 'Frontend-разработчик'),
@@ -91,40 +98,28 @@ class ProjectTeam(models.Model):
         ('Дизайнер', 'Дизайнер'),
         ('Тимлид', 'Тимлид')
     ]
-    member1 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_1', null=True, blank=True)
-    member1_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
-    member2 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_2', null=True, blank=True)
-    member2_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
-    member3 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_3', null=True, blank=True)
-    member3_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
-    member4 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_4', null=True, blank=True)
-    member4_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
-    member5 = models.ForeignKey(UserProfile, models.SET_NULL, related_name='team_member_5', null=True, blank=True)
-    member5_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    member_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    team_name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.id} {self.name}'
+        return f'{self.member}-{self.member_role}-{self.team_name}-{self.project}'
 
 
-class Event(models.Model):
-    organizer = models.ForeignKey(UserProfile, models.SET_NULL, related_name='event_organizer', null=True)
-    direction1 = models.ForeignKey(Direction, models.SET_NULL, related_name='event_direction1', null=True)
-    direction2 = models.ForeignKey(Direction, models.SET_NULL, related_name='event_direction2', null=True)
-    direction3 = models.ForeignKey(Direction, models.SET_NULL, related_name='event_direction3', null=True)
+class Meeting(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField(max_length=2000, blank=True)
     status_choices = [
         ('Анонсировано', 'Анонсировано'),
         ('Началось', 'Началось'),
         ('Закончилось', 'Закончилось')
     ]
     status = models.CharField(max_length=20, choices=status_choices)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    number_of_participants = models.IntegerField(default=1)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    team_name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.id} {self.name}'
+        return f'{self.name}, {self.team_name}'
 
     def set_started(self):
         self.status = self.status_choices[1]
@@ -135,8 +130,66 @@ class Event(models.Model):
         self.save()
 
 
-class ApllictationToEvent(models.Model):
+class MeetingTeam(models.Model):
+    meeting = models.ForeignKey(Meeting, models.CASCADE, related_name='team_meeting')
+    team_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.team_name}'
+
+
+class UserMeeting(models.Model):
+    user = models.ForeignKey(UserProfile, models.CASCADE, related_name='user_in_meeting')
+    meeting = models.ForeignKey(Meeting, models.CASCADE, related_name='users_meeting')
+
+    def __str__(self):
+        return f'{self.user} - {self.meeting.name}'
+
+
+class Event(models.Model):
+    name = models.CharField(max_length=200)
+    organizer = models.ForeignKey(UserProfile, models.SET_NULL, related_name='event_organizer', null=True)
+    description = models.TextField(max_length=2000, blank=True)
+    status_choices = [
+        ('Анонсировано', 'Анонсировано'),
+        ('Началось', 'Началось'),
+        ('Закончилось', 'Закончилось')
+    ]
+    status = models.CharField(max_length=20, choices=status_choices, default=status_choices[0])
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    number_of_participants = models.IntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    def set_started(self):
+        self.status = self.status_choices[1]
+        self.save()
+
+    def set_ended(self):
+        self.status = self.status_choices[2]
+        self.save()
+
+
+class UserEvent(models.Model):
+    user = models.ForeignKey(UserProfile, models.CASCADE, related_name='event_participant')
+    event = models.ForeignKey(Event, models.CASCADE, related_name='users_event')
+
+    def __str__(self):
+        return f'{self.user} - {self.event}'
+
+
+class EventDirection(models.Model):
     event = models.ForeignKey(Event, models.CASCADE, related_name='event')
+    direction = models.ForeignKey(Direction, models.CASCADE, related_name='event_direction')
+
+    def __str__(self):
+        return f'{self.event} - {self.direction}'
+
+
+class ApllictationToEvent(models.Model):
+    event = models.ForeignKey(Event, models.CASCADE, related_name='application_event')
     sender = models.ForeignKey(UserProfile, models.CASCADE, related_name='event_apllication_sender')
     status_choices = [
         ('Отправлена', 'Отправлена'),

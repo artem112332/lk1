@@ -16,8 +16,10 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/" class="header__item" style="margin-right: auto;">Список мероприятий</a>
-        <a href="" class="header__profile profile"><img class="header__profile" src="/static/img/default_avatar.jpeg" alt="Аватар"></a>
+        <a href="/meetings" class="header__item">Собрания</a>
+        <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
+        <a href="" class="header__profile profile"><img class="header__profile" src="{{ user_profile.photo.url }}"
+                                                        alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -65,67 +67,50 @@
 
         <table class="event__list">
             <thead>
-                <tr>
-                    <th id="date-header">Название мероприятия <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="start-time-header">Дата начала <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="end-time-header">Дата завершения <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="participants-header">Направление <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="participants-header">Ответственный <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                </tr>
+            <tr>
+                <th id="date-header">Название <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                <th id="start-time-header">Дата начала <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="end-time-header">Дата завершения <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="participants-header">Направления <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="participants-header">Организатор <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+            </tr>
             </thead>
             <tbody>
+            {% for event in events.keys() %}
                 <tr>
-                    <td>Точка Сбора</td>
-                    <td>31.05.2025</td>
-                    <td>01.06.2025</td>
-                    <td>ВЕБ</td>
-                    <td>Смирнов Денис</td>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.start_date.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td>{{ event.end_date.strftime('%d.%m.%Y %H:%M') }}</td>
+                    <td>{{ events[event] }}</td>
+                    <td>{{ event.organizer }}</td>
                 </tr>
-                <tr>
-                    <td>ЛК стажера</td>
-                    <td>31.05.2025</td>
-                    <td>01.06.2025</td>
-                    <td>CRM</td>
-                    <td>Иванов Иван</td>
-                </tr>
-                <tr>
-                    <td>Веб-сайт автомойка</td>
-                    <td>31.05.2025</td>
-                    <td>01.06.2025</td>
-                    <td>ВЕБ</td>
-                    <td>Иванов Иван</td>
-                </tr>
-                <tr>
-                    <td>Портфолио</td>
-                    <td>31.05.2025</td>
-                    <td>01.06.2025</td>
-                    <td>ВЕБ</td>
-                    <td>Иванов Иван</td>
-                </tr>
-                <tr>
-                    <td>Фитнес сервис</td>
-                    <td>31.05.2025</td>
-                    <td>01.06.2025</td>
-                    <td>Мобилка</td>
-                    <td>Иванов Иван</td>
-                </tr>
+            {% endfor %}
             </tbody>
         </table>
 
         <div class="modal" id="column-modal">
-        <div class="modal-content">
-            <h2>Фильтр столбцов</h2>
-            <form id="column-filter-form">
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="0" checked> Название мероприятия</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="1" checked> Дата начала</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="2" checked> Дата завершения</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="3" checked> Направление</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="4" checked> Ответственный</label>
-                <button type="submit" class="apply-modal-btn">Применить</button>
-                <button type="button" id="close-modal" class="btn-reset close-modal-btn">❌</button>
-            </form>
+            <div class="modal-content">
+                <h2>Фильтр столбцов</h2>
+                <form id="column-filter-form">
+                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="0"
+                                               checked> Название мероприятия</label>
+                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="1"
+                                               checked> Дата начала</label>
+                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="2"
+                                               checked> Дата завершения</label>
+                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="3"
+                                               checked> Направление</label>
+                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="4"
+                                               checked> Ответственный</label>
+                    <button type="submit" class="apply-modal-btn">Применить</button>
+                    <button type="button" id="close-modal" class="btn-reset close-modal-btn">❌</button>
+                </form>
+            </div>
         </div>
-    </div>
 </main>
 
 <script src="/static/js/search.js"></script>

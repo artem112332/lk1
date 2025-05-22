@@ -16,8 +16,11 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/" class="header__item" style="margin-right: auto;">Список собраний</a>
-        <a href="" class="header__profile profile"><img class="header__profile" src="/static/img/default_avatar.jpeg" alt="Аватар"></a>
+        <a href="/meetings" class="header__item">Собрания</a>
+        <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
+                                                                              src="{{ user_profile.photo.url }}"
+                                                                              alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -55,7 +58,7 @@
 
 <hr class="horizontal-line">
 
-<main class="meetings">
+<main class="user">
     <div class="container meeting__container">
         <form action="#" class="meeting__search flex">
             <img src="/static/img/search.png" alt="Поиск" class="search__icon">
@@ -70,56 +73,86 @@
 
         <table class="meeting__list">
             <thead>
-                <tr>
-                    <th id="date-header">Дата <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="title-header">Название <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="start-time-header">Время начала <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="end-time-header">Время окончания <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="participants-header">Участники <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                </tr>
+            <tr>
+                <th id="title-header">Название <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                <th id="date-header">Дата <img class="sort-data" src="/static/img/filter-meetings.png"></th>
+                <th id="start-time-header">Время начала <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="end-time-header">Время окончания <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="participants-header">Участники <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+            </tr>
             </thead>
             <tbody>
+            {% for meeting in meetings.keys() %}
                 <tr>
-                    <td>12.05.2025</td>
-                    <td>Название собрания название собрания 1</td>
-                    <td>10:00</td>
-                    <td>11:00</td>
-                    <td>Направление 1, Проект 1, Команда 1, Фамилия И.О.</td>
+                    <td>{{ meeting.name }}</td>
+                    <td>{{ meeting.date.strftime('%d.%m.%Y') }}</td>
+                    <td>{{ meeting.start_time.strftime('%H:%M') }}</td>
+                    <td>{{ meeting.end_time.strftime('%H:%M') }}</td>
+                    <td>{{ meetings[meeting] }}</td>
                 </tr>
-                <tr>
-                    <td>13.05.2025</td>
-                    <td>Название собрания название собрания 2</td>
-                    <td>14:00</td>
-                    <td>15:30</td>
-                    <td>Направление 2, Проект 2, Команда 2, Фамилия И.О.</td>
-                </tr>
-                <tr>
-                    <td>14.05.2025</td>
-                    <td>Название собрания название собрания 3</td>
-                    <td>09:30</td>
-                    <td>10:30</td>
-                    <td>Направление 3, Проект 3, Команда 3, Фамилия И.О.</td>
-                </tr>
+            {% endfor %}
             </tbody>
         </table>
 
         <div class="modal" id="column-modal">
-        <div class="modal-content">
-            <h2>Фильтр столбцов</h2>
-            <form id="column-filter-form">
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="0" checked> Дата</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="1" checked> Название</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="2" checked> Время начала</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="3" checked> Время окончания</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="4" checked> Участники</label>
-                <button type="submit" class="apply-modal-btn">Применить</button>
-                <button type="button" id="close-modal" class="btn-reset close-modal-btn">❌</button>
-            </form>
+            <div class="modal-content">
+                <form id="column-filter-form">
+                    <label><input type="checkbox" name="column" value="0" checked> Дата</label><br>
+                    <label><input type="checkbox" name="column" value="1" checked> Название</label><br>
+                    <label><input type="checkbox" name="column" value="2" checked> Время начала</label><br>
+                    <label><input type="checkbox" name="column" value="3" checked> Время окончания</label><br>
+                    <label><input type="checkbox" name="column" value="4" checked> Участники</label><br>
+                    <button type="submit">Применить</button>
+                    <button type="button" id="close-modal">Закрыть</button>
+                </form>
+            </div>
         </div>
     </div>
 </main>
 
-<script src="/static/js/search.js"></script>
+<script>
+    function displayImage(inputElement) {
+        const file = inputElement.files[0];
+        const imageURL = URL.createObjectURL(file);
+        document.getElementById('preview').src = imageURL;
+        inputElement.value = null;
+        document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search-input');
+        const table = document.querySelector('.meeting__list');
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+        // Функция для поиска по таблице
+        function searchTable(query) {
+            // Перебираем все строки таблицы
+            rows.forEach(row => {
+                const cells = Array.from(row.getElementsByTagName('td'));
+                // Проверяем, есть ли в какой-либо ячейке строка, содержащая введённый запрос
+                const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+
+                if (rowText.includes(query.toLowerCase())) {
+                    row.classList.remove('hidden');  // Показываем строку
+                } else {
+                    row.classList.add('hidden');  // Скрываем строку
+                }
+            });
+        }
+
+        // Слушаем событие ввода в поле поиска
+        searchInput.addEventListener('input', function (event) {
+            const query = event.target.value;
+            searchTable(query);
+        });
+    });
+
+</script>
+
 <script src="/static/js/meeting-filter.js"></script>
 <script src="/static/js/modal-filter.js"></script>
 <script src="/static/js/main.js"></script>

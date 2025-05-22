@@ -1,21 +1,47 @@
 from datetime import datetime, date
 from django.shortcuts import render, redirect
-from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from .models import *
 
 
 def index(request):
+    return redirect('meetings')
+
+
+def meetings_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
 
-    return redirect('profile_page', user_id=user.id)
+    user_meetings = [user_meeting.meeting for user_meeting in UserMeeting.objects.filter(user=user_profile)]
+    meetings = {
+        meeting: ', '.join([f'{user_meeting.user.short_name()}'
+                            for user_meeting in UserMeeting.objects.filter(meeting=meeting)])
+        for meeting in user_meetings
+    }
+
+    return render(request, 'meetings_list.html',
+                  {'user': user,
+                   'user_profile': user_profile,
+                   'meetings': meetings,
+                   })
 
 
-# return render(request, 'index.html',
-#               {'user': user,
-#                'user_profile': user_profile,
-#                })
+def events_page(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+
+    user_events = [user_event.event for user_event in UserEvent.objects.filter(user=user_profile)]
+    events = {
+        event: ', '.join([f'{event_direction.direction.name}'
+                          for event_direction in EventDirection.objects.filter(event=event)])
+        for event in user_events
+    }
+
+    return render(request, 'events-manager.html',
+                  {'user': user,
+                   'user_profile': user_profile,
+                   'events': events,
+                   })
 
 
 def profile_page(request, user_id):

@@ -18,7 +18,8 @@
     <div class="container header__container flex">
         <nav class="header__nav">
             <ul class="header__list list-reset flex">
-                <a href="/" class="header__item">Главная</a>
+                <a href="/meetings" class="header__item">Собрания</a>
+                <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
                 <div class="header__item">
                     <form action="#" class="search__form">
                         <img src="/static/img/search.png" alt="Поиск" class="search__icon">
@@ -200,29 +201,30 @@
                     <div class="user__data-edit unik">
                         <label for="role" class="user__form_title">роль в команде</label>
                         <input type="text" id="role" name="role" class="user__form_input user__form_data_link"
-                                placeholder="Введите роль в команде"
-                                value="">
+                               placeholder="Введите роль в команде"
+                               value="">
                     </div>
 
                     <div class="user__data-edit">
                         <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
                         <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
-                                placeholder="Дополнительная роль в команде"
-                                value="">
+                               placeholder="Дополнительная роль в команде"
+                               value="">
                     </div>
 
                     <div class="user__data-edit">
                         <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
                         <input type="text" id="telegram" name="telegram" class="user__form_input user__form_data_link"
-                                placeholder="Дополнительная роль в команде"
-                                value="">
+                               placeholder="Дополнительная роль в команде"
+                               value="">
                     </div>
                 </div>
 
                 <div class="user__photo">
                     <h2 class="user__photo_title">Фото профиля</h2>
                     <div class="user__photo_image">
-                        <img class="user__photo_preview" id="preview{{ profile.id }}" src="{{ profile.photo.url }}" alt="Превью изображения" />
+                        <img class="user__photo_preview" id="preview{{ profile.id }}" src="{{ profile.photo.url }}"
+                             alt="Превью изображения"/>
                     </div>
 
                     <div class="user__photo_name">
@@ -233,14 +235,14 @@
                             ❌
                         </button>
                     </div>
-                
+
                     <label for="profile{{ profile.id }}_photo" class="custom-file-button">Загрузить</label>
                     <input type="file"
                            id="profile{{ profile.id }}_photo"
                            class="user__photo_load"
                            name="profile{{ profile.id }}_photo"
                            accept="image/*"
-                           onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')" />
+                           onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')"/>
                 </div>
 
                 <div class="user__competencies">
@@ -259,7 +261,8 @@
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Дополнительное направление</span>
                             <div class="flex" id="selectedCompetencies">
-                                <p class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;" onclick="openModal()">
+                                <p class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;"
+                                   onclick="openModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </p>
                             </div>
@@ -268,23 +271,29 @@
                         <div id="competencyModal" class="competency-modal">
                             <div class="competency-modal-content">
                                 <h3>Выберите компетенции</h3>
-                                
+
                                 <form action="#" class="competencies__search flex">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
-                                    <input class="competencies__search_input" type="text" placeholder="Поиск" id="competencies_search-input">
-                                    <div id="competencySearchResults" class="search-dropdown" style="display: none;"></div>
-                                    <div id="selectedFromModal" class="selected-competencies-list" style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                    <input class="competencies__search_input" type="text" placeholder="Поиск"
+                                           id="competencies_search-input">
+                                    <div id="competencySearchResults" class="search-dropdown"
+                                         style="display: none;"></div>
+                                    <div id="selectedFromModal" class="selected-competencies-list"
+                                         style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                 </form>
 
                                 <div id="competencyOptions"></div>
-                                <button type="button" onclick="closeModal()" class="btn-reset close-competency-modal-content-btn">❌</button>
+                                <button type="button" onclick="closeModal()"
+                                        class="btn-reset close-competency-modal-content-btn">❌
+                                </button>
                             </div>
                         </div>
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Навыки</span>
                             <div class="flex" id="selectedSkills">
-                                <p class="user__competencies_item-value" id="skillsChooseBtn" style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
+                                <p class="user__competencies_item-value" id="skillsChooseBtn"
+                                   style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </p>
                             </div>
@@ -296,13 +305,17 @@
 
                                 <form action="#" class="skills__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="skills__search-icon">
-                                    <input class="skills__search_input" type="text" placeholder="Поиск" id="skills_search-input">
+                                    <input class="skills__search_input" type="text" placeholder="Поиск"
+                                           id="skills_search-input">
                                     <div id="skillsSearchResults" class="search-dropdown" style="display: none;"></div>
-                                    <div id="selectedFromSkillsModal" class="selected-skills-list" style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                    <div id="selectedFromSkillsModal" class="selected-skills-list"
+                                         style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                 </form>
 
                                 <div id="skillsOptions"></div>
-                                <button type="button" onclick="closeSkillsModal()" class="btn-reset close-competency-modal-content-btn">❌</button>
+                                <button type="button" onclick="closeSkillsModal()"
+                                        class="btn-reset close-competency-modal-content-btn">❌
+                                </button>
                             </div>
                         </div>
 
@@ -311,9 +324,12 @@
                             <div class="user__competencies_item-input" style="width: 100%;">
                                 <div class="user__competencies_item-value" style="text-align: left; display: flex;">
                                     <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
-                                    <div id="fileList" style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                                    <p class="btn_upload-projects" onclick="document.getElementById('fileInput').click()">
-                                        <input type="file" id="fileInput" multiple onchange="handleFileUpload()" style="display: none;">Выбрать
+                                    <div id="fileList"
+                                         style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                    <p class="btn_upload-projects"
+                                       onclick="document.getElementById('fileInput').click()">
+                                        <input type="file" id="fileInput" multiple onchange="handleFileUpload()"
+                                               style="display: none;">Выбрать
                                     </p>
                                 </div>
                             </div>
