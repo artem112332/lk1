@@ -183,7 +183,7 @@
                     {% endif %}
 
                     {% if profile.year_of_study != None %}
-                        {% if profile.specialization|length != 0 %}
+                        {% if profile.year_of_study|length != 0 %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">Курс</span>
@@ -195,26 +195,35 @@
                         {% endif %}
                     {% endif %}
 
-                    {% if profile.year_of_study != None %}
-                        {% if profile.specialization|length != 0 %}
+                    {% if have_project %}
+                        {% if main_role != None %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">роль в команде</span>
                                     <p class="user__form_data_link">
-                                        <span>-</span>
+                                        <span>{{ main_role }}</span>
                                     </p>
                                 </div>
                             </div>
                         {% endif %}
-                    {% endif %}
 
-                    {% if profile.year_of_study != None %}
-                        {% if profile.specialization|length != 0 %}
+                        {% if second_role != None %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">дополнительная роль в команде</span>
                                     <p class="user__form_data_link">
-                                        <span>-</span>
+                                        <span>{{ second_role }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if third_role != None %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">дополнительная роль в команде</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ third_role }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -222,58 +231,57 @@
                     {% endif %}
 
 
-{#                    <div class="user__data">#}
-{#                        {% if profile.description|length > 0 %}#}
-{#                            <span class="user__form_title">Обо мне</span>#}
-{#                            <p class="user__form_data">{{ profile.description }}</p>#}
-{#                        {% endif %}#}
-{#                    </div>#}
-{#                </div>#}
+                    {#                    <div class="user__data">#}
+                    {#                        {% if profile.description|length > 0 %}#}
+                    {#                            <span class="user__form_title">Обо мне</span>#}
+                    {#                            <p class="user__form_data">{{ profile.description }}</p>#}
+                    {#                        {% endif %}#}
+                    {#                    </div>#}
+                    {#                </div>#}
 
 
-                <div class="user__competencies">
-                    <h2 class="user__competencies_title">Мои компетенции</h2>
-                    <div class="flex" style="flex-wrap: wrap;">
+                    <div class="user__competencies">
+                        <h2 class="user__competencies_title">Мои компетенции</h2>
+                        <div class="flex" style="flex-wrap: wrap;">
 
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">основные навыки</span>
-                            <div class="user__competencies_item-input flex">
-                                <div class="user__competencies_item-value">
-                                    <span>Аналитика</span>
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">основные навыки</span>
+                                <div class="user__competencies_item-input flex">
+                                    <div class="user__competencies_item-value">
+                                        <span>Аналитика</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Дополнительные навыки</span>
-                            <div class="user__competencies_item-input flex">
-                                <p class="user__competencies_item-value">
-                                    <span>Дизайн</span>
-                                </p>
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">Дополнительные навыки</span>
+                                <div class="user__competencies_item-input flex">
+                                    <p class="user__competencies_item-value">
+                                        <span>Дизайн</span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
 
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Примеры работ</span>
-                            <div class="user__competencies_item-input" style="width: 100%;">
-                                <p class="user__competencies_item-value" style="text-align: left;">
-                                    <span><img src="/static/img/attachment.png"></span>
-                                </p>
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">Примеры работ</span>
+                                <div class="user__competencies_item-input" style="width: 100%;">
+                                    <p class="user__competencies_item-value" style="text-align: left;">
+                                        <span><img src="/static/img/attachment.png"></span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-
                 {% if profile.user == user %}
                     <form action="/edit_profile">
-                        <input class="btn btn-reset user__btn" type="submit" value="Редактировать профиль">
+                        <input class="btn btn-reset user__btn" margin="" type="submit" value="Редактировать профиль">
                     </form>
                 {% endif %}
             </div>
         </div>
-    </div>
 </main>
 
 <script>
