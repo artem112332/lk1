@@ -66,7 +66,7 @@ class Skill(models.Model):
     level = models.CharField(max_length=11, choices=level_choices, default=level_choices[0])
 
     def __str__(self):
-        return f'{self.id} {self.user} {self.name}'
+        return f'{self.user} {self.name}'
 
 
 class Direction(models.Model):
@@ -75,7 +75,7 @@ class Direction(models.Model):
     description = models.TextField(max_length=2000, blank=True)
 
     def __str__(self):
-        return f'{self.id} {self.name}'
+        return f'{self.name}'
 
 
 class Project(models.Model):
@@ -85,20 +85,20 @@ class Project(models.Model):
     direction = models.ForeignKey(Direction, models.SET_NULL, related_name="project_direction", null=True)
 
     def __str__(self):
-        return f'{self.id} {self.name}'
+        return f'{self.name}'
 
 
 class UserProject(models.Model):
     project = models.ForeignKey(Project, models.SET_NULL, related_name='teams_project', null=True, blank=True)
     member = models.ForeignKey(UserProfile, models.SET_NULL, null=True, related_name='project_member')
-    role_choices = [
-        ('Backend-разработчик', 'Backend-разработчик'),
-        ('Frontend-разработчик', 'Frontend-разработчик'),
-        ('Аналитик', 'Аналитик'),
-        ('Дизайнер', 'Дизайнер'),
-        ('Тимлид', 'Тимлид')
-    ]
-    member_role = models.CharField(max_length=25, choices=role_choices, null=True, blank=True)
+    # role_choices = [
+    #     ('Backend-разработчик', 'Backend-разработчик'),
+    #     ('Frontend-разработчик', 'Frontend-разработчик'),
+    #     ('Аналитик', 'Аналитик'),
+    #     ('Дизайнер', 'Дизайнер'),
+    #     ('Тимлид', 'Тимлид')
+    # ]
+    member_role = models.CharField(max_length=50, null=True, blank=True)
     team_name = models.CharField(max_length=50)
 
     def __str__(self):

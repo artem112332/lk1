@@ -18,7 +18,7 @@
     <div class="container header__container flex">
         <a href="/meetings" class="header__item">Собрания</a>
         <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
-        <a href="" class="header__profile profile"><img class="header__profile" src="{{ user_profile.photo.url }}"
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="{{ user_profile.photo.url }}"
                                                         alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@
             </thead>
             <tbody>
             {% for event in events.keys() %}
-                <tr>
+                <tr onclick="window.location.href='/event/{{ event.id }}'">
                     <td>{{ event.name }}</td>
                     <td>{{ event.start_date.strftime('%d.%m.%Y %H:%M') }}</td>
                     <td>{{ event.end_date.strftime('%d.%m.%Y %H:%M') }}</td>
@@ -111,6 +111,7 @@
                 </form>
             </div>
         </div>
+    </div>
 </main>
 
 <script src="/static/js/search.js"></script>

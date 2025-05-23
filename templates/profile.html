@@ -195,33 +195,40 @@
                         {% endif %}
                     {% endif %}
 
-
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">роль в команде</span>
-                            <p class="user__form_data_link">
-                                <span>-</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="user__data flex">
-                        <div class="user__data_left">
-                            <span class="user__form_title">дополнительная роль в команде</span>
-                            <p class="user__form_data_link">
-                                <span>-</span>
-                            </p>
-                        </div>
-                    </div>
-
-
-                    <div class="user__data">
-                        {% if profile.description|length > 0 %}
-                            <span class="user__form_title">Обо мне</span>
-                            <p class="user__form_data">{{ profile.description }}</p>
+                    {% if profile.year_of_study != None %}
+                        {% if profile.specialization|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">роль в команде</span>
+                                    <p class="user__form_data_link">
+                                        <span>-</span>
+                                    </p>
+                                </div>
+                            </div>
                         {% endif %}
-                    </div>
-                </div>
+                    {% endif %}
+
+                    {% if profile.year_of_study != None %}
+                        {% if profile.specialization|length != 0 %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">дополнительная роль в команде</span>
+                                    <p class="user__form_data_link">
+                                        <span>-</span>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+
+{#                    <div class="user__data">#}
+{#                        {% if profile.description|length > 0 %}#}
+{#                            <span class="user__form_title">Обо мне</span>#}
+{#                            <p class="user__form_data">{{ profile.description }}</p>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
 
 
                 <div class="user__competencies">

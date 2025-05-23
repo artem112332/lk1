@@ -44,6 +44,14 @@ def events_page(request):
                    })
 
 
+def event_info(request, event_id):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+
+    event = Event.objects.get(id=event_id)
+
+
+
 def profile_page(request, user_id):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
@@ -84,6 +92,8 @@ class ProfileEdit(APIView):
         profile.university = request.POST.get('university')
         profile.year_of_study = request.POST.get('year_of_study')
         profile.specialization = request.POST.get('specialization')
+
+
 
         profile.save()
         return redirect(f'/profile/{user.id}/')
