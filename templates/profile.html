@@ -251,7 +251,7 @@
                     {% endif %}
 
                     {% if have_project %}
-                        {% if main_role != None %}
+                        {% if main_role != None  and main_role|length != 0 %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">роль в команде</span>
@@ -262,7 +262,7 @@
                             </div>
                         {% endif %}
 
-                        {% if second_role != None %}
+                        {% if second_role != None  and second_role|length != 0 %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">дополнительная роль в команде</span>
@@ -273,7 +273,7 @@
                             </div>
                         {% endif %}
 
-                        {% if third_role != None %}
+                        {% if third_role != None and third_role|length != 0 %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">дополнительная роль в команде</span>

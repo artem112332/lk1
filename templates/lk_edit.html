@@ -184,64 +184,78 @@
                         {% endif %}
                     </div>
 
-                    <div class="user__data-edit unik">
-                        <label for="role1" class="user__form_title">Роль в команде</label>
-                        <select id="role1" name="role_1" class="user__form_input user__form_data_link" required>
-                            <option value="" disabled selected hidden>Выберите роль</option>
-                        </select>
+                    {% if have_project %}
+                        <div class="user__data-edit unik">
+                            <label for="role1" class="user__form_title">Роль в команде</label>
+                            <select id="role1" name="role_1" class="user__form_input user__form_data_link" required>
+                                {% if main_role != None %}
+                                    <option value="{{ main_role }}" disabled selected hidden>Выберите роль</option>
+                                {% else %}
+                                    <option value="" disabled selected hidden>Выберите роль</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <div class="user__data-edit">
+                            <label for="role2" class="user__form_title">Дополнительная роль в команде</label>
+                            <select id="role2" name="role_2" class="user__form_input user__form_data_link">
+                                {% if second_role != None %}
+                                    <option value="{{ second_role }}" disabled selected hidden>Выберите роль</option>
+                                {% else %}
+                                    <option value="" disabled selected hidden>Выберите дополнительную роль</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <div class="user__data-edit">
+                            <label for="role3" class="user__form_title">Дополнительная роль в команде</label>
+                            <select id="role3" name="role_3" class="user__form_input user__form_data_link">
+                                {% if third_role != None %}
+                                    <option value="{{ third_role }}" disabled selected hidden>Выберите роль</option>
+                                {% else %}
+                                    <option value="" disabled selected hidden>Выберите дополнительную роль</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        </div>
+                    {% endif %}
+                <div class="user__photo">
+                    <h2 class="user__photo_title">Фото профиля</h2>
+                    <div class="user__photo_image">
+                        <img class="user__photo_preview" id="preview{{ profile.id }}" src="{{ profile.photo.url }}"
+                             alt="Превью изображения"/>
                     </div>
 
-                    <div class="user__data-edit">
-                        <label for="role2" class="user__form_title">Дополнительная роль в команде</label>
-                        <select id="role2" name="role_2" class="user__form_input user__form_data_link" required>
-                            <option value="" disabled selected hidden>Выберите дополнительную роль</option>
-                        </select>
+                    <div class="user__photo_name">
+                        <span id="filename{{ profile.id }}" style="font-size: 14px; color: #333;"></span>
+                        <button class="btn_close" type="button"
+                                id="clearBtn{{ profile.id }}"
+                                onclick="clearImage('profile{{ profile.id }}_photo', 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')">
+                            ❌
+                        </button>
                     </div>
 
-                    <div class="user__data-edit">
-                        <label for="role3" class="user__form_title">Дополнительная роль в команде</label>
-                        <select id="role3" name="role_3" class="user__form_input user__form_data_link">
-                            <option value="" disabled selected hidden>Выберите дополнительную роль</option>
-                        </select>
-                    </div>
+                    <label for="profile{{ profile.id }}_photo" class="custom-file-button">Загрузить</label>
+                    <input type="file"
+                           id="profile{{ profile.id }}_photo"
+                           class="user__photo_load"
+                           name="profile{{ profile.id }}_photo"
+                           accept="image/*"
+                           onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')"/>
                 </div>
 
-                    <div class="user__photo">
-                        <h2 class="user__photo_title">Фото профиля</h2>
-                        <div class="user__photo_image">
-                            <img class="user__photo_preview" id="preview{{ profile.id }}" src="{{ profile.photo.url }}"
-                                 alt="Превью изображения"/>
-                        </div>
-
-                        <div class="user__photo_name">
-                            <span id="filename{{ profile.id }}" style="font-size: 14px; color: #333;"></span>
-                            <button class="btn_close" type="button"
-                                    id="clearBtn{{ profile.id }}"
-                                    onclick="clearImage('profile{{ profile.id }}_photo', 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')">
-                                ❌
-                            </button>
-                        </div>
-
-                        <label for="profile{{ profile.id }}_photo" class="custom-file-button">Загрузить</label>
-                        <input type="file"
-                               id="profile{{ profile.id }}_photo"
-                               class="user__photo_load"
-                               name="profile{{ profile.id }}_photo"
-                               accept="image/*"
-                               onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')"/>
-                    </div>
-
-                    <div class="user__competencies">
-                        <h2 class="user__competencies_title">Мои компетенции</h2>
-                        <div class="flex" style="flex-wrap: wrap;">
+                <div class="user__competencies">
+                    <h2 class="user__competencies_title">Мои компетенции</h2>
+                    <div class="flex" style="flex-wrap: wrap;">
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Основное направление</span>
                             <div class="flex" id="selectedSpecializations" name="specialization">
-                                <div class="user__competencies_item-value" id="specializationsChooseBtn" style="cursor: pointer; color: #8A8A8A;" onclick="openSpecializationsModal()">
+                                <div class="user__competencies_item-value" id="specializationsChooseBtn"
+                                     style="cursor: pointer; color: #8A8A8A;" onclick="openSpecializationsModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -251,8 +265,10 @@
 
                                 <form action="#" class="specializations__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
-                                    <input class="specializations__search_input" type="text" placeholder="Поиск" id="specializations_search-input">
-                                    <div id="specializationsSearchResults" class="search-dropdown" style="display: none;"></div>
+                                    <input class="specializations__search_input" type="text" placeholder="Поиск"
+                                           id="specializations_search-input">
+                                    <div id="specializationsSearchResults" class="search-dropdown"
+                                         style="display: none;"></div>
                                     <div id="selectedFromSpecializationsModal" class="selected-specializations-list"
                                          style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                 </form>
@@ -267,15 +283,16 @@
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Дополнительное направление</span>
                             <div class="flex" id="selectedCompetencies" name="extraCompetency">
-                                <div class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;" onclick="openModal()">
+                                <div class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;"
+                                     onclick="openModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </div>
                             </div>
                         </div>
 
-                            <div id="competencyModal" class="competency-modal">
-                                <div class="competency-modal-content">
-                                    <h3>Выберите компетенции</h3>
+                        <div id="competencyModal" class="competency-modal">
+                            <div class="competency-modal-content">
+                                <h3>Выберите компетенции</h3>
 
                                 <form action="#" class="competencies__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
@@ -287,65 +304,66 @@
                                          style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                 </form>
 
-                                    <div id="competencyOptions"></div>
-                                    <button type="button" onclick="closeModal()"
-                                            class="btn-reset close-competency-modal-content-btn">❌
-                                    </button>
-                                </div>
+                                <div id="competencyOptions"></div>
+                                <button type="button" onclick="closeModal()"
+                                        class="btn-reset close-competency-modal-content-btn">❌
+                                </button>
                             </div>
+                        </div>
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Навыки</span>
                             <div class="flex" id="selectedSkills" name="skills">
-                                <div class="user__competencies_item-value" id="skillsChooseBtn" style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
+                                <div class="user__competencies_item-value" id="skillsChooseBtn"
+                                     style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </div>
                             </div>
                         </div>
 
-                            <div id="skillsModal" class="competency-modal">
-                                <div class="competency-modal-content">
-                                    <h3>Выберите навыки</h3>
+                        <div id="skillsModal" class="competency-modal">
+                            <div class="competency-modal-content">
+                                <h3>Выберите навыки</h3>
 
-                                    <form action="#" class="skills__search">
-                                        <img src="/static/img/search.png" alt="Поиск" class="skills__search-icon">
-                                        <input class="skills__search_input" type="text" placeholder="Поиск"
-                                               id="skills_search-input">
-                                        <div id="skillsSearchResults" class="search-dropdown"
-                                             style="display: none;"></div>
-                                        <div id="selectedFromSkillsModal" class="selected-skills-list"
-                                             style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                                    </form>
+                                <form action="#" class="skills__search">
+                                    <img src="/static/img/search.png" alt="Поиск" class="skills__search-icon">
+                                    <input class="skills__search_input" type="text" placeholder="Поиск"
+                                           id="skills_search-input">
+                                    <div id="skillsSearchResults" class="search-dropdown"
+                                         style="display: none;"></div>
+                                    <div id="selectedFromSkillsModal" class="selected-skills-list"
+                                         style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                </form>
 
-                                    <div id="skillsOptions"></div>
-                                    <button type="button" onclick="closeSkillsModal()"
-                                            class="btn-reset close-competency-modal-content-btn">❌
-                                    </button>
-                                </div>
+                                <div id="skillsOptions"></div>
+                                <button type="button" onclick="closeSkillsModal()"
+                                        class="btn-reset close-competency-modal-content-btn">❌
+                                </button>
                             </div>
+                        </div>
 
-                            <div class="user__competencies_item">
-                                <span class="user__competencies_item-title">Примеры работ</span>
-                                <div class="user__competencies_item-input" style="width: 100%;">
-                                    <div class="user__competencies_item-value" style="text-align: left; display: flex;">
-                                        <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
-                                        <div id="fileList"
-                                             style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                                        <p class="btn_upload-projects"
-                                           onclick="document.getElementById('fileInput').click()">
-                                            <input type="file" id="fileInput" multiple onchange="handleFileUpload()"
-                                                   style="display: none;">Выбрать
-                                        </p>
-                                    </div>
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Примеры работ</span>
+                            <div class="user__competencies_item-input" style="width: 100%;">
+                                <div class="user__competencies_item-value" style="text-align: left; display: flex;">
+                                    <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+                                    <div id="fileList"
+                                         style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                    <p class="btn_upload-projects"
+                                       onclick="document.getElementById('fileInput').click()">
+                                        <input type="file" id="fileInput" multiple onchange="handleFileUpload()"
+                                               style="display: none;">Выбрать
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
                 </div>
+
+                <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
             </div>
-        </form>
+    </div>
+    </form>
     </div>
 </main>
 
@@ -439,20 +457,20 @@
     ];
 
     const selects = [
-        { element: role1, placeholder: 'Выберите основную роль' },
-        { element: role2, placeholder: 'Дополнительная роль' },
-        { element: role3, placeholder: 'Роль по желанию' }
+        {element: role1, placeholder: 'Выберите основную роль'},
+        {element: role2, placeholder: 'Дополнительная роль'},
+        {element: role3, placeholder: 'Роль по желанию'}
     ];
 
     function getSelectedValues(excludeElement) {
         return selects
-        .filter(s => s.element !== excludeElement)
-        .map(s => s.element.value)
-        .filter(v => v);
+            .filter(s => s.element !== excludeElement)
+            .map(s => s.element.value)
+            .filter(v => v);
     }
 
     function populateSelect(selectObj) {
-        const { element, placeholder } = selectObj;
+        const {element, placeholder} = selectObj;
         const currentValue = element.value;
         const selectedOthers = getSelectedValues(element);
 
@@ -465,18 +483,18 @@
         element.appendChild(defaultOption);
 
         allRoles.forEach(role => {
-        if (!selectedOthers.includes(role)) {
-            const option = document.createElement('option');
-            option.value = role;
-            option.textContent = role;
-            element.appendChild(option);
-        }
+            if (!selectedOthers.includes(role)) {
+                const option = document.createElement('option');
+                option.value = role;
+                option.textContent = role;
+                element.appendChild(option);
+            }
         });
 
         if (allRoles.includes(currentValue) && !selectedOthers.includes(currentValue)) {
-        element.value = currentValue;
+            element.value = currentValue;
         } else {
-        element.value = '';
+            element.value = '';
         }
     }
 
@@ -484,7 +502,7 @@
         selects.forEach(populateSelect);
     }
 
-    selects.forEach(({ element }) => {
+    selects.forEach(({element}) => {
         element.addEventListener('change', updateAllSelects);
     });
 
