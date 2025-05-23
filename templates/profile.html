@@ -238,7 +238,7 @@
                     {% endif %}
 
                     {% if profile.year_of_study != None %}
-                        {% if profile.specialization|length != 0 %}
+                        {% if profile.year_of_study|length != 0 %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">Курс</span>
@@ -250,26 +250,35 @@
                         {% endif %}
                     {% endif %}
 
-                    {% if profile.year_of_study != None %}
-                        {% if profile.specialization|length != 0 %}
+                    {% if have_project %}
+                        {% if main_role != None %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">роль в команде</span>
                                     <p class="user__form_data_link">
-                                        <span>-</span>
+                                        <span>{{ main_role }}</span>
                                     </p>
                                 </div>
                             </div>
                         {% endif %}
-                    {% endif %}
 
-                    {% if profile.year_of_study != None %}
-                        {% if profile.specialization|length != 0 %}
+                        {% if second_role != None %}
                             <div class="user__data flex">
                                 <div class="user__data_left">
                                     <span class="user__form_title">дополнительная роль в команде</span>
                                     <p class="user__form_data_link">
-                                        <span>-</span>
+                                        <span>{{ second_role }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if third_role != None %}
+                            <div class="user__data flex">
+                                <div class="user__data_left">
+                                    <span class="user__form_title">дополнительная роль в команде</span>
+                                    <p class="user__form_data_link">
+                                        <span>{{ third_role }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -286,9 +295,9 @@
 {#                    </div>#}
 
 
-                <div class="user__competencies">
-                    <h2 class="user__competencies_title">Мои компетенции</h2>
-                    <div class="flex" style="flex-wrap: wrap;">
+                    <div class="user__competencies">
+                        <h2 class="user__competencies_title">Мои компетенции</h2>
+                        <div class="flex" style="flex-wrap: wrap;">
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Основные навыки</span>
@@ -321,12 +330,12 @@
                             </div>
                         </div>
 
+                        </div>
                     </div>
                 </div>
-
                 {% if profile.user == user %}
                     <form action="/edit_profile">
-                        <input class="btn btn-reset user__btn" type="submit" value="Редактировать профиль">
+                        <input class="btn btn-reset user__btn" margin="" type="submit" value="Редактировать профиль">
                     </form>
                 {% endif %}
         </div>

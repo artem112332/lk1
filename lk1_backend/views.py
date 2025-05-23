@@ -1,4 +1,3 @@
-from datetime import datetime, date
 from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from .models import *
@@ -51,17 +50,33 @@ def event_info(request, event_id):
     event = Event.objects.get(id=event_id)
 
 
-
 def profile_page(request, user_id):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
     profile = UserProfile.objects.get(user=User.objects.get(id=user_id))
 
-    return render(request, 'profile.html', {
-        'user': user,
-        'profile': profile,
-        'user_profile': user_profile
-    })
+    if UserProject.objects.filter(member=user_profile) != 0:
+        user_project = UserProject.objects.get(member=user_profile)
+        main_role = user_project.member_main_role
+        second_role = user_project.member_second_role
+        third_role = user_project.member_third_role
+
+        return render(request, 'profile.html', {
+            'user': user,
+            'profile': profile,
+            'have_project': True,
+            'main_role': main_role,
+            'second_role': second_role,
+            'third_role': third_role
+        })
+
+    else:
+        return render(request, 'profile.html', {
+            'user': user,
+            'profile': profile,
+            'user_profile': user_profile,
+            'have_project': False
+        })
 
 
 class ProfileEdit(APIView):
@@ -69,9 +84,25 @@ class ProfileEdit(APIView):
         user = request.user
         profile = UserProfile.objects.get(user=user)
 
-        return render(request, 'lk_edit.html', {
-            'profile': profile,
-        })
+        if UserProject.objects.filter(member=profile) != 0:
+            user_project = UserProject.objects.get(member=profile)
+            main_role = user_project.member_main_role
+            second_role = user_project.member_second_role
+            third_role = user_project.member_third_role
+
+            return render(request, 'lk_edit.html', {
+                'profile': profile,
+                'have_project': True,
+                'main_role': main_role,
+                'second_role': second_role,
+                'third_role': third_role
+            })
+
+        else:
+            return render(request, 'lk_edit.html', {
+                'profile': profile,
+                'have_project': False
+            })
 
     def post(self, request):
         user = request.user
@@ -82,18 +113,30 @@ class ProfileEdit(APIView):
             profile.photo = file
 
         full_name = request.POST.get('full_name').split()
-
         profile.last_name = full_name[0]
         profile.first_name = full_name[1]
         profile.middle_name = full_name[2]
+
         profile.phone_number = request.POST.get('phone_number')
         profile.email = request.POST.get('email')
         profile.telegram = request.POST.get('telegram')
+
         profile.university = request.POST.get('university')
         profile.year_of_study = request.POST.get('year_of_study')
         profile.specialization = request.POST.get('specialization')
 
+        if UserProject.objects.filter(member=profile) != 0:
+            user_project = UserProject.objects.get(member=profile)
+            if request.POST.get('role_1') is not None:
+                user_project.member_main_role = request.POST.get('role_1')
 
+            if request.POST.get('role_2') is not None:
+                user_project.member_second_role = request.POST.get('role_2')
+
+            if request.POST.get('role_3') is not None:
+                user_project.member_third_role = request.POST.get('role_3')
+
+            user_project.save()
 
         profile.save()
         return redirect(f'/profile/{user.id}/')

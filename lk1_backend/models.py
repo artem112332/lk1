@@ -98,11 +98,13 @@ class UserProject(models.Model):
     #     ('Дизайнер', 'Дизайнер'),
     #     ('Тимлид', 'Тимлид')
     # ]
-    member_role = models.CharField(max_length=50, null=True, blank=True)
+    member_main_role = models.CharField(max_length=50, null=True, blank=True)
+    member_second_role = models.CharField(max_length=50, null=True, blank=True)
+    member_third_role = models.CharField(max_length=50, null=True, blank=True)
     team_name = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.member}-{self.member_role}-{self.team_name}-{self.project}'
+        return f'{self.member} {self.member_main_role},{self.member_second_role},{self.member_third_role} {self.team_name} {self.project}'
 
 
 class Meeting(models.Model):

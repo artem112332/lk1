@@ -206,34 +206,34 @@
                     </div>
                 </div>
 
-                <div class="user__photo">
-                    <h2 class="user__photo_title">Фото профиля</h2>
-                    <div class="user__photo_image">
-                        <img class="user__photo_preview" id="preview{{ profile.id }}" src="{{ profile.photo.url }}"
-                             alt="Превью изображения"/>
+                    <div class="user__photo">
+                        <h2 class="user__photo_title">Фото профиля</h2>
+                        <div class="user__photo_image">
+                            <img class="user__photo_preview" id="preview{{ profile.id }}" src="{{ profile.photo.url }}"
+                                 alt="Превью изображения"/>
+                        </div>
+
+                        <div class="user__photo_name">
+                            <span id="filename{{ profile.id }}" style="font-size: 14px; color: #333;"></span>
+                            <button class="btn_close" type="button"
+                                    id="clearBtn{{ profile.id }}"
+                                    onclick="clearImage('profile{{ profile.id }}_photo', 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')">
+                                ❌
+                            </button>
+                        </div>
+
+                        <label for="profile{{ profile.id }}_photo" class="custom-file-button">Загрузить</label>
+                        <input type="file"
+                               id="profile{{ profile.id }}_photo"
+                               class="user__photo_load"
+                               name="profile{{ profile.id }}_photo"
+                               accept="image/*"
+                               onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')"/>
                     </div>
 
-                    <div class="user__photo_name">
-                        <span id="filename{{ profile.id }}" style="font-size: 14px; color: #333;"></span>
-                        <button class="btn_close" type="button"
-                                id="clearBtn{{ profile.id }}"
-                                onclick="clearImage('profile{{ profile.id }}_photo', 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')">
-                            ❌
-                        </button>
-                    </div>
-
-                    <label for="profile{{ profile.id }}_photo" class="custom-file-button">Загрузить</label>
-                    <input type="file"
-                           id="profile{{ profile.id }}_photo"
-                           class="user__photo_load"
-                           name="profile{{ profile.id }}_photo"
-                           accept="image/*"
-                           onchange="displayImage(this, 'preview{{ profile.id }}', 'filename{{ profile.id }}', 'clearBtn{{ profile.id }}')"/>
-                </div>
-
-                <div class="user__competencies">
-                    <h2 class="user__competencies_title">Мои компетенции</h2>
-                    <div class="flex" style="flex-wrap: wrap;">
+                    <div class="user__competencies">
+                        <h2 class="user__competencies_title">Мои компетенции</h2>
+                        <div class="flex" style="flex-wrap: wrap;">
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Основное направление</span>
@@ -273,9 +273,9 @@
                             </div>
                         </div>
 
-                        <div id="competencyModal" class="competency-modal">
-                            <div class="competency-modal-content">
-                                <h3>Выберите компетенции</h3>
+                            <div id="competencyModal" class="competency-modal">
+                                <div class="competency-modal-content">
+                                    <h3>Выберите компетенции</h3>
 
                                 <form action="#" class="competencies__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
@@ -287,12 +287,12 @@
                                          style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                 </form>
 
-                                <div id="competencyOptions"></div>
-                                <button type="button" onclick="closeModal()"
-                                        class="btn-reset close-competency-modal-content-btn">❌
-                                </button>
+                                    <div id="competencyOptions"></div>
+                                    <button type="button" onclick="closeModal()"
+                                            class="btn-reset close-competency-modal-content-btn">❌
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Навыки</span>
@@ -303,45 +303,47 @@
                             </div>
                         </div>
 
-                        <div id="skillsModal" class="competency-modal">
-                            <div class="competency-modal-content">
-                                <h3>Выберите навыки</h3>
+                            <div id="skillsModal" class="competency-modal">
+                                <div class="competency-modal-content">
+                                    <h3>Выберите навыки</h3>
 
-                                <form action="#" class="skills__search">
-                                    <img src="/static/img/search.png" alt="Поиск" class="skills__search-icon">
-                                    <input class="skills__search_input" type="text" placeholder="Поиск"
-                                           id="skills_search-input">
-                                    <div id="skillsSearchResults" class="search-dropdown" style="display: none;"></div>
-                                    <div id="selectedFromSkillsModal" class="selected-skills-list"
-                                         style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                                </form>
+                                    <form action="#" class="skills__search">
+                                        <img src="/static/img/search.png" alt="Поиск" class="skills__search-icon">
+                                        <input class="skills__search_input" type="text" placeholder="Поиск"
+                                               id="skills_search-input">
+                                        <div id="skillsSearchResults" class="search-dropdown"
+                                             style="display: none;"></div>
+                                        <div id="selectedFromSkillsModal" class="selected-skills-list"
+                                             style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                    </form>
 
-                                <div id="skillsOptions"></div>
-                                <button type="button" onclick="closeSkillsModal()"
-                                        class="btn-reset close-competency-modal-content-btn">❌
-                                </button>
+                                    <div id="skillsOptions"></div>
+                                    <button type="button" onclick="closeSkillsModal()"
+                                            class="btn-reset close-competency-modal-content-btn">❌
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Примеры работ</span>
-                            <div class="user__competencies_item-input" style="width: 100%;">
-                                <div class="user__competencies_item-value" style="text-align: left; display: flex;">
-                                    <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
-                                    <div id="fileList"
-                                         style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                                    <p class="btn_upload-projects"
-                                       onclick="document.getElementById('fileInput').click()">
-                                        <input type="file" id="fileInput" multiple onchange="handleFileUpload()"
-                                               style="display: none;">Выбрать
-                                    </p>
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">Примеры работ</span>
+                                <div class="user__competencies_item-input" style="width: 100%;">
+                                    <div class="user__competencies_item-value" style="text-align: left; display: flex;">
+                                        <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+                                        <div id="fileList"
+                                             style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                        <p class="btn_upload-projects"
+                                           onclick="document.getElementById('fileInput').click()">
+                                            <input type="file" id="fileInput" multiple onchange="handleFileUpload()"
+                                                   style="display: none;">Выбрать
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
+                    <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
+                </div>
             </div>
         </form>
     </div>
