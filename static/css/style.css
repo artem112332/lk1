@@ -93,25 +93,34 @@ body {
 
 .header__item {
     margin: auto 0;
+    padding: 10px;
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
     color: #334155;
+    outline: 2px solid #5C8DB9;
+    border-radius: 10px;
     text-decoration: none;
-    transition: color 0.3s ease-in-out;
+    transition: background-color color 0.3s ease-in-out;
 }
 
 .header__item:focus {
-    color: rgb(53, 54, 58);
+    color: #334155;
     outline: none;
 }
 
 .header__item:hover {
-    color: rgb(53, 54, 58);
+    color: #FFF;
+    background-color: #5C8DB9;
 }
 
 .header__item:active {
-    color: rgb(0, 0, 0);
+    color: #334155;
+}
+
+.header__item.active {
+    color: #FFF;
+    background-color: #5C8DB9;
 }
 
 .header__item:not(:first-child) {
@@ -1580,7 +1589,6 @@ input[type="checkbox"]:checked::after {
 
 .user__competencies_item-value {
     margin: 0;
-    margin-bottom: 10px;
     margin-right: 25px;
     padding: 10px 16px;
     color: #141416;
@@ -1720,7 +1728,7 @@ input[type="checkbox"]:checked::after {
 .user__data-edit:nth-child(4),
 .user__data-edit:nth-child(7),
 .user__data-edit:nth-child(10) {
-    margin-left: 50px;
+    margin-left: auto;
 }
 
 .unik {
@@ -2057,7 +2065,7 @@ mark {
     margin-top: 0;
 }
 
-#skillsOptions, #competencyOptions {
+#skillsOptions, #competencyOptions, #specializationsOptions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -2111,7 +2119,6 @@ mark {
 
 .competencies__search {
     position: relative;
-    margin: 0 auto;
 }
 
 .competencies__search_input {
@@ -2379,4 +2386,33 @@ mark {
 .event__list tbody tr:hover {
     cursor: pointer;
     background-color: #DDDFE4;
+}
+
+
+
+.specializations__search {
+    position: relative;
+    margin: 0 auto;
+}
+
+.specializations__search_input {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 12px;
+    padding-left: 45px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 100%;
+    color: #334155;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.specializations__search_input::placeholder {
+    color: #334155;
+}
+
+#role1, #role2, #role3 {
+    color: #000;
 }
