@@ -16,24 +16,11 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <nav class="header__nav">
-            <ul class="header__list list-reset flex">
-                <a href="/meetings" class="header__item">Собрания</a>
-                <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
-                <div class="header__item">
-                    <form action="#" class="search__form">
-                        <img src="/static/img/search.png" alt="Поиск" class="search__icon">
-                        <input class="search__input" type="text" placeholder="Поиск">
-                    </form>
-                </div>
-                <div class="header__item">
-                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>
-                    <sup class="notifications-counter">0</sup>
-                </div>
-                <a class="header__item" href="#"><img src="/static/img/bell.png" alt=""></a>
-            </ul>
-        </nav>
-        <a href="/profile/{{ user.id }}" class="header__profile profile"></a>
+        <a href="/meetings" class="header__item">Собрания</a>
+        <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
+                                                                              src="{{ profile.photo.url }}"
+                                                                              alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -81,7 +68,7 @@
                 <h1 class="user__name">{{ profile.first_and_last_name() }}</h1>
                 <hr class="horizontal-line">
                 <ul class="lk__menu">
-                    <li class="lk__item">
+                    <li class="lk__item active">
                         <a href="/profile">
                             <span>Профиль</span>
                         </a>
@@ -197,26 +184,25 @@
                         {% endif %}
                     </div>
 
-
                     <div class="user__data-edit unik">
-                        <label for="role" class="user__form_title">роль в команде</label>
-                        <input type="text" id="role" name="role_1" class="user__form_input user__form_data_link"
-                               placeholder="Введите роль в команде"
-                               value="">
+                        <label for="role1" class="user__form_title">Роль в команде</label>
+                        <select id="role1" name="role_1" class="user__form_input user__form_data_link" required>
+                            <option value="" disabled selected hidden>Выберите роль</option>
+                        </select>
                     </div>
 
                     <div class="user__data-edit">
-                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
-                        <input type="text" id="telegram" name="role_2" class="user__form_input user__form_data_link"
-                               placeholder="Дополнительная роль в команде"
-                               value="">
+                        <label for="role2" class="user__form_title">Дополнительная роль в команде</label>
+                        <select id="role2" name="role_2" class="user__form_input user__form_data_link" required>
+                            <option value="" disabled selected hidden>Выберите дополнительную роль</option>
+                        </select>
                     </div>
 
                     <div class="user__data-edit">
-                        <label for="telegram" class="user__form_title">дополнительная роль в команде</label>
-                        <input type="text" id="telegram" name="role_3" class="user__form_input user__form_data_link"
-                               placeholder="Дополнительная роль в команде"
-                               value="">
+                        <label for="role3" class="user__form_title">Дополнительная роль в команде</label>
+                        <select id="role3" name="role_3" class="user__form_input user__form_data_link">
+                            <option value="" disabled selected hidden>Выберите дополнительную роль</option>
+                        </select>
                     </div>
                 </div>
 
@@ -250,21 +236,40 @@
                     <div class="flex" style="flex-wrap: wrap;">
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">основное направление</span>
-                            <div class="user__competencies_item-input flex">
-                                <div class="user__competencies_item-value">
-                                    <span>Аналитика</span>
+                            <span class="user__competencies_item-title">Основное направление</span>
+                            <div class="flex" id="selectedSpecializations" name="specialization">
+                                <div class="user__competencies_item-value" id="specializationsChooseBtn" style="cursor: pointer; color: #8A8A8A;" onclick="openSpecializationsModal()">
+                                    <input type="search" style="display: none;">Выбрать
                                 </div>
+                                
+                            </div>
+                        </div>
+
+                        <div id="specializationsModal" class="competency-modal">
+                            <div class="competency-modal-content">
+                                <h3>Выберите направление</h3>
+
+                                <form action="#" class="specializations__search">
+                                    <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
+                                    <input class="specializations__search_input" type="text" placeholder="Поиск" id="specializations_search-input">
+                                    <div id="specializationsSearchResults" class="search-dropdown" style="display: none;"></div>
+                                    <div id="selectedFromSpecializationsModal" class="selected-specializations-list"
+                                         style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                                </form>
+
+                                <div id="specializationsOptions"></div>
+                                <button type="button" onclick="closeSpecializationsModal()"
+                                        class="btn-reset close-competency-modal-content-btn">❌
+                                </button>
                             </div>
                         </div>
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Дополнительное направление</span>
-                            <div class="flex" id="selectedCompetencies">
-                                <p class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;"
-                                   onclick="openModal()">
+                            <div class="flex" id="selectedCompetencies" name="extraCompetency">
+                                <div class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;" onclick="openModal()">
                                     <input type="search" style="display: none;">Выбрать
-                                </p>
+                                </div>
                             </div>
                         </div>
 
@@ -272,7 +277,7 @@
                             <div class="competency-modal-content">
                                 <h3>Выберите компетенции</h3>
 
-                                <form action="#" class="competencies__search flex">
+                                <form action="#" class="competencies__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
                                     <input class="competencies__search_input" type="text" placeholder="Поиск"
                                            id="competencies_search-input">
@@ -291,11 +296,10 @@
 
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Навыки</span>
-                            <div class="flex" id="selectedSkills">
-                                <p class="user__competencies_item-value" id="skillsChooseBtn"
-                                   style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
+                            <div class="flex" id="selectedSkills" name="skills">
+                                <div class="user__competencies_item-value" id="skillsChooseBtn" style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
                                     <input type="search" style="display: none;">Выбрать
-                                </p>
+                                </div>
                             </div>
                         </div>
 
@@ -402,6 +406,87 @@
             }
         });
     });
+
+    document.getElementById('specializations_search-input').addEventListener('input', function () {
+        const searchValue = this.value.trim().toLowerCase();
+        const options = document.querySelectorAll('#specializationsOptions .competency-option');
+
+        options.forEach(option => {
+            const text = option.textContent.trim().toLowerCase();
+
+            if (searchValue && text.includes(searchValue)) {
+                option.style.backgroundColor = '#81d4fa';
+            } else {
+                option.style.backgroundColor = '';
+            }
+        });
+    });
+
+
+    /* Выбор роли */
+    const role1 = document.getElementById('role1');
+    const role2 = document.getElementById('role2');
+    const role3 = document.getElementById('role3');
+
+    const allRoles = [
+        'Backend-разработчик',
+        'Frontend-разработчик',
+        'Аналитик',
+        'Дизайнер',
+        'Тимлид'
+    ];
+
+    const selects = [
+        { element: role1, placeholder: 'Выберите основную роль' },
+        { element: role2, placeholder: 'Дополнительная роль' },
+        { element: role3, placeholder: 'Роль по желанию' }
+    ];
+
+    function getSelectedValues(excludeElement) {
+        return selects
+        .filter(s => s.element !== excludeElement)
+        .map(s => s.element.value)
+        .filter(v => v);
+    }
+
+    function populateSelect(selectObj) {
+        const { element, placeholder } = selectObj;
+        const currentValue = element.value;
+        const selectedOthers = getSelectedValues(element);
+
+        element.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.textContent = placeholder;
+        defaultOption.value = '';
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        element.appendChild(defaultOption);
+
+        allRoles.forEach(role => {
+        if (!selectedOthers.includes(role)) {
+            const option = document.createElement('option');
+            option.value = role;
+            option.textContent = role;
+            element.appendChild(option);
+        }
+        });
+
+        if (allRoles.includes(currentValue) && !selectedOthers.includes(currentValue)) {
+        element.value = currentValue;
+        } else {
+        element.value = '';
+        }
+    }
+
+    function updateAllSelects() {
+        selects.forEach(populateSelect);
+    }
+
+    selects.forEach(({ element }) => {
+        element.addEventListener('change', updateAllSelects);
+    });
+
+    updateAllSelects();
 </script>
 
 <script src="/static/js/search.js"></script>
@@ -410,6 +495,8 @@
 <script src="/static/js/add-competency-to-modal.js"></script>
 <script src="/static/js/skills.js"></script>
 <script src="/static/js/add-skill-to-modal.js"></script>
+<script src="/static/js/specializations.js"></script>
+<script src="/static/js/add-specialization-to-modal.js"></script>
 <script src="/static/js/update-projects.js"></script>
 <script src="/static/js/main.js"></script>
 <script src="/static/js/script.js"></script>

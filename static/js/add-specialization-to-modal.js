@@ -1,5 +1,5 @@
-function addSkillToModal(name) {
-    const container = document.getElementById('selectedFromSkillsModal');
+function addSpecializationsToModal(name) {
+    const container = document.getElementById('selectedFromSpecializationsModal');
 
     const exists = Array.from(container.children).some(child => child.textContent.trim().startsWith(name));
     if (exists) return;
@@ -12,19 +12,9 @@ function addSkillToModal(name) {
     item.style.backgroundColor = '#dcedc8';
 
     const removeBtn = document.createElement('div');
-    // removeBtn.textContent = '×';
-    // removeBtn.style.position = 'absolute';
-    // removeBtn.style.right = '5px';
-    // removeBtn.style.top = '0';
-    // removeBtn.style.cursor = 'pointer';
-    // removeBtn.style.color = '#888';
-
     removeBtn.onclick = (e) => {
-        // e.stopPropagation();
-        // item.remove();
-        removeFromMainPage(name, 'selectedSkills');
+        removeFromMainPage(name, 'selectedSpecializations');
     };
-
     item.appendChild(removeBtn);
     container.appendChild(item);
 }

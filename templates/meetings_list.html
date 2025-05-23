@@ -16,7 +16,7 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/meetings" class="header__item">Собрания</a>
+        <a href="/meetings" class="header__item active">Собрания</a>
         <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
                                                                               src="{{ user_profile.photo.url }}"
@@ -123,36 +123,33 @@
     }
 
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('search-input');
-        const table = document.querySelector('.meeting__list');
-        const rows = Array.from(table.querySelectorAll('tbody tr'));
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const searchInput = document.getElementById('search-input');
+    //     const table = document.querySelector('.meeting__list');
+    //     const rows = Array.from(table.querySelectorAll('tbody tr'));
 
-        // Функция для поиска по таблице
-        function searchTable(query) {
-            // Перебираем все строки таблицы
-            rows.forEach(row => {
-                const cells = Array.from(row.getElementsByTagName('td'));
-                // Проверяем, есть ли в какой-либо ячейке строка, содержащая введённый запрос
-                const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+    //     function searchTable(query) {
+    //         rows.forEach(row => {
+    //             const cells = Array.from(row.getElementsByTagName('td'));
+    //             const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
 
-                if (rowText.includes(query.toLowerCase())) {
-                    row.classList.remove('hidden');  // Показываем строку
-                } else {
-                    row.classList.add('hidden');  // Скрываем строку
-                }
-            });
-        }
+    //             if (rowText.includes(query.toLowerCase())) {
+    //                 row.classList.remove('hidden'); 
+    //             } else {
+    //                 row.classList.add('hidden');
+    //             }
+    //         });
+    //     }
 
-        // Слушаем событие ввода в поле поиска
-        searchInput.addEventListener('input', function (event) {
-            const query = event.target.value;
-            searchTable(query);
-        });
-    });
+    //     searchInput.addEventListener('input', function (event) {
+    //         const query = event.target.value;
+    //         searchTable(query);
+    //     });
+    // });
 
 </script>
 
+<script src="/static/js/search.js"></script>
 <script src="/static/js/meeting-filter.js"></script>
 <script src="/static/js/modal-filter.js"></script>
 <script src="/static/js/main.js"></script>

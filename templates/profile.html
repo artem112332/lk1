@@ -16,23 +16,8 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <nav class="header__nav">
-            <ul class="header__list list-reset flex">
-                <a href="/meetings" class="header__item">Собрания</a>
-                <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
-                {#                <div class="header__item">#}
-                {#                    <form action="#" class="search__form">#}
-                {#                        <img src="/static/img/search.png" alt="Поиск" class="search__icon">#}
-                {#                        <input class="search__input" type="text" placeholder="Поиск">#}
-                {#                    </form>#}
-                {#                </div>#}
-                {#                <div class="header__item">#}
-                {#                    <a href="/notifications"><img src="/static/img/heart.png" alt=""></a>#}
-                {#                    <sup class="notifications-counter">0</sup>#}
-                {#                </div>#}
-                {#                <a class="header__item" href="#"><img src="/static/img/bell.png" alt=""></a>#}
-            </ul>
-        </nav>
+        <a href="/meetings" class="header__item">Собрания</a>
+        <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
                                                                               src="{{ profile.photo.url }}"
                                                                               alt="Аватар"></a>
@@ -80,8 +65,10 @@
                 <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
                 <h1 class="user__name">{{ profile.first_and_last_name() }}</h1>
                 <hr class="horizontal-line">
+
+                <!-- Меню рядовой пользоваель -->
                 <ul class="lk__menu">
-                    <li class="lk__item">
+                    <li class="lk__item active" data-target="user__info-main">
                         <a href="#">
                             <span>Профиль</span>
                         </a>
@@ -96,15 +83,83 @@
                             <span>Статистика оценки</span>
                         </a>
                     </li>
-                    <li class="lk__item">
+                    <li class="lk__item" data-target="user__info-project">
                         <a href="#">
                             <span>Проект</span>
                         </a>
                     </li>
                 </ul>
+
+                 <!-- Меню куратор -->
+                <!-- <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Список команд</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Оценка</span>
+                        </a>
+                    </li>
+                </ul> -->
+
+                <!-- Меню рук напр -->
+                <!-- <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Список направлений</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Оценка</span>
+                        </a>
+                    </li>
+                </ul> -->
+
+                <!-- Меню организатор -->
+                <!-- <ul class="lk__menu">
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Профиль</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Список мероприятий</span>
+                        </a>
+                    </li>
+                    <li class="lk__item">
+                        <a href="#">
+                            <span>Оценка</span>
+                        </a>
+                    </li>
+                </ul> -->
             </div>
 
-            <div class="user__info">
+            <!-- ЛК проект -->
+            <div class="user__info user__info-project target-block" style="display: none">
+                <div class="user__project">
+                    <span class="user__project_name">Точка Сбора</span>
+                    <span class="user__project_track">ВЕБ</span>
+                    <span class="user__project_company">НПЦ РИЦ</span>
+                    <span class="user__project_team">Команда 1</span>
+                    <span class="user__project_tutor">Смирнов Денис</span>
+                </div>
+            </div>
+
+            <div class="user__info user__info-main target-block">
                 <div class="user__form">
                     <div class="user__data flex">
                         <div class="user__data_left">
@@ -220,6 +275,7 @@
                             </div>
                         {% endif %}
                     {% endif %}
+            </div>
 
 
 {#                    <div class="user__data">#}
@@ -228,7 +284,6 @@
 {#                            <p class="user__form_data">{{ profile.description }}</p>#}
 {#                        {% endif %}#}
 {#                    </div>#}
-{#                </div>#}
 
 
                 <div class="user__competencies">
@@ -236,30 +291,33 @@
                     <div class="flex" style="flex-wrap: wrap;">
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">основные навыки</span>
-                            <div class="user__competencies_item-input flex">
-                                <div class="user__competencies_item-value">
-                                    <span>Аналитика</span>
+                            <span class="user__competencies_item-title">Основные навыки</span>
+                            <div class="user__competencies_item-input" id="profileSpecializations">
+                                <div class="user__competencies_item-value">Отсутствует</div>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Дополнительное направление</span>
+                            <div class="user__competencies_item-input" id="profileCompetencies">
+                                <div class="user__competencies_item-value">Отсутствует</div>
+                            </div>
+                        </div>
+
+                        <div class="user__competencies_item">
+                            <span class="user__competencies_item-title">Навыки</span>
+                            <div class="user__competencies_item-input flex" id="profileSkills">
+                                <div class="user__competencies_item-value">Отсутствует
                                 </div>
                             </div>
                         </div>
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Дополнительные навыки</span>
-                            <div class="user__competencies_item-input flex">
-                                <p class="user__competencies_item-value">
-                                    <span>Дизайн</span>
-                                </p>
-                            </div>
-                        </div>
-
-
-                        <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Примеры работ</span>
                             <div class="user__competencies_item-input" style="width: 100%;">
-                                <p class="user__competencies_item-value" style="text-align: left;">
-                                    <span><img src="/static/img/attachment.png"></span>
-                                </p>
+                                <div class="user__competencies_item-value" style="text-align: left" id="fileListProfile">
+                                    <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -271,22 +329,98 @@
                         <input class="btn btn-reset user__btn" type="submit" value="Редактировать профиль">
                     </form>
                 {% endif %}
-            </div>
         </div>
     </div>
 </main>
 
 <script>
-    function displayImage(inputElement) {
-        const file = inputElement.files[0];
-        const imageURL = URL.createObjectURL(file);
-        document.getElementById('preview').src = imageURL;
-        inputElement.value = null;
-        document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
+    window.onload = function () {
+        const saved = JSON.parse(localStorage.getItem('savedFileNames') || '[]');
+        const container = document.getElementById('fileListProfile');
+
+        saved.forEach(name => {
+            const fileSpan = document.createElement('span');
+            fileSpan.className = 'file-item';
+            fileSpan.textContent = name;
+            fileSpan.style.marginLeft = '10px';
+            fileSpan.style.padding = '5px 10px';
+            fileSpan.style.backgroundColor = '#e6e6e6';
+            fileSpan.style.borderRadius = '6px';
+            fileSpan.style.fontSize = '14px';
+            container.appendChild(fileSpan);
+        });
+    };
+
+    document.querySelectorAll('[data-target]').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelectorAll('.target-block').forEach(block => {
+                block.style.display = 'none';
+            });
+
+            const targetClass = this.getAttribute('data-target');
+            const targetBlock = document.querySelector(`.${targetClass}`);
+            if (targetBlock) {
+                targetBlock.style.display = 'block';
+            }
+
+            document.querySelectorAll('.lk__item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            this.classList.add('active');
+        });
+    });
+
+    function createCompetencyElement(text) {
+        const div = document.createElement('div');
+        div.className = 'user__competencies_item-value';
+        div.textContent = text;
+        return div;
     }
+
+    window.addEventListener('DOMContentLoaded', function() {
+        const savedCompetencies = JSON.parse(localStorage.getItem('savedCompetencies') || []);
+        const competenciesContainer = document.getElementById('profileCompetencies');
+        
+        competenciesContainer.innerHTML = '';
+        
+        if (savedCompetencies.length > 0) {
+            savedCompetencies.forEach(comp => {
+                competenciesContainer.appendChild(createCompetencyElement(comp));
+            });
+        } else {
+            competenciesContainer.appendChild(createCompetencyElement('Отсутствует'));
+        }
+
+        const savedSkills = JSON.parse(localStorage.getItem('savedSkills') || []);
+        const skillsContainer = document.getElementById('profileSkills');
+        
+        skillsContainer.innerHTML = '';
+        
+        if (savedSkills.length > 0) {
+            savedSkills.forEach(skill => {
+                skillsContainer.appendChild(createCompetencyElement(skill));
+            });
+        } else {
+            skillsContainer.appendChild(createCompetencyElement('Отсутствует'));
+        }
+
+        const savedSpecializations = JSON.parse(localStorage.getItem('savedSpecializations') || []);
+        const specializationsContainer = document.getElementById('profileSpecializations');
+        
+        specializationsContainer.innerHTML = '';
+        
+        if (savedSpecializations.length > 0) {
+            savedSpecializations.forEach(specialization => {
+                specializationsContainer.appendChild(createCompetencyElement(specialization));
+            });
+        } else {
+            specializationsContainer.appendChild(createCompetencyElement('Отсутствует'));
+        }
+    });
 </script>
 
-<script src="/static/js/main.js"></script>
-<script src="/static/js/script.js"></script>
 </body>
 </html>

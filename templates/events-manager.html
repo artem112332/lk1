@@ -17,7 +17,7 @@
 <header class="header">
     <div class="container header__container flex">
         <a href="/meetings" class="header__item">Собрания</a>
-        <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
+        <a href="/events" class="header__item active" style="margin-right: auto;">Мероприятия</a>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="{{ user_profile.photo.url }}"
                                                         alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
@@ -65,6 +65,11 @@
             <img class="column-filter" src="/static/img/column-filter.svg" alt="Фильтр по колонкам">
         </form>
 
+        <div class="flex" style="margin-top: 10px">
+            <input id="search-filter-toggle" type="checkbox" value="0" style="margin-right: 10px">
+            <span style="margin: auto 0">Оставить подходящие собрания</span>
+        </div>
+
         <table class="event__list">
             <thead>
             <tr>
@@ -73,9 +78,9 @@
                 </th>
                 <th id="end-time-header">Дата завершения <img class="sort-data" src="/static/img/filter-meetings.png">
                 </th>
-                <th id="participants-header">Направления <img class="sort-data" src="/static/img/filter-meetings.png">
+                <th id="participants-header">Направление <img class="sort-data" src="/static/img/filter-meetings.png">
                 </th>
-                <th id="participants-header">Организатор <img class="sort-data" src="/static/img/filter-meetings.png">
+                <th id="participants-header">Ответственный <img class="sort-data" src="/static/img/filter-meetings.png">
                 </th>
             </tr>
             </thead>
