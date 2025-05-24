@@ -4,7 +4,7 @@ from .models import *
 
 
 def index(request):
-    return redirect('meetings')
+    return redirect('profile_page', user_id=request.user.id)
 
 
 def meetings_page(request):
@@ -43,11 +43,26 @@ def events_page(request):
                    })
 
 
-def event_info(request, event_id):
+# def event_info(request, event_id):
+#     user = request.user
+#     user_profile = UserProfile.objects.get(user=user)
+#
+#     event = Event.objects.get(id=event_id)
+
+
+def applications_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
 
-    event = Event.objects.get(id=event_id)
+    project_applications = ApllictationToProject.objects.filter(sender=user_profile)
+    event_appplications = ApllictationToEvent.objects.filter(sender=user_profile)
+
+    return render(request, 'applications.html', {
+        'user': user,
+        'profile': user_profile,
+        'project_applications': project_applications,
+        'event_appplications': event_appplications,
+    })
 
 
 def profile_page(request, user_id):

@@ -32,19 +32,19 @@ class UserProfile(models.Model):
         return f'{self.last_name} {self.first_name[0]}.{self.middle_name[0]}.'
 
 
-class UserRole(models.Model):
+class UserStatus(models.Model):
     user = models.ForeignKey(UserProfile, models.CASCADE, related_name='role_owner')
-    role_choises = [
+    status_choises = [
         ('Проектант', 'Проектант'),
         ('Куратор', 'Куратор'),
         ('Организатор', 'Организатор'),
         ('Руководитель направления', 'Руководитель направления'),
         ('Администратор', 'Администратор')
     ]
-    role = models.CharField(max_length=24, choices=role_choises, default='Проектант')
+    status = models.CharField(max_length=24, choices=status_choises, default='Проектант')
 
     def __str__(self):
-        return f'{self.user} - {self.role}'
+        return f'{self.user} - {self.status}'
 
 
 class UserFile(models.Model):
@@ -80,7 +80,7 @@ class Direction(models.Model):
 
 class Project(models.Model):
     tutor = models.ForeignKey(UserProfile, models.SET_NULL, related_name='project_tutor', null=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, blank=True)
     description = models.TextField(max_length=2000, blank=True)
     direction = models.ForeignKey(Direction, models.SET_NULL, related_name="project_direction", null=True)
 
@@ -194,14 +194,15 @@ class ApllictationToEvent(models.Model):
     event = models.ForeignKey(Event, models.CASCADE, related_name='application_event')
     sender = models.ForeignKey(UserProfile, models.CASCADE, related_name='event_apllication_sender')
     status_choices = [
-        ('Отправлена', 'Отправлена'),
-        ('Принята', 'Принята'),
-        ('Отклонена', 'Отклонена')
+        ('На рассмотрении', 'На рассмотрении'),
+        ('Принято', 'Принято'),
+        ('Отклонено', 'Отклонено')
     ]
     status = models.CharField(max_length=20, choices=status_choices)
+    send_date = models.DateField()
 
     def __str__(self):
-        return f'{self.id} Заявка на {self.event.name}'
+        return f'Заявка {self.sender} на {self.event.name} - {self.status}'
 
     def set_accepted(self):
         self.status = self.status_choices[1]
@@ -216,14 +217,15 @@ class ApllictationToProject(models.Model):
     project = models.ForeignKey(Project, models.CASCADE, related_name='event')
     sender = models.ForeignKey(UserProfile, models.CASCADE, related_name='project_apllication_sender')
     status_choices = [
-        ('Отправлена', 'Отправлена'),
-        ('Принята', 'Принята'),
-        ('Отклонена', 'Отклонена')
+        ('На рассмотрении', 'На рассмотрении'),
+        ('Принято', 'Принято'),
+        ('Отклонено', 'Отклонено')
     ]
     status = models.CharField(max_length=20, choices=status_choices)
+    send_date = models.DateField()
 
     def __str__(self):
-        return f'{self.id} Заявка на {self.project.name}'
+        return f'Заявка {self.sender} на {self.project.name} - {self.status}'
 
     def set_accepted(self):
         self.status = self.status_choices[1]

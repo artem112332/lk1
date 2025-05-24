@@ -16,8 +16,11 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/meetings" class="header__item active">Собрания</a>
-        <a href="/events" class="header__item" style="margin-right: auto;">Мероприятия</a>
+         <nav class="header__nav">
+            <a href="/meetings" class="header__item">Собрания</a>
+            <a href="/events" class="header__item">Мероприятия</a>
+            <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
+        </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
                                                                               src="{{ user_profile.photo.url }}"
                                                                               alt="Аватар"></a>

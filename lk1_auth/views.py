@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from lk1_backend.models import UserProfile, UserRole
+from lk1_backend.models import UserProfile, UserStatus, UserProject, Project
 from rest_framework.views import APIView
 from lk1_backend.views import index
 
@@ -63,7 +63,14 @@ class Register(APIView):
                 middle_name=middle_name,
             )
 
-            UserRole.objects.create(user=user_profile)
+            UserStatus.objects.create(user=user_profile)
+
+            # проект заглушка
+            project = Project.objects.create()
+            project.name = f'Проект №{project.id}'
+            project.save()
+
+            UserProject.objects.create(project=project, member=user_profile)
 
             return redirect('index_login')
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(UserProfile)
-admin.site.register(UserRole)
+admin.site.register(UserStatus)
 admin.site.register(UserFile)
 admin.site.register(Skill)
 admin.site.register(Direction)

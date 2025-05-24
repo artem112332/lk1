@@ -92,7 +92,7 @@ body {
 }
 
 .header__item {
-    margin: auto 0;
+    margin: auto 0 auto 45px;
     padding: 10px;
     font-weight: 700;
     font-size: 14px;
@@ -123,14 +123,14 @@ body {
     background-color: #5C8DB9;
 }
 
-.header__item:not(:first-child) {
-    margin-left: 45px;
-}
+/*.header__item:not(:first-child) {*/
+/*    margin-left: 45px;*/
+/*}*/
 
-.header__item:last-child {
-    margin: auto 0;
-    margin-left: 15px;
-}
+/*.header__item:last-child {*/
+/*    margin: auto 0;*/
+/*    margin-left: 15px;*/
+/*}*/
 
 .heart-header {
     margin-left: 125px;
@@ -2252,7 +2252,7 @@ mark {
 .application__item_content {
     display: flex;
     justify-content: center;
-    padding-left: 300px;
+    padding-left: 100px;
 }
 
 .application__item_status {
