@@ -16,7 +16,7 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-         <nav class="header__nav">
+        <nav class="header__nav">
             <a href="/meetings" class="header__item">Собрания</a>
             <a href="/events" class="header__item">Мероприятия</a>
             <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
@@ -336,12 +336,13 @@
 
                     </div>
                 </div>
+                {% if profile.user == user %}
+                    <form action="/edit_profile">
+                        <input class="btn btn-reset user__btn" margin="" type="submit" value="Редактировать профиль">
+                    </form>
+                {% endif %}
             </div>
-            {% if profile.user == user %}
-                <form action="/edit_profile">
-                    <input class="btn btn-reset user__btn" margin="" type="submit" value="Редактировать профиль">
-                </form>
-            {% endif %}
+
         </div>
     </div>
 </main>
