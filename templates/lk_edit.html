@@ -16,7 +16,7 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-         <nav class="header__nav">
+        <nav class="header__nav">
             <a href="/meetings" class="header__item">Собрания</a>
             <a href="/events" class="header__item">Мероприятия</a>
             <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
@@ -354,7 +354,9 @@
                                          style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                     <p class="btn_upload-projects"
                                        onclick="document.getElementById('fileInput').click()">
-                                        <input type="file" id="fileInput" multiple onchange="handleFileUpload()"
+                                        <label for="file"></label>
+                                        <input type="file" id="fileInput" name="file" multiple
+                                               onchange="handleFileUpload()"
                                                style="display: none;">Выбрать
                                     </p>
                                 </div>
@@ -362,11 +364,9 @@
                         </div>
                     </div>
                 </div>
-
                 <input type="submit" class="btn btn-reset user__btn" value="Сохранить изменения">
             </div>
-    </div>
-    </form>
+        </form>
     </div>
 </main>
 

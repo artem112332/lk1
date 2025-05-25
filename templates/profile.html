@@ -325,13 +325,28 @@
                         </div>
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Примеры работ</span>
-                            <div class="user__competencies_item-input" style="width: 100%;">
-                                <div class="user__competencies_item-value" style="text-align: left"
-                                     id="fileListProfile">
-                                    <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+                            {% if files|length != 0 %}
+                                <span class="user__competencies_item-title">Примеры работ</span>
+                                <div class="user__competencies_item-input" style="width: 100%;">
+                                    <div class="user__competencies_item-value" style="text-align: left"
+                                         id="fileListProfile">
+                                        <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+
+                                        {% for file in files %}
+                                            <span class="file-item"
+                                                  style="margin-left: 10px;
+                                                  padding: 5px 10px;
+                                                  background-color: rgb(230, 230, 230);
+                                                  border-radius: 6px;
+                                                  font-size: 14px;">
+                                                <a href="{{ file.file.url }}" download="{{ file.file.name }}">
+                                                    {{ file.file.name[12:] }}
+                                                </a>
+                                            </span>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
 
                     </div>
@@ -351,89 +366,93 @@
     window.onload = function () {
         const saved = JSON.parse(localStorage.getItem('savedFileNames') || '[]');
         const container = document.getElementById('fileListProfile');
+        {##}
+        {#saved.forEach(name => {#}
+        {#    const fileSpan = document.createElement('span');#}
+        {#    fileSpan.className = 'file-item';#}
+        {#    fileSpan.textContent = name;#}
+        {#    fileSpan.style.marginLeft = '10px';#}
+        {#    fileSpan.style.padding = '5px 10px';#}
+        {#    fileSpan.style.backgroundColor = '#e6e6e6';#}
+        {#    fileSpan.style.borderRadius = '6px';#}
+        {#    fileSpan.style.fontSize = '14px';#}
+        {#    container.appendChild(fileSpan);#}
+        {#})
+            ;
+            #}
+        }
+        ;
 
-        saved.forEach(name => {
-            const fileSpan = document.createElement('span');
-            fileSpan.className = 'file-item';
-            fileSpan.textContent = name;
-            fileSpan.style.marginLeft = '10px';
-            fileSpan.style.padding = '5px 10px';
-            fileSpan.style.backgroundColor = '#e6e6e6';
-            fileSpan.style.borderRadius = '6px';
-            fileSpan.style.fontSize = '14px';
-            container.appendChild(fileSpan);
-        });
-    };
+        document.querySelectorAll('[data-target]').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
 
-    document.querySelectorAll('[data-target]').forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
+                document.querySelectorAll('.target-block').forEach(block => {
+                    block.style.display = 'none';
+                });
 
-            document.querySelectorAll('.target-block').forEach(block => {
-                block.style.display = 'none';
+                const targetClass = this.getAttribute('data-target');
+                const targetBlock = document.querySelector(`.${targetClass}`);
+                if (targetBlock) {
+                    targetBlock.style.display = 'block';
+                }
+
+                document.querySelectorAll('.lk__item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                this.classList.add('active');
             });
+        });
 
-            const targetClass = this.getAttribute('data-target');
-            const targetBlock = document.querySelector(`.${targetClass}`);
-            if (targetBlock) {
-                targetBlock.style.display = 'block';
+        function createCompetencyElement(text) {
+            const div = document.createElement('div');
+            div.className = 'user__competencies_item-value';
+            div.textContent = text;
+            return div;
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const savedCompetencies = JSON.parse(localStorage.getItem('savedCompetencies') || []);
+            const competenciesContainer = document.getElementById('profileCompetencies');
+
+            competenciesContainer.innerHTML = '';
+
+            if (savedCompetencies.length > 0) {
+                savedCompetencies.forEach(comp => {
+                    competenciesContainer.appendChild(createCompetencyElement(comp));
+                });
+            } else {
+                competenciesContainer.appendChild(createCompetencyElement('Отсутствует'));
             }
 
-            document.querySelectorAll('.lk__item').forEach(item => {
-                item.classList.remove('active');
-            });
+            const savedSkills = JSON.parse(localStorage.getItem('savedSkills') || []);
+            const skillsContainer = document.getElementById('profileSkills');
 
-            this.classList.add('active');
+            skillsContainer.innerHTML = '';
+
+            if (savedSkills.length > 0) {
+                savedSkills.forEach(skill => {
+                    skillsContainer.appendChild(createCompetencyElement(skill));
+                });
+            } else {
+                skillsContainer.appendChild(createCompetencyElement('Отсутствует'));
+            }
+
+            const savedSpecializations = JSON.parse(localStorage.getItem('savedSpecializations') || []);
+            const specializationsContainer = document.getElementById('profileSpecializations');
+
+            specializationsContainer.innerHTML = '';
+
+            if (savedSpecializations.length > 0) {
+                savedSpecializations.forEach(specialization => {
+                    specializationsContainer.appendChild(createCompetencyElement(specialization));
+                });
+            } else {
+                specializationsContainer.appendChild(createCompetencyElement('Отсутствует'));
+            }
         });
-    });
-
-    function createCompetencyElement(text) {
-        const div = document.createElement('div');
-        div.className = 'user__competencies_item-value';
-        div.textContent = text;
-        return div;
     }
-
-    window.addEventListener('DOMContentLoaded', function () {
-        const savedCompetencies = JSON.parse(localStorage.getItem('savedCompetencies') || []);
-        const competenciesContainer = document.getElementById('profileCompetencies');
-
-        competenciesContainer.innerHTML = '';
-
-        if (savedCompetencies.length > 0) {
-            savedCompetencies.forEach(comp => {
-                competenciesContainer.appendChild(createCompetencyElement(comp));
-            });
-        } else {
-            competenciesContainer.appendChild(createCompetencyElement('Отсутствует'));
-        }
-
-        const savedSkills = JSON.parse(localStorage.getItem('savedSkills') || []);
-        const skillsContainer = document.getElementById('profileSkills');
-
-        skillsContainer.innerHTML = '';
-
-        if (savedSkills.length > 0) {
-            savedSkills.forEach(skill => {
-                skillsContainer.appendChild(createCompetencyElement(skill));
-            });
-        } else {
-            skillsContainer.appendChild(createCompetencyElement('Отсутствует'));
-        }
-
-        const savedSpecializations = JSON.parse(localStorage.getItem('savedSpecializations') || []);
-        const specializationsContainer = document.getElementById('profileSpecializations');
-
-        specializationsContainer.innerHTML = '';
-
-        if (savedSpecializations.length > 0) {
-            savedSpecializations.forEach(specialization => {
-                specializationsContainer.appendChild(createCompetencyElement(specialization));
-            });
-        } else {
-            specializationsContainer.appendChild(createCompetencyElement('Отсутствует'));
-        }
-    });
 </script>
 
 </body>

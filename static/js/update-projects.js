@@ -27,7 +27,7 @@ function handleFileUpload() {
 
     localStorage.setItem('savedFileNames', JSON.stringify(uploadedFiles));
 
-    fileInput.value = '';
+    // fileInput.value = '';
 }
 
 function createFileSpan(fileName) {

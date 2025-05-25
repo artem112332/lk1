@@ -11,7 +11,8 @@ def meetings_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
 
-    user_meetings = [user_meeting.meeting for user_meeting in UserMeeting.objects.filter(user=user_profile)]
+    users_meetings = UserMeeting.objects.filter(user=user_profile)
+    user_meetings = [user_meeting.meeting for user_meeting in users_meetings]
     meetings = {
         meeting: ', '.join([f'{user_meeting.user.short_name()}'
                             for user_meeting in UserMeeting.objects.filter(meeting=meeting)])
@@ -29,7 +30,8 @@ def events_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
 
-    user_events = [user_event.event for user_event in UserEvent.objects.filter(user=user_profile)]
+    users_events = UserEvent.objects.filter(user=user_profile)
+    user_events = [user_event.event for user_event in users_events]
     events = {
         event: ', '.join([f'{event_direction.direction.name}'
                           for event_direction in EventDirection.objects.filter(event=event)])
@@ -70,6 +72,8 @@ def profile_page(request, user_id):
     user_profile = UserProfile.objects.get(user=user)
     profile = UserProfile.objects.get(user=User.objects.get(id=user_id))
 
+    user_files = UserFile.objects.filter(user=profile)
+
     if UserProject.objects.filter(member=user_profile) != 0:
         user_project = UserProject.objects.get(member=user_profile)
         main_role = user_project.member_main_role
@@ -82,7 +86,8 @@ def profile_page(request, user_id):
             'have_project': True,
             'main_role': main_role,
             'second_role': second_role,
-            'third_role': third_role
+            'third_role': third_role,
+            'files': user_files,
         })
 
     else:
@@ -90,7 +95,8 @@ def profile_page(request, user_id):
             'user': user,
             'profile': profile,
             'user_profile': user_profile,
-            'have_project': False
+            'have_project': False,
+            'files': user_files,
         })
 
 
@@ -124,8 +130,15 @@ class ProfileEdit(APIView):
         profile = UserProfile.objects.get(user=user)
 
         if request.FILES:
-            file = request.FILES[f'profile{profile.id}_photo']
-            profile.photo = file
+            files = request.FILES
+
+            if f'profile{profile.id}_photo' in files:
+                photo = files.pop(f'profile{profile.id}_photo')[0]
+                profile.photo = photo
+
+            if len(files) > 0:
+                for file in files.values():
+                    UserFile.objects.create(user=profile, file=file)
 
         full_name = request.POST.get('full_name').split()
         profile.last_name = full_name[0]

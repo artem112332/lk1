@@ -49,7 +49,7 @@ class UserStatus(models.Model):
 
 class UserFile(models.Model):
     user = models.ForeignKey(UserProfile, models.CASCADE, related_name='file_owner')
-    file = models.FileField(upload_to='users_files/', default='default_avatar.jpeg')
+    file = models.FileField(upload_to='users_files/')
 
     def __str__(self):
         return f'{self.id} {self.user} {self.file.name}'
