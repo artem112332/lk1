@@ -40,7 +40,7 @@ function openModal() {
 
 function closeModal() {
     modal.style.display = 'none';
-    const searchInput = document.getElementById('competencies_search-input');
+    const searchInput = document.getElementById('competencies__search_input');
     searchInput.value = '';
 }
 
@@ -60,6 +60,43 @@ function renderCompetencyOptions() {
     });
 }
 
+// function addCompetency(name) {
+//     const existing = Array.from(selectedContainer.children).some(child =>
+//         child.classList.contains('user__competencies_item-value') &&
+//         child.textContent.trim().startsWith(name)
+//     );
+
+//     if (!existing) {
+//         const div = document.createElement('div');
+//         div.className = 'user__competencies_item-value';
+//         div.style.position = 'relative';
+//         div.style.paddingRight = '20px';
+//         div.textContent = name;
+
+//         const removeBtn = document.createElement('div');
+//         removeBtn.textContent = '×';
+//         removeBtn.style.position = 'absolute';
+//         removeBtn.style.right = '5px';
+//         removeBtn.style.top = '0';
+//         removeBtn.style.cursor = 'pointer';
+//         removeBtn.style.color = '#888';
+
+//         removeBtn.onclick = (e) => {
+//             e.stopPropagation();
+//             div.remove();
+//             saveCompetencies();
+//             removeFromModal(name, 'selectedFromModal');
+//         };
+
+//         div.appendChild(removeBtn);
+
+//         const chooseButton = selectedContainer.querySelector('[onclick="openModal()"]');
+//         selectedContainer.insertBefore(div, chooseButton);
+
+//         saveCompetencies();
+//     }
+// }
+
 function addCompetency(name) {
     const existing = Array.from(selectedContainer.children).some(child =>
         child.classList.contains('user__competencies_item-value') &&
@@ -71,7 +108,10 @@ function addCompetency(name) {
         div.className = 'user__competencies_item-value';
         div.style.position = 'relative';
         div.style.paddingRight = '20px';
-        div.textContent = name;
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = name;
+        div.appendChild(textSpan);
 
         const removeBtn = document.createElement('div');
         removeBtn.textContent = '×';
@@ -81,6 +121,11 @@ function addCompetency(name) {
         removeBtn.style.cursor = 'pointer';
         removeBtn.style.color = '#888';
 
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'competency';
+        hiddenInput.value = name;
+
         removeBtn.onclick = (e) => {
             e.stopPropagation();
             div.remove();
@@ -89,6 +134,7 @@ function addCompetency(name) {
         };
 
         div.appendChild(removeBtn);
+        div.appendChild(hiddenInput);
 
         const chooseButton = selectedContainer.querySelector('[onclick="openModal()"]');
         selectedContainer.insertBefore(div, chooseButton);
@@ -107,13 +153,36 @@ function removeFromModal(name, modalContainerId) {
     });
 }
 
+// function saveCompetencies() {
+//     const items = Array.from(selectedContainer.children)
+//         .filter(child => child.classList.contains('user__competencies_item-value') && !child.querySelector('input'))
+//         .map(child => child.textContent.replace('×', '').trim());
+    
+//     localStorage.setItem('savedCompetencies', JSON.stringify(items));
+// }
+
+// function saveCompetencies() {
+//     const items = Array.from(selectedContainer.children)
+//         .filter(child => child.classList.contains('user__competencies_item-value'))
+//         .map(child => {
+//             const input = child.querySelector('input[type="hidden"]');
+//             return input ? input.value : child.textContent.replace('×', '').trim();
+//         });
+
+//     localStorage.setItem('savedCompetencies', JSON.stringify(items));
+// }
+
 function saveCompetencies() {
     const items = Array.from(selectedContainer.children)
-        .filter(child => child.classList.contains('user__competencies_item-value') && !child.querySelector('input'))
-        .map(child => child.textContent.replace('×', '').trim());
-    
+        .filter(child => child.classList.contains('user__competencies_item-value') && !child.classList.contains('enter'))
+        .map(child => {
+            const input = child.querySelector('input[type="hidden"]');
+            return input ? input.value : child.textContent.replace('×', '').trim();
+        });
+
     localStorage.setItem('savedCompetencies', JSON.stringify(items));
 }
+
 
 window.addEventListener('DOMContentLoaded', function() {
     const saved = JSON.parse(localStorage.getItem('savedCompetencies') || []);

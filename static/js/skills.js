@@ -39,7 +39,7 @@ function openSkillsModal() {
 
 function closeSkillsModal() {
     skillsModal.style.display = 'none';
-    const searchInput = document.getElementById('competencies_search-input');
+    const searchInput = document.getElementById('skills__search_input');
     searchInput.value = '';
 }
 
@@ -59,7 +59,43 @@ function renderSkillsOptions() {
     });
 }
 
-function addSkill(name) {
+// function addSkill(name) {
+//     const alreadyAdded = Array.from(selectedSkillsContainer.children).some(child =>
+//         child.classList.contains('user__competencies_item-value') &&
+//         child.textContent.trim().startsWith(name)
+//     );
+
+//     if (!alreadyAdded) {
+//         const div = document.createElement('div');
+//         div.className = 'user__competencies_item-value';
+//         div.style.position = 'relative';
+//         div.style.paddingRight = '20px';
+//         div.textContent = name;
+
+//         const removeBtn = document.createElement('div');
+//         removeBtn.textContent = '×';
+//         removeBtn.style.position = 'absolute';
+//         removeBtn.style.right = '5px';
+//         removeBtn.style.top = '0';
+//         removeBtn.style.cursor = 'pointer';
+//         removeBtn.style.color = '#888';
+
+//         removeBtn.onclick = (e) => {
+//             e.stopPropagation();
+//             div.remove();
+//             saveSkills();
+//         };
+
+//         div.appendChild(removeBtn);
+
+//         const chooseBtn = document.getElementById('skillsChooseBtn');
+//         selectedSkillsContainer.insertBefore(div, chooseBtn);
+
+//         saveSkills();
+//     }
+// }
+
+function addSkill(name, type = 'skill') {
     const alreadyAdded = Array.from(selectedSkillsContainer.children).some(child =>
         child.classList.contains('user__competencies_item-value') &&
         child.textContent.trim().startsWith(name)
@@ -70,7 +106,10 @@ function addSkill(name) {
         div.className = 'user__competencies_item-value';
         div.style.position = 'relative';
         div.style.paddingRight = '20px';
-        div.textContent = name;
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = name;
+        div.appendChild(textSpan);
 
         const removeBtn = document.createElement('div');
         removeBtn.textContent = '×';
@@ -80,6 +119,11 @@ function addSkill(name) {
         removeBtn.style.cursor = 'pointer';
         removeBtn.style.color = '#888';
 
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = type;  // 'skill'
+        hiddenInput.value = name;
+
         removeBtn.onclick = (e) => {
             e.stopPropagation();
             div.remove();
@@ -87,6 +131,7 @@ function addSkill(name) {
         };
 
         div.appendChild(removeBtn);
+        div.appendChild(hiddenInput);
 
         const chooseBtn = document.getElementById('skillsChooseBtn');
         selectedSkillsContainer.insertBefore(div, chooseBtn);
@@ -95,11 +140,23 @@ function addSkill(name) {
     }
 }
 
+// function saveSkills() {
+//     const skills = Array.from(selectedSkillsContainer.children)
+//         .filter(el => el.classList.contains('user__competencies_item-value') && !el.querySelector('input'))
+//         .map(el => el.textContent.replace('×', '').trim());
+    
+//     localStorage.setItem('savedSkills', JSON.stringify(skills));
+// }
+
 function saveSkills() {
     const skills = Array.from(selectedSkillsContainer.children)
-        .filter(el => el.classList.contains('user__competencies_item-value') && !el.querySelector('input'))
-        .map(el => el.textContent.replace('×', '').trim());
-    
+        .filter(el => 
+            el.classList.contains('user__competencies_item-value') && !el.classList.contains('enter'))
+        .map(el => {
+            const input = el.querySelector('input[type="hidden"]');
+            return input ? input.value : el.textContent.replace('×', '').trim();
+        });
+
     localStorage.setItem('savedSkills', JSON.stringify(skills));
 }
 

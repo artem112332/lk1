@@ -21,9 +21,7 @@
             <a href="/events" class="header__item">Мероприятия</a>
             <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
         </nav>
-        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
-                                                                              src="{{ profile.photo.url }}"
-                                                                              alt="Аватар"></a>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="{{ profile.photo.url }}" alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -310,7 +308,7 @@
                         </div>
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Дополнительное направление</span>
+                            <span class="user__competencies_item-title">Компетенции</span>
                             <div class="user__competencies_item-input" id="profileCompetencies">
                                 <div class="user__competencies_item-value">Отсутствует</div>
                             </div>
@@ -363,20 +361,22 @@
 </main>
 
 <script>
-    {#window.onload = function () {#}
-    {#    const saved = JSON.parse(localStorage.getItem('savedFileNames') || '[]');#}
-    {#    const container = document.getElementById('fileListProfile');#}
-    {##}
-    {#    saved.forEach(name => {#}
-    {#        const fileSpan = document.createElement('span');#}
-    {#        fileSpan.className = 'file-item';#}
-    {#        fileSpan.textContent = name;#}
-    {#        fileSpan.style.marginLeft = '10px';#}
-    {#        fileSpan.style.padding = '5px 10px';#}
-    {#        fileSpan.style.backgroundColor = '#e6e6e6';#}
-    {#        fileSpan.style.borderRadius = '6px';#}
-    {#        fileSpan.style.fontSize = '14px';#}
-    {#        container.appendChild(fileSpan);})};#}
+    window.onload = function () {
+        const saved = JSON.parse(localStorage.getItem('savedFileNames') || '[]');
+        const container = document.getElementById('fileListProfile');
+    
+        saved.forEach(name => {
+            const fileSpan = document.createElement('span');
+            fileSpan.className = 'file-item';
+            fileSpan.textContent = name;
+            fileSpan.style.marginLeft = '10px';
+            fileSpan.style.padding = '5px 10px';
+            fileSpan.style.backgroundColor = '#e6e6e6';
+            fileSpan.style.borderRadius = '6px';
+            fileSpan.style.fontSize = '14px';
+            container.appendChild(fileSpan);
+        })
+    };
 
 
     document.querySelectorAll('[data-target]').forEach(button => {
@@ -401,6 +401,8 @@
         });
     });
 
+
+    
     function createCompetencyElement(text) {
         const div = document.createElement('div');
         div.className = 'user__competencies_item-value';
