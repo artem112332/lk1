@@ -18,19 +18,8 @@
     <div class="container header__container flex">
         <nav class="header__nav">
             <a href="/meetings" class="header__item">Собрания</a>
-            {% if 'Проектант' in statuses %}
-                <a href="/my_team" class="header__item">Моя команда</a>
-                <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
-            {% endif %}
-            {% if 'Организатор' in statuses %}
-                <a href="/events" class="header__item">Мероприятия</a>
-            {% endif %}
-            {% if 'Куратор' in statuses %}
-                <a href="/tutor_teams" class="header__item">Курируемые команды</a>
-            {% endif %}
-            {% if 'Руководитель направления' in statuses %}
-                <a href="/directions" class="header__item">Направления</a>
-            {% endif %}
+            <a href="/events" class="header__item">Мероприятия</a>
+            <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
         </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
                                                                               src="{{ profile.photo.url }}"
@@ -265,7 +254,7 @@
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Основное направление</span>
                             <div class="flex" id="selectedSpecializations" name="specialization">
-                                <div class="user__competencies_item-value enter enter" id="specializationsChooseBtn"
+                                <div class="user__competencies_item-value" id="specializationsChooseBtn"
                                      style="cursor: pointer; color: #8A8A8A;" onclick="openSpecializationsModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </div>
@@ -280,8 +269,8 @@
                                 <form action="#" class="specializations__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
                                     <input class="specializations__search_input" type="text" placeholder="Поиск"
-                                           id="specializations_search_input">
-                                    <div id="specializationsSearchResults" class=""
+                                           id="specializations_search-input">
+                                    <div id="specializationsSearchResults" class="search-dropdown"
                                          style="display: none;"></div>
                                     <div id="selectedFromSpecializationsModal" class="selected-specializations-list"
                                          style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
@@ -295,9 +284,9 @@
                         </div>
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Компетенции</span>
+                            <span class="user__competencies_item-title">Дополнительное направление</span>
                             <div class="flex" id="selectedCompetencies" name="extraCompetency">
-                                <div class="user__competencies_item-value enter enter" style="cursor: pointer; color: #8A8A8A;"
+                                <div class="user__competencies_item-value" style="cursor: pointer; color: #8A8A8A;"
                                      onclick="openModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </div>
@@ -311,8 +300,8 @@
                                 <form action="#" class="competencies__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="competencies__search-icon">
                                     <input class="competencies__search_input" type="text" placeholder="Поиск"
-                                           id="competencies_search_input">
-                                    <div id="competencySearchResults" class=""
+                                           id="competencies_search-input">
+                                    <div id="competencySearchResults" class="search-dropdown"
                                          style="display: none;"></div>
                                     <div id="selectedFromModal" class="selected-competencies-list"
                                          style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
@@ -328,7 +317,7 @@
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Навыки</span>
                             <div class="flex" id="selectedSkills" name="skills">
-                                <div class="user__competencies_item-value enter" id="skillsChooseBtn"
+                                <div class="user__competencies_item-value" id="skillsChooseBtn"
                                      style="cursor: pointer; color: #8A8A8A;" onclick="openSkillsModal()">
                                     <input type="search" style="display: none;">Выбрать
                                 </div>
@@ -342,8 +331,8 @@
                                 <form action="#" class="skills__search">
                                     <img src="/static/img/search.png" alt="Поиск" class="skills__search-icon">
                                     <input class="skills__search_input" type="text" placeholder="Поиск"
-                                           id="skills_search_input">
-                                    <div id="skillsSearchResults" class=""
+                                           id="skills_search-input">
+                                    <div id="skillsSearchResults" class="search-dropdown"
                                          style="display: none;"></div>
                                     <div id="selectedFromSkillsModal" class="selected-skills-list"
                                          style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
@@ -359,13 +348,13 @@
                         <div class="user__competencies_item">
                             <span class="user__competencies_item-title">Примеры работ</span>
                             <div class="user__competencies_item-input" style="width: 100%;">
-                                <div class="user__competencies_item-value enter" style="text-align: left; display: flex;">
+                                <div class="user__competencies_item-value" style="text-align: left; display: flex;">
                                     <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
                                     <div id="fileList"
                                          style="margin-left: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
                                     <p class="btn_upload-projects"
                                        onclick="document.getElementById('fileInput').click()">
-                                        <label for="fileInput"></label>
+                                        <label for="file"></label>
                                         <input type="file" id="fileInput" name="file" multiple
                                                onchange="handleFileUpload()"
                                                style="display: none;">Выбрать
@@ -426,7 +415,7 @@
         });
     });
 
-    document.getElementById('skills_search_input').addEventListener('input', function () {
+    document.getElementById('skills_search-input').addEventListener('input', function () {
         const searchValue = this.value.trim().toLowerCase();
         const options = document.querySelectorAll('#skillsOptions .competency-option');
 
@@ -441,7 +430,7 @@
         });
     });
 
-    document.getElementById('specializations__search_input').addEventListener('input', function () {
+    document.getElementById('specializations_search-input').addEventListener('input', function () {
         const searchValue = this.value.trim().toLowerCase();
         const options = document.querySelectorAll('#specializationsOptions .competency-option');
 
