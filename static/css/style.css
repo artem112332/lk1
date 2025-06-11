@@ -2416,3 +2416,17 @@ mark {
 #role1, #role2, #role3 {
     color: #000;
 }
+
+.member__photo {
+    margin: auto 0;
+    background-size: cover;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.member__name {
+    margin: auto 0;
+    margin-left: 10px;
+}

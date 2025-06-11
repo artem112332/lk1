@@ -75,6 +75,12 @@
 <main class="events">
     <div class="container event__container">
         <h1 class="application__title">Моя команда</h1>
+
+        <div class="team-info">
+            <p>Проект: </p>
+            <p>Команда: </p>
+        </div>
+
         <span></span>
         <table class="event__list">
             <thead>
@@ -86,8 +92,9 @@
             <tbody>
             {% for member in team_members %}
                 <tr onclick="window.location.href='/profile/{{ member.member.user.id }}'">
-                    <td>
-                        {{ member.member.full_name() }}
+                    <td style="display: flex;">
+                        <img class="member__photo" src="{{ user_profile.photo.url }}" alt="Аватар">
+                        <span class="member__name">{{ member.member.full_name() }}</span>
                     </td>
                     <td>{{ member.member_main_role }}</td>
                 </tr>
