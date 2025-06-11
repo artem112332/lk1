@@ -20,7 +20,6 @@
             <a href="/meetings" class="header__item">Собрания</a>
             {% if 'Проектант' in statuses %}
                 <a href="/my_team" class="header__item">Моя команда</a>
-
                 <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
             {% endif %}
             {% if 'Организатор' in statuses %}
@@ -83,30 +82,30 @@
 
         <div class="flex" style="margin-top: 10px">
             <input id="search-filter-toggle" type="checkbox" value="0" style="margin-right: 10px">
-            <span style="margin: auto 0">Оставить подходящие собрания</span>
+            <span style="margin: auto 0">Оставить подходящие направления</span>
         </div>
-
+        <h1 class="application__title">Мои команды</h1>
         <table class="meeting__list">
             <thead>
             <tr>
-                <th id="title-header">Название <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                <th id="date-header">Дата <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                <th id="start-time-header">Время начала <img class="sort-data" src="/static/img/filter-meetings.png">
+                <th id="title-header">Команда
+                    <img class="sort-data" src="/static/img/filter-meetings.png">
                 </th>
-                <th id="end-time-header">Время окончания <img class="sort-data" src="/static/img/filter-meetings.png">
+                <th id="date-header">Проект
+                    <img class="sort-data" src="/static/img/filter-meetings.png">
                 </th>
-                <th id="participants-header">Участники <img class="sort-data" src="/static/img/filter-meetings.png">
+                <th id="start-time-header">Направление
+                    <img class="sort-data" src="/static/img/filter-meetings.png">
                 </th>
+
             </tr>
             </thead>
             <tbody>
-            {% for meeting in meetings.keys() %}
+            {% for team_name in tutor_teams.keys() %}
                 <tr>
-                    <td>{{ meeting.name }}</td>
-                    <td>{{ meeting.date.strftime('%d.%m.%Y') }}</td>
-                    <td>{{ meeting.start_time.strftime('%H:%M') }}</td>
-                    <td>{{ meeting.end_time.strftime('%H:%M') }}</td>
-                    <td>{{ meetings[meeting] }}</td>
+                    <td>{{ team_name }}</td>
+                    <td>{{ tutor_teams[team_name]['project'] }}</td>
+                    <td>{{ directions[direction]['direction'] }}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -149,7 +148,7 @@
     //             const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
 
     //             if (rowText.includes(query.toLowerCase())) {
-    //                 row.classList.remove('hidden'); 
+    //                 row.classList.remove('hidden');
     //             } else {
     //                 row.classList.add('hidden');
     //             }

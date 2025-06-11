@@ -16,8 +16,25 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-        <a href="/" class="header__item" style="margin-right: auto;">Список мероприятий</a>
-        <a href="" class="header__profile profile"><img class="header__profile" src="/static/img/default_avatar.jpeg" alt="Аватар"></a>
+        <nav class="header__nav">
+            <a href="/meetings" class="header__item">Собрания</a>
+            {% if 'Проектант' in statuses %}
+                <a href="/my_team" class="header__item">Моя команда</a>
+                <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
+            {% endif %}
+            {% if 'Организатор' in statuses %}
+                <a href="/events" class="header__item">Мероприятия</a>
+            {% endif %}
+            {% if 'Куратор' in statuses %}
+                <a href="/tutor_teams" class="header__item">Курируемые команды</a>
+            {% endif %}
+            {% if 'Руководитель направления' in statuses %}
+                <a href="/directions" class="header__item">Направления</a>
+            {% endif %}
+        </nav>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
+                                                                              src="{{ user_profile.photo.url }}"
+                                                                              alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -55,75 +72,57 @@
 
 <hr class="horizontal-line">
 
-<main class="events">
-    <div class="container event__container">
+<main class="user">
+    <div class="container meeting__container">
         <form action="#" class="meeting__search flex">
             <img src="/static/img/search.png" alt="Поиск" class="search__icon">
             <input class="meeting__search_input" type="text" placeholder="Поиск" id="search-input">
             <img class="column-filter" src="/static/img/column-filter.svg" alt="Фильтр по колонкам">
         </form>
 
-        <table class="event__list">
+        <div class="flex" style="margin-top: 10px">
+            <input id="search-filter-toggle" type="checkbox" value="0" style="margin-right: 10px">
+            <span style="margin: auto 0">Оставить подходящие направления</span>
+        </div>
+        <h1 class="application__title">Мои направления</h1>
+        <table class="meeting__list">
             <thead>
-                <tr>
-                    <th id="date-header">Название мероприятия <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="start-time-header">Направление <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="end-time-header">Заказчик <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="participants-header">Команда <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                    <th id="participants-header">Ответственный <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                </tr>
+            <tr>
+                <th id="title-header">Название
+                    <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="date-header">Количество команд
+                    <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+                <th id="start-time-header">Количество мероприятий
+                    <img class="sort-data" src="/static/img/filter-meetings.png">
+                </th>
+
+            </tr>
             </thead>
             <tbody>
+            {% for direction in directions.keys() %}
                 <tr>
-                    <td>Точка Сбора</td>
-                    <td>ВЕБ</td>
-                    <td>НПЦ РИЦ</td>
-                    <td>Команда 1</td>
-                    <td>Смирнов Денис</td>
+                    <td>{{ direction.name }}</td>
+                    <td>{{ directions[direction]['teams'] }}</td>
+                    <td>{{ directions[direction]['events'] }}</td>
                 </tr>
-                <tr>
-                    <td>ЛК стажера</td>
-                    <td>CRM</td>
-                    <td>НПЦ РИЦ</td>
-                    <td>Команда 1</td>
-                    <td>Иванов Иван</td>
-                </tr>
-                <tr>
-                    <td>Веб-сайт автомойка</td>
-                    <td>ВЕБ</td>
-                    <td>НПЦ РИЦ</td>
-                    <td>Команда 1</td>
-                    <td>Иванов Иван</td>
-                </tr>
-                <tr>
-                    <td>Портфолио</td>
-                    <td>ВЕБ</td>
-                    <td>НПЦ РИЦ</td>
-                    <td>Команда 1</td>
-                    <td>Иванов Иван</td>
-                </tr>
-                <tr>
-                    <td>Фитнес сервис</td>
-                    <td>Мобилка</td>
-                    <td>НПЦ РИЦ</td>
-                    <td>Команда 1</td>
-                    <td>Иванов Иван</td>
-                </tr>
+            {% endfor %}
             </tbody>
         </table>
 
         <div class="modal" id="column-modal">
-        <div class="modal-content">
-            <h2>Фильтр столбцов</h2>
-            <form id="column-filter-form">
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="0" checked> Название мероприятия</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="1" checked> Направление</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="2" checked> Заказчик</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="3" checked> Команда</label>
-                <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="4" checked> Ответственный</label>
-                <button type="submit" class="apply-modal-btn">Применить</button>
-                <button type="button" id="close-modal" class="btn-reset close-modal-btn">❌</button>
-            </form>
+            <div class="modal-content">
+                <form id="column-filter-form">
+                    <label><input type="checkbox" name="column" value="0" checked> Дата</label><br>
+                    <label><input type="checkbox" name="column" value="1" checked> Название</label><br>
+                    <label><input type="checkbox" name="column" value="2" checked> Время начала</label><br>
+                    <label><input type="checkbox" name="column" value="3" checked> Время окончания</label><br>
+                    <label><input type="checkbox" name="column" value="4" checked> Участники</label><br>
+                    <button type="submit">Применить</button>
+                    <button type="button" id="close-modal">Закрыть</button>
+                </form>
+            </div>
         </div>
     </div>
 </main>
@@ -136,6 +135,32 @@
         inputElement.value = null;
         document.getElementById('preview').onload = () => URL.revokeObjectURL(imageURL);
     }
+
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const searchInput = document.getElementById('search-input');
+    //     const table = document.querySelector('.meeting__list');
+    //     const rows = Array.from(table.querySelectorAll('tbody tr'));
+
+    //     function searchTable(query) {
+    //         rows.forEach(row => {
+    //             const cells = Array.from(row.getElementsByTagName('td'));
+    //             const rowText = cells.map(cell => cell.textContent.toLowerCase()).join(' ');
+
+    //             if (rowText.includes(query.toLowerCase())) {
+    //                 row.classList.remove('hidden');
+    //             } else {
+    //                 row.classList.add('hidden');
+    //             }
+    //         });
+    //     }
+
+    //     searchInput.addEventListener('input', function (event) {
+    //         const query = event.target.value;
+    //         searchTable(query);
+    //     });
+    // });
+
 </script>
 
 <script src="/static/js/search.js"></script>

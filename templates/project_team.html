@@ -16,13 +16,25 @@
 <body>
 <header class="header">
     <div class="container header__container flex">
-         <nav class="header__nav">
+        <nav class="header__nav">
             <a href="/meetings" class="header__item">Собрания</a>
-            <a href="/events" class="header__item">Мероприятия</a>
-            <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
+            {% if 'Проектант' in statuses %}
+                <a href="/my_team" class="header__item">Моя команда</a>
+                <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
+            {% endif %}
+            {% if 'Организатор' in statuses %}
+                <a href="/events" class="header__item">Мероприятия</a>
+            {% endif %}
+            {% if 'Куратор' in statuses %}
+                <a href="/tutor_teams" class="header__item">Курируемые команды</a>
+            {% endif %}
+            {% if 'Руководитель направления' in statuses %}
+                <a href="/directions" class="header__item">Направления</a>
+            {% endif %}
         </nav>
-        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile" src="{{ user_profile.photo.url }}"
-                                                        alt="Аватар"></a>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
+                                                                              src="{{ user_profile.photo.url }}"
+                                                                              alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -62,63 +74,27 @@
 
 <main class="events">
     <div class="container event__container">
-        <form action="#" class="meeting__search flex">
-            <img src="/static/img/search.png" alt="Поиск" class="search__icon">
-            <input class="meeting__search_input" type="text" placeholder="Поиск" id="search-input">
-            <img class="column-filter" src="/static/img/column-filter.svg" alt="Фильтр по колонкам">
-        </form>
-
-        <div class="flex" style="margin-top: 10px">
-            <input id="search-filter-toggle" type="checkbox" value="0" style="margin-right: 10px">
-            <span style="margin: auto 0">Оставить подходящие собрания</span>
-        </div>
-
+        <h1 class="application__title">Моя команда</h1>
+        <span></span>
         <table class="event__list">
             <thead>
             <tr>
-                <th id="date-header">Название <img class="sort-data" src="/static/img/filter-meetings.png"></th>
-                <th id="start-time-header">Дата начала <img class="sort-data" src="/static/img/filter-meetings.png">
-                </th>
-                <th id="end-time-header">Дата завершения <img class="sort-data" src="/static/img/filter-meetings.png">
-                </th>
-                <th id="participants-header">Направление <img class="sort-data" src="/static/img/filter-meetings.png">
-                </th>
-                <th id="participants-header">Ответственный <img class="sort-data" src="/static/img/filter-meetings.png">
-                </th>
+                <th id="date-header">Участник</th>
+                <th id="start-time-header">Роль в команде</th>
             </tr>
             </thead>
             <tbody>
-            {% for event in events.keys() %}
-                <tr onclick="window.location.href='/event/{{ event.id }}'">
-                    <td>{{ event.name }}</td>
-                    <td>{{ event.start_date.strftime('%d.%m.%Y %H:%M') }}</td>
-                    <td>{{ event.end_date.strftime('%d.%m.%Y %H:%M') }}</td>
-                    <td>{{ events[event] }}</td>
-                    <td>{{ event.organizer }}</td>
+            {% for member in team_members %}
+                <tr onclick="window.location.href='/profile/{{ member.member.user.id }}'">
+                    <td>
+                        <img class="header__profile" src="{{ user_profile.photo.url }}" alt="А">
+                        {{ member.member.full_name() }}
+                    </td>
+                    <td>{{ member.member_main_role }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
-        <div class="modal" id="column-modal">
-            <div class="modal-content">
-                <h2>Фильтр столбцов</h2>
-                <form id="column-filter-form">
-                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="0"
-                                               checked> Название мероприятия</label>
-                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="1"
-                                               checked> Дата начала</label>
-                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="2"
-                                               checked> Дата завершения</label>
-                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="3"
-                                               checked> Направление</label>
-                    <label class="flex"><input class="column-filter-item" type="checkbox" name="column" value="4"
-                                               checked> Ответственный</label>
-                    <button type="submit" class="apply-modal-btn">Применить</button>
-                    <button type="button" id="close-modal" class="btn-reset close-modal-btn">❌</button>
-                </form>
-            </div>
-        </div>
     </div>
 </main>
 

@@ -18,8 +18,19 @@
     <div class="container header__container flex">
         <nav class="header__nav">
             <a href="/meetings" class="header__item">Собрания</a>
-            <a href="/events" class="header__item">Мероприятия</a>
-            <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
+            {% if 'Проектант' in statuses %}
+                <a href="/my_team" class="header__item">Моя команда</a>
+                <a href="/applications" class="header__item" style="margin-right: auto;">Заявки</a>
+            {% endif %}
+            {% if 'Организатор' in statuses %}
+                <a href="/events" class="header__item">Мероприятия</a>
+            {% endif %}
+            {% if 'Куратор' in statuses %}
+                <a href="/tutor_teams" class="header__item">Курируемые команды</a>
+            {% endif %}
+            {% if 'Руководитель направления' in statuses %}
+                <a href="/directions" class="header__item">Направления</a>
+            {% endif %}
         </nav>
         <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
                                                                               src="{{ profile.photo.url }}"
@@ -310,7 +321,7 @@
                         </div>
 
                         <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Дополнительное направление</span>
+                            <span class="user__competencies_item-title">Компетенции</span>
                             <div class="user__competencies_item-input" id="profileCompetencies">
                                 <div class="user__competencies_item-value">Отсутствует</div>
                             </div>

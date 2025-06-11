@@ -10,6 +10,7 @@ def index(request):
 def meetings_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
 
     users_meetings = UserMeeting.objects.filter(user=user_profile)
     user_meetings = [user_meeting.meeting for user_meeting in users_meetings]
@@ -20,15 +21,83 @@ def meetings_page(request):
     }
 
     return render(request, 'meetings_list.html',
-                  {'user': user,
-                   'user_profile': user_profile,
-                   'meetings': meetings,
-                   })
+                  {
+                      'user': user,
+                      'user_profile': user_profile,
+                      'statuses': statuses,
+                      'meetings': meetings,
+                  })
+
+
+def project_team_page(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
+
+    if len(UserProject.objects.filter(member=user_profile)) != 0:
+        user_project = UserProject.objects.get(member=user_profile)
+        project = user_project.project
+        team_name = user_project.team_name
+        team_members = [project_member for project_member in UserProject.objects.filter(team_name=team_name)]
+
+        return render(request, 'project_team.html',
+                      {
+                          'user': user,
+                          'user_profile': user_profile,
+                          'statuses': statuses,
+                          'project': project,
+                          'team_name': team_name,
+                          'team_members': team_members,
+                      })
+
+
+def tutor_teams_page(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
+
+    tutor_teams = {}
+    for project in Project.objects.filter(tutor=user_profile):
+        for user_project in UserProject.objects.filter(project=project):
+            tutor_teams[user_project.team_name] = {'project': project.name, 'direction': project.direction}
+
+    return render(request, 'tutor_teams.html',
+                  {
+                      'user': user,
+                      'user_profile': user_profile,
+                      'statuses': statuses,
+                      'tutor_teams': tutor_teams
+                  })
+
+
+def directions_page(request):
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
+
+    user_directions = Direction.objects.filter(director=user_profile)
+
+    direction_teams_events = {
+        direction.name: {
+            'teams': len(Project.objects.filter(direction=direction)),
+            'events': len(Event.objects.filter(direction=direction))
+        }
+        for direction in user_directions
+    }
+
+    return render(request, 'directions.html',
+                  {
+                      'user': user,
+                      'user_profile': user_profile,
+                      'statuses': statuses,
+                      'directions': direction_teams_events
+                  })
 
 
 def events_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
 
     users_events = UserEvent.objects.filter(user=user_profile)
     user_events = [user_event.event for user_event in users_events]
@@ -38,23 +107,18 @@ def events_page(request):
         for event in user_events
     }
 
-    return render(request, 'events-manager.html',
+    return render(request, 'events.html',
                   {'user': user,
                    'user_profile': user_profile,
+                   'statuses': statuses,
                    'events': events,
                    })
-
-
-# def event_info(request, event_id):
-#     user = request.user
-#     user_profile = UserProfile.objects.get(user=user)
-#
-#     event = Event.objects.get(id=event_id)
 
 
 def applications_page(request):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
 
     project_applications = ApllictationToProject.objects.filter(sender=user_profile)
     event_appplications = ApllictationToEvent.objects.filter(sender=user_profile)
@@ -70,6 +134,7 @@ def applications_page(request):
 def profile_page(request, user_id):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
+    statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
     profile = UserProfile.objects.get(user=User.objects.get(id=user_id))
 
     user_files = UserFile.objects.filter(user=profile)
@@ -83,6 +148,7 @@ def profile_page(request, user_id):
         return render(request, 'profile.html', {
             'user': user,
             'profile': profile,
+            'statuses': statuses,
             'have_project': True,
             'main_role': main_role,
             'second_role': second_role,
@@ -95,6 +161,7 @@ def profile_page(request, user_id):
             'user': user,
             'profile': profile,
             'user_profile': user_profile,
+            'statuses': statuses,
             'have_project': False,
             'files': user_files,
         })
@@ -103,16 +170,18 @@ def profile_page(request, user_id):
 class ProfileEdit(APIView):
     def get(self, request):
         user = request.user
-        profile = UserProfile.objects.get(user=user)
+        user_profile = UserProfile.objects.get(user=user)
+        statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
 
-        if UserProject.objects.filter(member=profile) != 0:
-            user_project = UserProject.objects.get(member=profile)
+        if UserProject.objects.filter(member=user_profile) != 0:
+            user_project = UserProject.objects.get(member=user_profile)
             main_role = user_project.member_main_role
             second_role = user_project.member_second_role
             third_role = user_project.member_third_role
 
             return render(request, 'lk_edit.html', {
-                'profile': profile,
+                'profile': user_profile,
+                'statuses': statuses,
                 'have_project': True,
                 'main_role': main_role,
                 'second_role': second_role,
@@ -121,7 +190,7 @@ class ProfileEdit(APIView):
 
         else:
             return render(request, 'lk_edit.html', {
-                'profile': profile,
+                'profile': user_profile,
                 'have_project': False
             })
 
