@@ -32,9 +32,7 @@
                 <a href="/directions" class="header__item">Направления</a>
             {% endif %}
         </nav>
-        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile"
-                                                                              src="{{ profile.photo.url }}"
-                                                                              alt="Аватар"></a>
+        <a href="/profile/{{ user.id }}" class="header__profile profile"><img class="header__profile profile__avatar" src="{{ profile.photo.url }}" alt="Аватар"></a>
         <a href="/logout" class="profile__exit">
             <svg class="profile__exit_icon" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="45"
@@ -78,6 +76,7 @@
             <div class="user__avatar">
                 <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
                 <h1 class="user__name">{{ profile.first_and_last_name() }}</h1>
+                <p class="profile__status">Проектант</p>
                 <hr class="horizontal-line">
 
                 <!-- Меню рядовой пользоваель -->
