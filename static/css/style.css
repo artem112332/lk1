@@ -2175,7 +2175,7 @@ mark {
     position: relative;
 }
 
-/* .search-dropdown {
+.search-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
@@ -2195,7 +2195,7 @@ mark {
 
 .search-dropdown .competency-option:hover {
     background-color: #f0f0f0;
-} */
+}
 
 
 .btn_upload-projects {
