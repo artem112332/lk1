@@ -87,7 +87,6 @@
             {% for member in team_members %}
                 <tr onclick="window.location.href='/profile/{{ member.member.user.id }}'">
                     <td>
-                        <img class="header__profile" src="{{ user_profile.photo.url }}" alt="А">
                         {{ member.member.full_name() }}
                     </td>
                     <td>{{ member.member_main_role }}</td>
