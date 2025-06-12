@@ -1660,7 +1660,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .custom-file-button {
-    margin-top: 76px;
+    margin-top: 15px;
     padding: 17px 24px;
     display: inline-block;
     color: #5C8DB9;

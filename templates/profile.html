@@ -76,7 +76,7 @@
             <div class="user__avatar">
                 <img class="user__image" src="{{ profile.photo.url }}" alt="Аватар">
                 <h1 class="user__name">{{ profile.first_and_last_name() }}</h1>
-                <p class="profile__status">Проектант</p>
+                <p class="profile__status">{{ statuses_string }}</p>
                 <hr class="horizontal-line">
 
                 <!-- Меню рядовой пользоваель -->
@@ -307,44 +307,44 @@
                 {#                        {% endif %}#}
                 {#                    </div>#}
 
+                {% if 'Проектант' in statuses %}
+                    <div class="user__competencies">
+                        <h2 class="user__competencies_title">Мои компетенции</h2>
+                        <div class="flex" style="flex-wrap: wrap;">
 
-                <div class="user__competencies">
-                    <h2 class="user__competencies_title">Мои компетенции</h2>
-                    <div class="flex" style="flex-wrap: wrap;">
-
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Основные навыки</span>
-                            <div class="user__competencies_item-input" id="profileSpecializations">
-                                <div class="user__competencies_item-value">Отсутствует</div>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Компетенции</span>
-                            <div class="user__competencies_item-input" id="profileCompetencies">
-                                <div class="user__competencies_item-value">Отсутствует</div>
-                            </div>
-                        </div>
-
-                        <div class="user__competencies_item">
-                            <span class="user__competencies_item-title">Навыки</span>
-                            <div class="user__competencies_item-input flex" id="profileSkills">
-                                <div class="user__competencies_item-value">Отсутствует
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">Основные навыки</span>
+                                <div class="user__competencies_item-input" id="profileSpecializations">
+                                    <div class="user__competencies_item-value">Отсутствует</div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="user__competencies_item">
-                            {% if files|length != 0 %}
-                                <span class="user__competencies_item-title">Примеры работ</span>
-                                <div class="user__competencies_item-input" style="width: 100%;">
-                                    <div class="user__competencies_item-value" style="text-align: left"
-                                         id="fileListProfile">
-                                        <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">Компетенции</span>
+                                <div class="user__competencies_item-input" id="profileCompetencies">
+                                    <div class="user__competencies_item-value">Отсутствует</div>
+                                </div>
+                            </div>
 
-                                        {% for file in files %}
-                                            <span class="file-item"
-                                                  style="margin-left: 10px;
+                            <div class="user__competencies_item">
+                                <span class="user__competencies_item-title">Навыки</span>
+                                <div class="user__competencies_item-input flex" id="profileSkills">
+                                    <div class="user__competencies_item-value">Отсутствует
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="user__competencies_item">
+                                {% if files|length != 0 %}
+                                    <span class="user__competencies_item-title">Примеры работ</span>
+                                    <div class="user__competencies_item-input" style="width: 100%;">
+                                        <div class="user__competencies_item-value" style="text-align: left"
+                                             id="fileListProfile">
+                                            <span style="margin: auto 0;"><img src="/static/img/attachment.png"></span>
+
+                                            {% for file in files %}
+                                                <span class="file-item"
+                                                      style="margin-left: 10px;
                                                   padding: 5px 10px;
                                                   background-color: rgb(230, 230, 230);
                                                   border-radius: 6px;
@@ -353,14 +353,15 @@
                                                     {{ file.file.name[12:] }}
                                                 </a>
                                             </span>
-                                        {% endfor %}
+                                            {% endfor %}
+                                        </div>
                                     </div>
-                                </div>
-                            {% endif %}
-                        </div>
+                                {% endif %}
+                            </div>
 
+                        </div>
                     </div>
-                </div>
+                {% endif %}
                 {% if profile.user == user %}
                     <form action="/edit_profile">
                         <input class="btn btn-reset user__btn" margin="" type="submit" value="Редактировать профиль">

@@ -80,7 +80,7 @@ def directions_page(request):
     direction_teams_events = {
         direction.name: {
             'teams': len(Project.objects.filter(direction=direction)),
-            'events': len(Event.objects.filter(direction=direction))
+            'events': len(EventDirection.objects.filter(direction=direction))
         }
         for direction in user_directions
     }
@@ -99,8 +99,9 @@ def events_page(request):
     user_profile = UserProfile.objects.get(user=user)
     statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
 
-    users_events = UserEvent.objects.filter(user=user_profile)
-    user_events = [user_event.event for user_event in users_events]
+    user_events = Event.objects.filter(organizer=user_profile)
+    # users_events = UserEvent.objects.filter(user=user_profile)
+    # user_events = [user_event.event for user_event in users_events]
     events = {
         event: ', '.join([f'{event_direction.direction.name}'
                           for event_direction in EventDirection.objects.filter(event=event)])
@@ -135,11 +136,12 @@ def profile_page(request, user_id):
     user = request.user
     user_profile = UserProfile.objects.get(user=user)
     statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
+    statuses_string = ', '.join(statuses)
     profile = UserProfile.objects.get(user=User.objects.get(id=user_id))
 
     user_files = UserFile.objects.filter(user=profile)
 
-    if UserProject.objects.filter(member=user_profile) != 0:
+    if len(UserProject.objects.filter(member=user_profile)) != 0:
         user_project = UserProject.objects.get(member=user_profile)
         main_role = user_project.member_main_role
         second_role = user_project.member_second_role
@@ -149,6 +151,7 @@ def profile_page(request, user_id):
             'user': user,
             'profile': profile,
             'statuses': statuses,
+            'statuses_string': statuses_string,
             'have_project': True,
             'main_role': main_role,
             'second_role': second_role,
@@ -162,6 +165,7 @@ def profile_page(request, user_id):
             'profile': profile,
             'user_profile': user_profile,
             'statuses': statuses,
+            'statuses_string': statuses_string,
             'have_project': False,
             'files': user_files,
         })
@@ -173,7 +177,7 @@ class ProfileEdit(APIView):
         user_profile = UserProfile.objects.get(user=user)
         statuses = [user_status.status for user_status in UserStatus.objects.filter(user=user_profile)]
 
-        if UserProject.objects.filter(member=user_profile) != 0:
+        if len(UserProject.objects.filter(member=user_profile)) != 0:
             user_project = UserProject.objects.get(member=user_profile)
             main_role = user_project.member_main_role
             second_role = user_project.member_second_role
@@ -191,6 +195,7 @@ class ProfileEdit(APIView):
         else:
             return render(request, 'lk_edit.html', {
                 'profile': user_profile,
+                'statuses': statuses,
                 'have_project': False
             })
 
@@ -222,7 +227,7 @@ class ProfileEdit(APIView):
         profile.year_of_study = request.POST.get('year_of_study')
         profile.specialization = request.POST.get('specialization')
 
-        if UserProject.objects.filter(member=profile) != 0:
+        if len(UserProject.objects.filter(member=profile)) != 0:
             user_project = UserProject.objects.get(member=profile)
             if request.POST.get('role_1') is not None:
                 user_project.member_main_role = request.POST.get('role_1')
